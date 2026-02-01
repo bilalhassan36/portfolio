@@ -27,7 +27,7 @@ yarn install
 pnpm install
 ```
 
-2. Run the development server (preferred - Bun):
+2.Run the development server (preferred - Bun):
 
 ```bash
 bun run dev
@@ -43,7 +43,7 @@ yarn dev
 pnpm run dev
 ```
 
-3. Build for production and start (preferred - Bun):
+3.Build for production and start (preferred - Bun):
 
 ```bash
 bun run build
