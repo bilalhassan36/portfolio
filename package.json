@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "TINA_PUBLIC_IS_LOCAL=true tinacms dev -c \"next dev\"",
+    "build": "tinacms build && next build",
     "start": "next start",
     "lint": "eslint --cache --cache-location .eslintcache src/",
     "lint:fix": "eslint --cache --cache-location .eslintcache src/ --fix",
@@ -16,15 +16,17 @@
   "dependencies": {
     "next": "16.1.6",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "tinacms": "^3.3.2"
   },
   "devDependencies": {
     "@commitlint/cli": "^20.4.0",
     "@commitlint/config-conventional": "^20.4.0",
     "@next/eslint-plugin-next": "^16.1.6",
     "@tailwindcss/postcss": "^4",
+    "@tinacms/cli": "^2.1.2",
     "@trivago/prettier-plugin-sort-imports": "^6.0.2",
-    "@types/node": "^20",
+    "@types/node": "^25.2.0",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9.39.2",
