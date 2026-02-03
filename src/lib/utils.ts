@@ -1,17 +1,17 @@
 /**
- * @file utils.ts
- * @description Global utility functions.
- * @dependencies clsx, tailwind-merge
+ * File: src/lib/utils.ts
+ * Purpose: Small utility helpers shared across the app.
+ * Exports:
+ *  - `cn` : merge className values using `clsx` then dedupe with `twMerge`.
+ * Notes: Isomorphic utility — safe to use in server and client code.
  */
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
 /**
- * Merges Tailwind CSS classes intelligently.
- * * @param inputs - List of class names, arrays, or conditional objects.
- * @returns A single string with merged classes (resolving conflicts like p-4 vs p-8).
- * * @example
- * cn("p-4", isActive && "bg-blue-500", "p-8") // Returns "bg-blue-500 p-8"
+ * Merge arbitrary `clsx`-compatible values and normalize Tailwind classes.
+ * @param inputs - class values (strings, arrays, objects) accepted by `clsx`
+ * @returns a single, merged className string with Tailwind class conflicts resolved
  */
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));

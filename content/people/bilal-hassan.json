@@ -1,0 +1,52 @@
+{
+  "cta": {},
+  "identity": {
+    "name": "Bilal Hassan",
+    "initials": "BH",
+    "role": "Amazon Brand Manager",
+    "availabilityBadge": "Owner"
+  },
+  "socials": [
+    {
+      "platform": "github",
+      "url": "https://github.com/hamas-munawar"
+    },
+    {
+      "platform": "linkedin",
+      "url": "https://www.linkedin.com/in/bilal-hassan-978b4120b/"
+    },
+    {
+      "platform": "twitter",
+      "url": "https://twitter.com/hamas_munawar"
+    }
+  ],
+  "skills": [
+    "PPC Management",
+    "Product Launches",
+    "Listing Optimization",
+    "A+ Content Creation",
+    "Strategic Analysis",
+    "Competitor Tracking",
+    "Performance Reporting",
+    "Brand Growth Strategy"
+  ],
+  "bio": [
+    {
+      "text": "Hi, I'm Bilal Hassan, an Amazon Brand Manager who's spent the last 5+ years helping sellers turn their advertising from a cost drain into a revenue engine.",
+      "highlight": "Bilal Hassan"
+    },
+    {
+      "text": "I started as a PPC Manager in 2020. Today, I've managed over $2M+ in ad spend across 150+ brands, consistently delivering results that move the needle: lower ACoS, higher organic rankings, and sustainable profitable growth.",
+      "highlight": "$2M+ in ad spend"
+    },
+    {
+      "text": "My focus is simple: make your ads profitable, not just busy.",
+      "highlight": "make your ads profitable"
+    }
+  ],
+  "callToAction": {
+    "ctaPrimary": "Hire Me",
+    "ctaSecondary": "Let's work Together",
+    "ctaLink": ""
+  }
+}

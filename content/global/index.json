@@ -1,0 +1,24 @@
+{
+  "navLinks": [
+    {
+      "label": "Home",
+      "href": "/"
+    },
+    {
+      "label": "Packages",
+      "href": "/packages"
+    },
+    {
+      "label": "Case Studies",
+      "href": "/caseStudies"
+    },
+    {
+      "label": "Contact",
+      "href": "/contact"
+    },
+    {
+      "label": "Team",
+      "href": "/team"
+    }
+  ]
+}

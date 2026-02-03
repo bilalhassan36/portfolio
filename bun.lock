@@ -6,6 +6,7 @@
       "name": "bilal-hassan-portfolio",
       "dependencies": {
         "clsx": "^2.1.1",
+        "locomotive-scroll": "^5.0.1",
         "next": "16.1.6",
         "react": "19.2.3",
         "react-dom": "19.2.3",
@@ -1614,6 +1615,8 @@
 
     "language-tags": ["language-tags@1.0.9", "", { "dependencies": { "language-subtag-registry": "^0.3.20" } }, "sha512-MbjN408fEndfiQXbFQ1vnd+1NoLDsnQW41410oQBXiyXDMYH5z505juWa4KUE1LqxRC7DgOgZDbKLxHIwm27hA=="],
 
+    "lenis": ["lenis@1.3.17", "", { "peerDependencies": { "@nuxt/kit": ">=3.0.0", "react": ">=17.0.0", "vue": ">=3.0.0" }, "optionalPeers": ["@nuxt/kit", "react", "vue"] }, "sha512-k9T9rgcxne49ggJOvXCraWn5dt7u2mO+BNkhyu6yxuEnm9c092kAW5Bus5SO211zUvx7aCCEtzy9UWr0RB+oJw=="],
+
     "level-read-stream": ["level-read-stream@1.1.1", "", { "dependencies": { "readable-stream": "^3.4.0" }, "peerDependencies": { "abstract-level": ">=1.0.0" }, "optionalPeers": ["abstract-level"] }, "sha512-Rglcw1ltqLjkWb9CZL/HqeKipY+6RQ/ZSH6cEVsLR4BU4o1Pt08bXpe1h9YD5ifEjYlIIDdk10z2KX/WLbCKhA=="],
 
     "level-supports": ["level-supports@4.0.1", "", {}, "sha512-PbXpve8rKeNcZ9C1mUicC9auIYFyGpkV9/i6g76tLgANwWhtG2v7I4xNBUlkn3lE2/dZF3Pi0ygYGtLc4RXXdA=="],
@@ -1657,6 +1660,8 @@
     "listr2": ["listr2@9.0.5", "", { "dependencies": { "cli-truncate": "^5.0.0", "colorette": "^2.0.20", "eventemitter3": "^5.0.1", "log-update": "^6.1.0", "rfdc": "^1.4.1", "wrap-ansi": "^9.0.0" } }, "sha512-ME4Fb83LgEgwNw96RKNvKV4VTLuXfoKudAmm2lP8Kk87KaMK0/Xrx/aAkMWmT8mDb+3MlFDspfbCs7adjRxA2g=="],
 
     "locate-path": ["locate-path@6.0.0", "", { "dependencies": { "p-locate": "^5.0.0" } }, "sha512-iPZK6eYjbxRu3uB4/WZ3EsEIMJFMqAoopl3R+zuq0UjcAm/MO6KCweDgPfP3elTztoKP3KtnVHxTn2NHBSDVUw=="],
+
+    "locomotive-scroll": ["locomotive-scroll@5.0.1", "", { "dependencies": { "lenis": "1.3.17" } }, "sha512-dCgGixh7Xu3AVrG/N8HCXImN5MrqkuI1mnjejbsMWDB7CIYy7ekd5JtglI9mfdCVReCgHdsyQ1a7We31HfNyrg=="],
 
     "lodash": ["lodash@4.17.23", "", {}, "sha512-LgVTMpQtIopCi79SJeDiP0TfWi5CNEc/L/aRdTh3yIvmZXTnheWpKjSZhnvMl8iXbC1tFg9gdHHDMLoV7CnG+w=="],
 

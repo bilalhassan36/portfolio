@@ -1,5 +1,11 @@
 import { defineConfig } from "tinacms";
 
+import Footer from "./collections/Footer";
+import Global from "./collections/Global";
+import Header from "./collections/Header";
+import HomePage from "./collections/HomePage";
+import People from "./collections/People";
+
 // Your hosting provider likely exposes this as an environment variable
 const branch =
   process.env.GITHUB_BRANCH ||
@@ -27,36 +33,6 @@ export default defineConfig({
   },
   // See docs on content modeling for more info on how to setup new content models: https://tina.io/docs/r/content-modelling-collections/
   schema: {
-    collections: [
-      {
-        name: "page",
-        label: "Pages",
-        path: "content/pages",
-        format: "mdx",
-        fields: [
-          {
-            type: "string",
-            name: "title",
-            label: "Title",
-            isTitle: true,
-            required: true,
-          },
-          {
-            type: "string",
-            name: "titleHighlight",
-            label: "Title Highlight",
-            required: true,
-          },
-          {
-            type: "string",
-            name: "subtitle",
-            label: "Subtitle",
-          },
-        ],
-        ui: {
-          router: ({ document }) => `/${document._sys.filename}`,
-        },
-      },
-    ],
+    collections: [Global, Header, Footer, HomePage, People],
   },
 });
