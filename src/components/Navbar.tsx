@@ -21,7 +21,7 @@ import { usePathname } from "next/navigation";
 import { useTina } from "tinacms/react";
 
 import type client from "@/../tina/__generated__/client";
-import { type PersonQuery } from "@/../tina/__generated__/types";
+import { type PeopleQuery } from "@/../tina/__generated__/types";
 import RollingLabel from "@/components/RollingLabel";
 
 import MobileMenu from "./MobileMenu";
@@ -32,7 +32,7 @@ type navbarResponse = Awaited<ReturnType<typeof client.queries.navbar>>;
 interface NavbarProps {
   globalResponse: globalResponse;
   navbarResponse: navbarResponse;
-  socials: PersonQuery["person"]["socials"];
+  socials: PeopleQuery["people"]["socials"];
 }
 
 const Navbar: React.FC<NavbarProps> = ({

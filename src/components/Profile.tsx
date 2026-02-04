@@ -5,33 +5,50 @@
  * Client-safe: Yes
  * Presentational: Yes
  * Key dependencies:
- *  - `lucide-react` for icons
- *  - Tina generated `PersonQuery` types
- *  - `IconMapper` to resolve social icons
- *  - `RollingLabel` for animated labels (encapsulated)
+ * - `lucide-react` for icons
+ * - `cn` utility (from @/lib/utils) for class merging
+<<<<<<< HEAD
+ * - Tina generated `PersonQuery` types
+=======
+ * - Tina generated `PeopleQuery` types
+>>>>>>> 6a781a2 (feat: Add team page content with dynamic components)
+ * - `IconMapper` to resolve social icons
+ * - `RollingLabel` for animated labels (encapsulated)
  */
 import { ArrowRight } from "lucide-react";
 
-import { type PersonQuery } from "@/../tina/__generated__/types";
+import { type PeopleQuery } from "@/../tina/__generated__/types";
 import { getSocialIcon } from "@/components/IconMapper";
 import RollingLabel from "@/components/RollingLabel";
+import { cn } from "@/lib/utils";
 
 interface ProfileProps {
-  person: PersonQuery["person"];
+  invert?: boolean;
+  person: PeopleQuery["people"];
 }
 
 const Profile = ({
+  invert = false,
   person: { identity, socials, bio, skills, callToAction },
 }: ProfileProps) => {
   return (
-    <div className="grid-col-1 grid items-center justify-center gap-10 py-12 pb-16 lg:gap-12 xl:grid-cols-6">
-      {/* Profile card (visuals + socials) */}
+    <div className="grid grid-cols-1 items-center justify-center gap-10 py-12 pb-16 lg:gap-12 xl:grid-cols-12">
+      {/* Profile Card Column
+        - Mobile: Stacked top (default DOM order)
+        - Desktop (xl): Spans 5/12 columns.
+        - Invert: Moves to the right end (order-last)
+      */}
       {identity && (
-        <div className="flex justify-center xl:col-span-2">
+        <div
+          className={cn(
+            "flex justify-center xl:col-span-5",
+            invert && "xl:order-last"
+          )}
+        >
           <div className="group ease-in-out-expo relative w-full max-w-sm duration-300 hover:scale-[1.01]">
             <div className="border-linen overflow-hidden rounded-2xl border shadow-xl md:rounded-3xl">
               <div className="bg-linen flex aspect-4/5 items-center justify-center">
-                {/* initials (non-interactive) */}
+                {/* Initials */}
                 <span className="text-clay/40 text-6xl font-bold select-none md:text-8xl">
                   {identity.initials}
                 </span>
@@ -47,9 +64,7 @@ const Profile = ({
                   <div className="mt-4 flex items-center gap-2">
                     {socials.map((item, i: number) => {
                       if (!item) return null;
-
                       const Icon = getSocialIcon(item.platform);
-
                       return (
                         <a
                           key={i}
@@ -66,7 +81,7 @@ const Profile = ({
               </div>
             </div>
 
-            {/* availability badge */}
+            {/* Availability Badge */}
             <div className="bg-brand absolute -right-3 -bottom-3 -rotate-12 rounded-lg px-3 py-1.5 text-white shadow-lg transition-transform duration-300 group-hover:rotate-0 md:-right-4 md:-bottom-4 md:rounded-xl md:px-4 md:py-2">
               <span className="text-xs font-semibold md:text-sm">
                 {identity.availabilityBadge}
@@ -76,8 +91,17 @@ const Profile = ({
         </div>
       )}
 
-      {/* Right column: bio, skills and CTA */}
-      <div className="flex flex-col justify-center text-center lg:text-left xl:col-span-4">
+      {/* Content Column
+        - Mobile: Stacked bottom
+        - Desktop (xl): Spans 7/12 columns.
+        - Invert: Moves to the left start (order-first)
+      */}
+      <div
+        className={cn(
+          "flex flex-col justify-center text-center lg:text-left xl:col-span-7",
+          invert && "xl:order-first"
+        )}
+      >
         {bio &&
           bio.map((paragraph, index: number) => {
             const parts = paragraph!.text.split(paragraph?.highlight || "");
@@ -97,7 +121,7 @@ const Profile = ({
             );
           })}
 
-        {/* Skills grid */}
+        {/* Skills */}
         {skills && (
           <div className="mb-8">
             <p className="text-clay/70 mb-3 text-[10px] font-bold tracking-wider uppercase md:text-xs">
@@ -109,7 +133,6 @@ const Profile = ({
                   key={i}
                   className="group border-clay hover:border-brand hover:text-brand ease-in-out-expo text-foreground relative h-8 overflow-hidden rounded-full border px-16 py-1.5 text-[10px] font-semibold whitespace-nowrap duration-200 sm:px-22 sm:text-xs md:text-sm"
                 >
-                  {/* RollingLabel handles client animation internally */}
                   <RollingLabel rollingLabels={{ label1: skill! }} />
                 </div>
               ))}

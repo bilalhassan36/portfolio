@@ -23,21 +23,21 @@ import AboutSection from "./_sections/AboutSection";
 import AuditSection from "./_sections/AuditSection";
 import HeroSection from "./_sections/HeroSection";
 
-type PersonResponse = Awaited<ReturnType<typeof client.queries.person>>;
+type PeopleResponse = Awaited<ReturnType<typeof client.queries.people>>;
 type HomepageResponse = Awaited<ReturnType<typeof client.queries.homepage>>;
 
 interface HomePageProps {
-  personResponse: PersonResponse;
+  peopleResponse: PeopleResponse;
   homepageResponse: HomepageResponse;
 }
 
-const HomePage = ({ personResponse, homepageResponse }: HomePageProps) => {
+const HomePage = ({ peopleResponse, homepageResponse }: HomePageProps) => {
   const {
     data: { homepage },
   } = useTina({ ...homepageResponse });
   const {
-    data: { person },
-  } = useTina({ ...personResponse });
+    data: { people: person },
+  } = useTina({ ...peopleResponse });
 
   // Wire TinaCMS preview/live-edit data into local `homepage` and `person`
   // `useTina` forwards the server-provided response and enables Tina's UI.

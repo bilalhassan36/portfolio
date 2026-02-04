@@ -16,3 +16,11 @@ import { twMerge } from "tailwind-merge";
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
+
+// src/utils/formatSlug.ts
+
+export const formatSlug = (text: string): string => {
+  if (!text) return "";
+
+  return text.toLowerCase().replace(/ /g, "-");
+};

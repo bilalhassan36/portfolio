@@ -5,22 +5,22 @@
  * Client-safe: Yes
  * Presentational: Yes
  * Key dependencies:
- *  - `@/../../tina/__generated__/types` : `HomepageQuery`, `PersonQuery` types
+ *  - `@/../../tina/__generated__/types` : `HomepageQuery`, `PeopleQuery` types
  *  - `@/components/Profile`, `@/components/SectionHeader` : UI components
  * Notes:
  *  - Expects `content` and `person` shaped according to TinaCMS generated types.
  */
 import {
   type HomepageQuery,
-  type PersonQuery,
+  type PeopleQuery,
 } from "@/../../tina/__generated__/types";
 import Profile from "@/components/Profile";
 import SectionHeader from "@/components/SectionHeader";
 
-// Props: `content` from homepage.aboutSection and `person` from PersonQuery
+// Props: `content` from homepage.aboutSection and `person` from PeopleQuery
 interface AboutSectionProps {
   content: HomepageQuery["homepage"]["aboutSection"];
-  person: PersonQuery["person"];
+  person: PeopleQuery["people"];
 }
 
 const AboutSection = ({ content, person }: AboutSectionProps) => {

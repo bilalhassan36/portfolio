@@ -8,10 +8,10 @@
     "start": "next start",
     "lint": "eslint --cache --cache-location .eslintcache src/",
     "lint:fix": "eslint --cache --cache-location .eslintcache src/ --fix",
-    "format": "prettier --cache --write \"src/**/*.{ts,tsx,js,jsx,json,css,md}\"",
-    "format:check": "prettier --cache --check \"src/**/*.{ts,tsx,js,jsx,json,css,md}\"",
+    "format:fix": "prettier --cache --write \"src/**/*.{ts,tsx,js,jsx,json,css,md}\"",
+    "format": "prettier --cache --check \"src/**/*.{ts,tsx,js,jsx,json,css,md}\"",
     "prepare": "husky",
-    "validate": "bun run lint && bun run format:check && bun run build"
+    "validate": "bun run lint && bun run format && bun run build"
   },
   "dependencies": {
     "clsx": "^2.1.1",

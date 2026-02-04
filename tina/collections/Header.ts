@@ -8,7 +8,6 @@ const Header: Collection = {
   format: "json",
   ui: {
     allowedActions: { create: false, delete: false },
-    router: () => "/#navbar",
   },
   fields: [
     { name: "logoText", label: "Logo Text", type: "string", required: true },

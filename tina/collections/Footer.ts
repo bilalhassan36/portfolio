@@ -7,7 +7,6 @@ const Footer: Collection = {
   path: "content/footer",
   format: "json",
   ui: {
-    router: () => "/#footer",
     allowedActions: { create: false, delete: false },
   },
   fields: [

@@ -8,7 +8,6 @@ const Global: Collection = {
   format: "json",
   ui: {
     allowedActions: { create: false, delete: false },
-    router: () => "/",
   },
   fields: [
     {
@@ -21,6 +20,28 @@ const Global: Collection = {
       fields: [
         { name: "label", label: "Label", type: "string", required: true },
         { name: "href", label: "URL", type: "string", required: true },
+      ],
+    },
+    {
+      name: "teamMembers",
+      label: "Team Members List",
+      type: "object",
+      list: true,
+      ui: {
+        // Optional: Tries to show the person's filename in the list
+        itemProps: (item) => ({
+          label:
+            item?.member?.replace("content/people/", "").replace(".json", "") ||
+            "Select Member",
+        }),
+      },
+      fields: [
+        {
+          name: "member", // The actual link
+          label: "Person",
+          type: "reference", // 👈 Single Reference (No list here)
+          collections: ["people"],
+        },
       ],
     },
   ],

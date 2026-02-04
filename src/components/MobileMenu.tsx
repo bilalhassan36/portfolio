@@ -21,14 +21,14 @@ import { X } from "lucide-react";
 
 import {
   type GlobalQuery,
-  type PersonQuery,
+  type PeopleQuery,
 } from "@/../tina/__generated__/types";
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
   navLinks: GlobalQuery["global"]["navLinks"];
-  socials: PersonQuery["person"]["socials"];
+  socials: PeopleQuery["people"]["socials"];
 }
 
 const MobileMenu: React.FC<Props> = ({

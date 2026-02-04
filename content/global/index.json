@@ -20,5 +20,10 @@
       "label": "Team",
       "href": "/team"
     }
+  ],
+  "teamMembers": [
+    {
+      "member": "content/people/bilal-hassan.json"
+    }
   ]
 }

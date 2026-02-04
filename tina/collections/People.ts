@@ -2,7 +2,7 @@ import { type Collection } from "tinacms";
 
 const People: Collection = {
   label: "People",
-  name: "person",
+  name: "people",
   path: "content/people",
   format: "json",
   ui: {

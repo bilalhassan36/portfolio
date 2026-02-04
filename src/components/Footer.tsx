@@ -23,19 +23,19 @@ import type client from "@/../tina/__generated__/client";
 
 import { getSocialIcon } from "./IconMapper";
 
-type footerReponse = Awaited<ReturnType<typeof client.queries.footer>>;
-type personResponse = Awaited<ReturnType<typeof client.queries.person>>;
+type footerResponse = Awaited<ReturnType<typeof client.queries.footer>>;
+type peopleResponse = Awaited<ReturnType<typeof client.queries.people>>;
 type globalResponse = Awaited<ReturnType<typeof client.queries.global>>;
 
 interface FooterProps {
-  footerResponse: footerReponse;
-  personResponse: personResponse;
+  footerResponse: footerResponse;
+  peopleResponse: peopleResponse;
   globalResponse: globalResponse;
 }
 
 export const Footer = ({
   footerResponse,
-  personResponse,
+  peopleResponse,
   globalResponse,
 }: FooterProps) => {
   // Live-edit enabled footer data (TinaCMS)
@@ -49,10 +49,10 @@ export const Footer = ({
 
   // Normalize person data
   const person = {
-    name: personResponse.data.person.identity.name,
-    bio: personResponse.data.person.bio?.[0]?.text || "",
-    skills: personResponse.data.person.skills,
-    socials: personResponse.data.person.socials,
+    name: peopleResponse.data.people.identity.name,
+    bio: peopleResponse.data.people.bio?.[0]?.text || "",
+    skills: peopleResponse.data.people.skills,
+    socials: peopleResponse.data.people.socials,
   };
 
   const {

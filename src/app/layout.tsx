@@ -54,7 +54,7 @@ export default async function RootLayout({
   const globalResponse = await client.queries.global({
     relativePath: "index.json",
   });
-  const personResponse = await client.queries.person({
+  const peopleResponse = await client.queries.people({
     relativePath: "bilal-hassan.json",
   });
 
@@ -67,13 +67,13 @@ export default async function RootLayout({
         <Navbar
           globalResponse={globalResponse}
           navbarResponse={navbarResponse}
-          socials={personResponse.data.person.socials}
+          socials={peopleResponse.data.people.socials}
         />
         {children}
         {/* Footer */}
         <Footer
           footerResponse={footerResponse}
-          personResponse={personResponse}
+          peopleResponse={peopleResponse}
           globalResponse={globalResponse}
         />
       </body>

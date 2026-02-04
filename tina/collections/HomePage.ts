@@ -4,10 +4,11 @@ import type { Collection } from "tinacms";
 const HomePage: Collection = {
   name: "homepage",
   label: "Home Page",
-  path: "content/pages",
+  path: "content/homepage",
   format: "mdx",
   ui: {
     router: () => "/",
+    allowedActions: { create: false, delete: false },
   },
   fields: [
     {

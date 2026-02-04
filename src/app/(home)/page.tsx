@@ -15,7 +15,7 @@ import HomePage from "./HomePage";
 
 export default async function Page() {
   // Server-side TinaCMS fetches
-  const personResponse = await client.queries.person({
+  const peopleResponse = await client.queries.people({
     relativePath: "bilal-hassan.json",
   });
 
@@ -26,7 +26,7 @@ export default async function Page() {
   // Pass raw responses to the client `HomePage` for rendering / live-edit
   return (
     <HomePage
-      personResponse={personResponse}
+      peopleResponse={peopleResponse}
       homepageResponse={homepageResponse}
     />
   );
