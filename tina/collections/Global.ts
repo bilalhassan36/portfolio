@@ -37,10 +37,78 @@ const Global: Collection = {
       },
       fields: [
         {
-          name: "member", // The actual link
+          name: "member",
           label: "Person",
-          type: "reference", // 👈 Single Reference (No list here)
+          type: "reference",
           collections: ["people"],
+        },
+      ],
+    },
+    {
+      name: "pricingTable",
+      label: "Pricing Table Config",
+      type: "object",
+      fields: [
+        // A. Which Packages to show?
+        {
+          name: "activePackages",
+          label: "Active Packages (Columns)",
+          type: "object",
+          list: true,
+          ui: {
+            itemProps: (item) => ({
+              label: item?.package
+                ? item.package
+                    .replace("content/packages/", "")
+                    .replace(".json", "")
+                : "Select Package",
+            }),
+          },
+          fields: [
+            { name: "package", type: "reference", collections: ["packages"] },
+          ],
+        },
+
+        // B. Summary Rows (Top Section)
+        {
+          name: "summaryRows",
+          label: "Summary Rows (Top)",
+          type: "object",
+          list: true,
+          ui: { itemProps: (item) => ({ label: item?.label || "New Row" }) },
+          fields: [
+            { name: "label", label: "Label", type: "string" },
+            { name: "key", label: "Data Key", type: "string" },
+          ],
+        },
+
+        // C. Detailed Sections (Categorized)
+        {
+          name: "sections",
+          label: "Feature Categories",
+          type: "object",
+          list: true,
+          ui: {
+            itemProps: (item) => ({
+              label: item?.categoryName || "New Category",
+            }),
+          },
+          fields: [
+            { name: "categoryName", label: "Category Name", type: "string" },
+            {
+              name: "rows",
+              label: "Rows",
+              type: "object",
+              list: true,
+              ui: {
+                itemProps: (item) => ({ label: item?.label || "New Row" }),
+              },
+              fields: [
+                { name: "label", label: "Label", type: "string" },
+                { name: "key", label: "Data Key", type: "string" },
+              ],
+            },
+          ],
         },
       ],
     },

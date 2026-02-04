@@ -4,6 +4,7 @@ import Footer from "./collections/Footer";
 import Global from "./collections/Global";
 import Header from "./collections/Header";
 import HomePage from "./collections/HomePage";
+import Packages from "./collections/Packages";
 import Page from "./collections/Page";
 import People from "./collections/People";
 
@@ -34,6 +35,6 @@ export default defineConfig({
   },
   // See docs on content modeling for more info on how to setup new content models: https://tina.io/docs/r/content-modelling-collections/
   schema: {
-    collections: [Global, Header, Footer, HomePage, People, Page],
+    collections: [Global, Header, Footer, HomePage, People, Page, Packages],
   },
 });

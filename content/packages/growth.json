@@ -1,0 +1,51 @@
+{
+  "name": "Growth",
+  "isPopular": true,
+  "price": {
+    "weekly": "$500",
+    "monthly": "$2,500",
+    "yearly": "$25,000"
+  },
+  "features": [
+    {
+      "key": "ad_spend_limit",
+      "value": "Up to $4K"
+    },
+    {
+      "key": "campaign_optimization",
+      "value": "Daily"
+    },
+    {
+      "key": "sku_count",
+      "value": "5-10 SKUs"
+    },
+    {
+      "key": "ppc_management",
+      "value": "check"
+    },
+    {
+      "key": "listing_optimization",
+      "value": "check"
+    },
+    {
+      "key": "content_creation",
+      "value": "cross"
+    },
+    {
+      "key": "performance_reporting",
+      "value": "Monthly + Weekly"
+    },
+    {
+      "key": "strategy_calls",
+      "value": "cross"
+    },
+    {
+      "key": "support_channel",
+      "value": "Email + WhatsApp"
+    },
+    {
+      "key": "dedicated_account_manager",
+      "value": "cross"
+    }
+  ]
+}

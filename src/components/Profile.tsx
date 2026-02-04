@@ -7,11 +7,8 @@
  * Key dependencies:
  * - `lucide-react` for icons
  * - `cn` utility (from @/lib/utils) for class merging
-<<<<<<< HEAD
  * - Tina generated `PersonQuery` types
-=======
- * - Tina generated `PeopleQuery` types
->>>>>>> 6a781a2 (feat: Add team page content with dynamic components)
+ * -(feat: Add team page content with dynamic components)
  * - `IconMapper` to resolve social icons
  * - `RollingLabel` for animated labels (encapsulated)
  */

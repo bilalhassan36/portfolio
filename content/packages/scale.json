@@ -1,0 +1,51 @@
+{
+  "name": "Scale",
+  "isPopular": false,
+  "price": {
+    "weekly": "$1,000",
+    "monthly": "$5,000",
+    "yearly": "$50,000"
+  },
+  "features": [
+    {
+      "key": "ad_spend_limit",
+      "value": "Unlimited"
+    },
+    {
+      "key": "campaign_optimization",
+      "value": "Real-time"
+    },
+    {
+      "key": "sku_count",
+      "value": "Unlimited"
+    },
+    {
+      "key": "ppc_management",
+      "value": "check"
+    },
+    {
+      "key": "listing_optimization",
+      "value": "check"
+    },
+    {
+      "key": "content_creation",
+      "value": "check"
+    },
+    {
+      "key": "performance_reporting",
+      "value": "Monthly + Weekly"
+    },
+    {
+      "key": "strategy_calls",
+      "value": "Weekly"
+    },
+    {
+      "key": "support_channel",
+      "value": "Priority 24/7"
+    },
+    {
+      "key": "dedicated_account_manager",
+      "value": "check"
+    }
+  ]
+}

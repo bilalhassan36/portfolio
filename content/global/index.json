@@ -25,5 +25,76 @@
     {
       "member": "content/people/bilal-hassan.json"
     }
-  ]
+  ],
+  "pricingTable": {
+    "activePackages": [
+      {
+        "package": "content/packages/starter.json"
+      },
+      {
+        "package": "content/packages/growth.json"
+      },
+      {
+        "package": "content/packages/scale.json"
+      }
+    ],
+    "summaryRows": [
+      {
+        "label": "Monthly ad spend limit",
+        "key": "ad_spend_limit"
+      },
+      {
+        "label": "Campaign optimization",
+        "key": "campaign_optimization"
+      }
+    ],
+    "sections": [
+      {
+        "categoryName": "MANAGEMENT SCOPE",
+        "rows": [
+          {
+            "label": "SKU Count",
+            "key": "sku_count"
+          },
+          {
+            "label": "PPC Management",
+            "key": "ppc_management"
+          },
+          {
+            "label": "Listing Optimization",
+            "key": "listing_optimization"
+          },
+          {
+            "label": "A+ Content Creation",
+            "key": "content_creation"
+          },
+          {
+            "label": "Random",
+            "key": "Random"
+          }
+        ]
+      },
+      {
+        "categoryName": "REPORTING & SUPPORT",
+        "rows": [
+          {
+            "label": "Performance Reporting",
+            "key": "performance_reporting"
+          },
+          {
+            "label": "Strategy Calls",
+            "key": "strategy_calls"
+          },
+          {
+            "label": "Support Channel",
+            "key": "support_channel"
+          },
+          {
+            "label": "Dedicated Account Manager",
+            "key": "dedicated_account_manager"
+          }
+        ]
+      }
+    ]
+  }
 }

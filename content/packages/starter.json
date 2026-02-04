@@ -1,0 +1,55 @@
+{
+  "name": "Starter",
+  "isPopular": false,
+  "price": {
+    "weekly": "$250",
+    "monthly": "$1,000",
+    "yearly": "$10,000"
+  },
+  "features": [
+    {
+      "key": "ad_spend_limit",
+      "value": "Up to $1K"
+    },
+    {
+      "key": "campaign_optimization",
+      "value": "Daily"
+    },
+    {
+      "key": "sku_count",
+      "value": "1-4 SKUs"
+    },
+    {
+      "key": "ppc_management",
+      "value": "check"
+    },
+    {
+      "key": "listing_optimization",
+      "value": "cross"
+    },
+    {
+      "key": "content_creation",
+      "value": "cross"
+    },
+    {
+      "key": "performance_reporting",
+      "value": "Monthly + Weekly"
+    },
+    {
+      "key": "strategy_calls",
+      "value": "cross"
+    },
+    {
+      "key": "support_channel",
+      "value": "Email + WhatsApp"
+    },
+    {
+      "key": "dedicated_account_manager",
+      "value": "cross"
+    },
+    {
+      "key": "Random",
+      "value": "check"
+    }
+  ]
+}
