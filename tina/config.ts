@@ -1,6 +1,7 @@
 import { defineConfig } from "tinacms";
 
 import Footer from "./collections/Footer";
+import FormConfig from "./collections/FormConfig";
 import Global from "./collections/Global";
 import Header from "./collections/Header";
 import HomePage from "./collections/HomePage";
@@ -35,6 +36,15 @@ export default defineConfig({
   },
   // See docs on content modeling for more info on how to setup new content models: https://tina.io/docs/r/content-modelling-collections/
   schema: {
-    collections: [Global, Header, Footer, HomePage, People, Page, Packages],
+    collections: [
+      Global,
+      Header,
+      Footer,
+      HomePage,
+      People,
+      Page,
+      Packages,
+      FormConfig,
+    ],
   },
 });

@@ -14,6 +14,7 @@
     "validate": "bun run lint && bun run format && bun run build"
   },
   "dependencies": {
+    "@formspree/react": "^3.0.0",
     "clsx": "^2.1.1",
     "gsap": "^3.14.2",
     "locomotive-scroll": "^5.0.1",

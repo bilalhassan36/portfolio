@@ -1,0 +1,35 @@
+{
+  "formspreeId": "YOUR_FORMSPREE_ID_HERE",
+  "services": [
+    "PPC Management",
+    "Listing Optimization",
+    "Account Audit",
+    "Full Management",
+    "DSP Advertising"
+  ],
+  "budgets": ["Under $5k/mo", "$5k - $10k/mo", "$10k - $50k/mo", "$50k+/mo"],
+  "sidebar": {
+    "email": "hello@example.com",
+    "phone": "+1 (555) 123-4567",
+    "address": "123 Commerce St, Suite 100, New York, NY",
+    "hours": "Mon - Fri: 9am - 6pm EST",
+    "responseTime": "Usually within 24 hours on business days."
+  },
+  "labels": {
+    "nameLabel": "Your Name",
+    "namePlaceholder": "John Doe",
+    "emailLabel": "Work Email",
+    "emailPlaceholder": "name@company.com",
+    "companyLabel": "Company / Brand",
+    "companyPlaceholder": "Your Amazon Brand Name",
+    "websiteLabel": "Store Link (Optional)",
+    "websitePlaceholder": "amazon.com/your-store",
+    "serviceLabel": "I need help with...",
+    "budgetLabel": "Monthly Ad Spend",
+    "messageLabel": "Project Details",
+    "messagePlaceholder": "Tell us about your current ACoS goals and challenges...",
+    "submitText": "Get Your Audit",
+    "successTitle": "Message Received!",
+    "successMessage": "Thanks for reaching out. We have received your details and will get back to you shortly with next steps."
+  }
+}
