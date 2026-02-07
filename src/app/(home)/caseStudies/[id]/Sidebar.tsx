@@ -6,11 +6,10 @@
  * Presentational: Yes — renders props from the `study` response.
  * Key dependencies: `next/link`, `lucide-react`, Tina generated `client` types.
  */
-import Link from "next/link";
-
 import { CheckCircle2, Download, ExternalLink } from "lucide-react";
 
 import type client from "@/../tina/__generated__/client";
+import Callout from "@/components/Callout";
 
 type CaseStudyResponse = Awaited<
   ReturnType<typeof client.queries.caseStudy>
@@ -83,28 +82,18 @@ export const Sidebar = ({ study }: { study: CaseStudyResponse }) => {
       )}
 
       {/* 4. CTA Widget — primary conversion action for this page */}
-      <div className="bg-foreground text-background relative overflow-hidden rounded-2xl p-6 text-center">
-        <div
-          className="pointer-events-none absolute inset-0 opacity-10"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle, #fff 1px, transparent 1px)",
-            backgroundSize: "10px 10px",
-          }}
-        />
-        <h4 className="relative z-10 mb-2 text-xl font-bold">
-          Need scale like this?
-        </h4>
-        <p className="relative z-10 mb-6 text-sm text-white/70">
-          Let&apos;s audit your current setup.
-        </p>
-        <Link
-          href="/contact"
-          className="bg-brand text-background hover:bg-brand/90 relative z-10 inline-flex h-10 w-full items-center justify-center rounded-lg text-sm font-bold transition-colors"
-        >
-          Book Audit
-        </Link>
-      </div>
+      <Callout
+        data={
+          (study as any).callout
+            ? (study as any).callout
+            : {
+                headline: "Need scale like this?",
+                copy: "Let's audit your current setup.",
+                primary: { label: "Book Audit", url: "/contact" },
+                variant: "sidebar",
+              }
+        }
+      />
     </aside>
   );
 };

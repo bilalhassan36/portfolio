@@ -15,6 +15,7 @@
 import { useTina } from "tinacms/react";
 
 import type client from "@/../tina/__generated__/client";
+import Callout from "@/components/Callout";
 import Container from "@/components/Container";
 import PageHero from "@/components/PageHero";
 import Profile from "@/components/Profile";
@@ -55,6 +56,9 @@ const TeamPage = ({ teamPageResponse, globalResponse }: TeamPageProps) => {
           />
         );
       })}
+
+      {/* Optional callout at the bottom of the page, using `pages.callout` */}
+      <Callout data={teamPageData.pages.callout} className="w-full" />
     </Container>
   );
 };

@@ -18,6 +18,7 @@ import { useTina } from "tinacms/react";
 
 import type client from "@/../tina/__generated__/client";
 import { BillingToggle } from "@/app/(home)/packages/BillingToggle";
+import Callout from "@/components/Callout";
 import Container from "@/components/Container";
 import PageHero from "@/components/PageHero";
 
@@ -65,6 +66,9 @@ const PackagesPage = ({ globalResponse, pageResponse }: PackagesPageProps) => {
           billingPeriod={billingPeriod}
         />
       </section>
+
+      {/* Optional callout at the bottom of the page, using `pages.callout` */}
+      <Callout data={pageData.pages.callout} className="w-full" />
     </Container>
   );
 };

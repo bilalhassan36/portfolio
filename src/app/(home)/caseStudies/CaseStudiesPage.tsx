@@ -11,11 +11,11 @@
 import { useTina } from "tinacms/dist/react";
 
 import type client from "@/../tina/__generated__/client";
+import Callout from "@/components/Callout";
 import Container from "@/components/Container";
 import PageHero from "@/components/PageHero";
 
 import Browser from "./Browser";
-import { CTA } from "./CTA";
 
 type PageResponse = Awaited<ReturnType<typeof client.queries.pages>>;
 type GlobalResponse = Awaited<ReturnType<typeof client.queries.global>>;
@@ -66,7 +66,7 @@ export default function CaseStudiesPage({
       {caseStudyConfig && <Browser caseStudyConfig={caseStudyConfig} />}
 
       {/* CTA: page call-to-action */}
-      <CTA />
+      <Callout data={pageData.pages.callout} />
     </Container>
   );
 }
