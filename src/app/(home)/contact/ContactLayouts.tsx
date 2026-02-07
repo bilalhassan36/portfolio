@@ -17,7 +17,7 @@ interface SidebarProps {
 
 export const ContactSidebar = ({ data }: SidebarProps) => (
   <div className="sticky top-24 flex flex-col gap-8">
-    <div className="reveal-item">
+    <div className="">
       <h4 className="text-clay border-linen mb-4 border-b pb-2 text-[10px] font-bold tracking-widest uppercase">
         Contact
       </h4>
@@ -43,7 +43,7 @@ export const ContactSidebar = ({ data }: SidebarProps) => (
       </ul>
     </div>
 
-    <div className="reveal-item">
+    <div className="">
       <h4 className="text-clay border-linen mb-4 border-b pb-2 text-[10px] font-bold tracking-widest uppercase">
         Details
       </h4>
@@ -60,7 +60,7 @@ export const ContactSidebar = ({ data }: SidebarProps) => (
       </div>
     </div>
 
-    <div className="reveal-item bg-linen/20 border-brand border-l-2 p-4">
+    <div className="bg-linen/20 border-brand border-l-2 p-4">
       <p className="text-clay text-xs leading-relaxed font-medium">
         <span className="text-foreground mb-1 flex items-center gap-1.5 font-bold">
           <Clock className="text-brand h-3 w-3" />

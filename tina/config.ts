@@ -1,5 +1,6 @@
 import { defineConfig } from "tinacms";
 
+import CaseStudy from "./collections/CaseStudy";
 import Footer from "./collections/Footer";
 import FormConfig from "./collections/FormConfig";
 import Global from "./collections/Global";
@@ -45,6 +46,7 @@ export default defineConfig({
       Page,
       Packages,
       FormConfig,
+      CaseStudy,
     ],
   },
 });

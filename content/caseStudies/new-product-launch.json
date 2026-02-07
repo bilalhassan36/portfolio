@@ -1,0 +1,68 @@
+{
+  "featured": false,
+  "industry": "Retail",
+  "headline": "New Product Launch Success",
+  "description": "Strategic launch campaign with aggressive keyword targeting followed by efficiency optimization.",
+  "tags": ["Launch", "Ranking"],
+  "author": {
+    "name": "Bilal Hassan",
+    "role": "Brand Manager",
+    "quote": "TACoS reduced from 109% to 43% in 60 days."
+  },
+  "metrics": [
+    {
+      "label": "Oct Sales",
+      "value": "$2,789",
+      "trend": "up"
+    },
+    {
+      "label": "TACoS",
+      "value": "43.8%",
+      "trend": "down"
+    },
+    {
+      "label": "Goal",
+      "value": "Met",
+      "trend": "up"
+    },
+    {
+      "label": "Ranking",
+      "value": "Top",
+      "trend": "up"
+    }
+  ],
+  "details": {
+    "challenge": "Launch new product in competitive niche, achieve rankings, and maintain profitability.",
+    "solution": "Strategic launch campaign with aggressive keyword targeting, followed by optimization phase focusing on efficiency.",
+    "results": "September: $2,339 sales (aggressive). October: $2,789 sales (efficient). TACoS reduced to 43.86%.",
+    "beforeAfter": [
+      {
+        "metric": "TACoS",
+        "before": "109%",
+        "after": "43.86%"
+      },
+      {
+        "metric": "Monthly Units",
+        "before": "0",
+        "after": "30+"
+      }
+    ],
+    "highlights": [
+      {
+        "title": "Aggressive Launch",
+        "description": "Initial heavy targeting for rank."
+      },
+      {
+        "title": "Efficiency Phase",
+        "description": "Optimization to lower TACoS."
+      }
+    ],
+    "proofImages": [
+      {
+        "src": "",
+        "label": "Launch Curve",
+        "description": "Sales velocity graph"
+      }
+    ]
+  }
+}

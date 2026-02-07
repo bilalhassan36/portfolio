@@ -1,0 +1,68 @@
+{
+  "featured": false,
+  "industry": "Supplements",
+  "headline": "Scaling a 7-Figure Brand (Ecoxall)",
+  "description": "Established brand needed to scale. We focused on ROAS optimization and inventory-aware campaign management.",
+  "tags": ["Scaling", "ROAS Optimization"],
+  "author": {
+    "name": "Bilal Hassan",
+    "role": "Brand Manager",
+    "quote": "Maintained 4.05 ROAS while scaling."
+  },
+  "metrics": [
+    {
+      "label": "Revenue",
+      "value": "$2.14M",
+      "trend": "up"
+    },
+    {
+      "label": "ROAS",
+      "value": "4.05",
+      "trend": "up"
+    },
+    {
+      "label": "TACoS",
+      "value": "13.6%",
+      "trend": "down"
+    },
+    {
+      "label": "Organic Rev",
+      "value": "$954K",
+      "trend": "up"
+    }
+  ],
+  "details": {
+    "challenge": "Established brand (Ecoxall) needed to scale profitably while maintaining healthy margins across 200+ product listings.",
+    "solution": "Comprehensive PPC strategy with focus on ROAS optimization, aggressive A+ content development, and inventory-aware campaign management.",
+    "results": "Revenue grew from $2.02M to $2.14M. Maintained 4.05 ROAS. TACoS kept under 13.68%.",
+    "beforeAfter": [
+      {
+        "metric": "Total Revenue",
+        "before": "$2.02M",
+        "after": "$2.14M"
+      },
+      {
+        "metric": "ROAS",
+        "before": "N/A",
+        "after": "4.05"
+      }
+    ],
+    "highlights": [
+      {
+        "title": "Inventory Management",
+        "description": "Inventory-aware campaigns to prevent stockouts."
+      },
+      {
+        "title": "Aggressive Content",
+        "description": "A+ content development."
+      }
+    ],
+    "proofImages": [
+      {
+        "src": "",
+        "label": "Yearly Growth",
+        "description": "Revenue comparison chart"
+      }
+    ]
+  }
+}

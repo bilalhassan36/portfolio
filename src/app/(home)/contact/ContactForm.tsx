@@ -91,7 +91,7 @@ export const ContactForm = ({
       <form
         ref={formRef}
         onSubmit={validateAndSubmit}
-        className="reveal-item space-y-8"
+        className="space-y-8"
         noValidate
       >
         {/* ROW 1 */}

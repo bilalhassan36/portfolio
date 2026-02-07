@@ -112,6 +112,59 @@ const Global: Collection = {
         },
       ],
     },
+    {
+      type: "object",
+      name: "companyStats",
+      label: "Company Statistics",
+      list: true,
+      ui: { itemProps: (item) => ({ label: item?.label || "New Stat" }) },
+      fields: [
+        { type: "string", name: "value", label: "Value (e.g. 50+)" },
+        { type: "string", name: "label", label: "Label (e.g. Clients)" },
+      ],
+    },
+    {
+      type: "object",
+      name: "caseStudyConfig",
+      label: "Case Study Manager",
+      fields: [
+        // 1. Featured (Single Reference is fine directly)
+        {
+          type: "reference",
+          name: "featuredStudy",
+          label: "Featured Case Study (Hero)",
+          description: "Select the study to show at the top with the big card.",
+          collections: ["caseStudy"],
+        },
+
+        // 2. Grid Sequence (WRAPPED LIST)
+        {
+          name: "studyList",
+          label: "Grid Sequence",
+          description: "Drag and drop to reorder the list below.",
+          type: "object",
+          list: true,
+          ui: {
+            // This shows the filename in the drag-and-drop list so you know what you are moving
+            itemProps: (item) => ({
+              label: item?.study
+                ? item.study
+                    .replace("content/caseStudies/", "")
+                    .replace(".json", "")
+                : "Select Case Study",
+            }),
+          },
+          fields: [
+            {
+              name: "study",
+              label: "Case Study",
+              type: "reference",
+              collections: ["caseStudy"],
+            },
+          ],
+        },
+      ],
+    },
   ],
 };
 

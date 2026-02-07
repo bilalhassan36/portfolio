@@ -1,0 +1,68 @@
+{
+  "featured": true,
+  "industry": "Consumer Goods",
+  "headline": "From Struggling to Thriving: 275% Sales Increase",
+  "description": "Client's listing was generating minimal sales ($712/month) with poor visibility. We implemented a complete overhaul including SEO and professional A+ content.",
+  "tags": ["SEO Optimization", "High-Intent PPC"],
+  "author": {
+    "name": "Bilal Hassan",
+    "role": "Brand Manager",
+    "quote": "275% sales increase in just 2 months."
+  },
+  "metrics": [
+    {
+      "label": "Revenue Growth",
+      "value": "+275%",
+      "trend": "up"
+    },
+    {
+      "label": "Units Sold",
+      "value": "108",
+      "trend": "up"
+    },
+    {
+      "label": "Ranking",
+      "value": "Page 1",
+      "trend": "up"
+    },
+    {
+      "label": "Timeframe",
+      "value": "60 Days",
+      "trend": "down"
+    }
+  ],
+  "details": {
+    "challenge": "Client's listing was generating minimal sales ($712/month) with poor visibility and no clear growth strategy.",
+    "solution": "Complete listing overhaul including SEO optimization, professional A+ content, and strategic PPC campaigns targeting high-intent keywords.",
+    "results": "Revenue jumped from $712 to $2,670 monthly. Units sold increased from 33 to 108. Organic ranking improved significantly.",
+    "beforeAfter": [
+      {
+        "metric": "Monthly Revenue",
+        "before": "$712",
+        "after": "$2,670"
+      },
+      {
+        "metric": "Units Sold",
+        "before": "33",
+        "after": "108"
+      }
+    ],
+    "highlights": [
+      {
+        "title": "Listing Overhaul",
+        "description": "Complete SEO and Professional A+ Content."
+      },
+      {
+        "title": "Targeting",
+        "description": "Focus on high-intent keywords."
+      }
+    ],
+    "proofImages": [
+      {
+        "src": "",
+        "label": "Sales Graph",
+        "description": "Revenue jump after optimization"
+      }
+    ]
+  }
+}

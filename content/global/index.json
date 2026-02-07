@@ -96,5 +96,30 @@
         ]
       }
     ]
+  },
+  "companyStats": [
+    {
+      "value": "$50M+",
+      "label": "Revenue Generated"
+    },
+    {
+      "value": "150+",
+      "label": "Happy Clients"
+    },
+    {
+      "value": "10+",
+      "label": "Years Experience"
+    }
+  ],
+  "caseStudyConfig": {
+    "featuredStudy": "content/caseStudies/consumer-goods-growth.json",
+    "studyList": [
+      {
+        "study": "content/caseStudies/ecoxall-scaling.json"
+      },
+      {
+        "study": "content/caseStudies/new-product-launch.json"
+      }
+    ]
   }
 }

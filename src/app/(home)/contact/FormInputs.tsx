@@ -1,6 +1,6 @@
 /**
  * @file FormInputs.tsx
- * @description Inputs without 'reveal-item' to prevent z-index/overflow issues.
+ * @description Inputs without '' to prevent z-index/overflow issues.
  */
 
 "use client";
@@ -143,7 +143,7 @@ export const SelectInput = ({
   }, []);
 
   return (
-    // Removed 'reveal-item', kept dynamic z-index
+    // Removed '', kept dynamic z-index
     <div className={cn("group relative", isOpen ? "z-50" : "z-0")} ref={ref}>
       <FormLabel required>{label}</FormLabel>
       <div
