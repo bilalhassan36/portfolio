@@ -45,5 +45,8 @@
     "**/bun.lock": true
   },
   "typescript.preferences.importModuleSpecifier": "non-relative",
-  "docwriter.style": "JSDoc"
+  "docwriter.style": "JSDoc",
+  "cSpell.words": [
+    "gsap"
+  ]
 }

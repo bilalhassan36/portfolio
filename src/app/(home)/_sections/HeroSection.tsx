@@ -16,7 +16,7 @@
  */
 import Link from "next/link";
 
-import { ArrowDown, ArrowRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 
 import { type HomepageQuery } from "@/../tina/__generated__/types";
 import RollingLabel from "@/components/RollingLabel";
@@ -96,7 +96,7 @@ const HeroSection = ({ content }: HeroSectionProps) => {
                     content.buttons.secondary.label,
                 }}
               />
-              <ArrowDown className="absolute top-1/2 right-4 h-5 w-5 -translate-y-1/2 transform opacity-0 transition-opacity group-hover:opacity-100" />
+              <ArrowUpRight className="absolute top-1/2 right-4 h-5 w-5 -translate-y-1/2 transform opacity-0 transition-opacity group-hover:opacity-100" />
             </Link>
           </div>
         )}

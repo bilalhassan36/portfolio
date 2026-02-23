@@ -40,26 +40,30 @@ export const Footer = ({
 }: FooterProps) => {
   // Live-edit enabled footer data (TinaCMS)
   const { data: footerData } = useTina({
-    query: footerResponse.query,
-    variables: footerResponse.variables,
-    data: footerResponse.data,
+    ...footerResponse,
   });
 
   const { copyrightText, tagline } = footerData.footer;
 
+  const { data: peopleData } = useTina({
+    ...peopleResponse,
+  });
+
   // Normalize person data
   const person = {
-    name: peopleResponse.data.people.identity.name,
-    bio: peopleResponse.data.people.bio?.[0]?.text || "",
-    skills: peopleResponse.data.people.skills,
-    socials: peopleResponse.data.people.socials,
+    name: peopleData.people.identity.name,
+    bio: peopleData.people.bio?.[0]?.text || "",
+    skills: peopleData.people.skills,
+    socials: peopleData.people.socials,
   };
 
+  const { data: globalData } = useTina({
+    ...globalResponse,
+  });
+
   const {
-    data: {
-      global: { navLinks: links },
-    },
-  } = globalResponse;
+    global: { navLinks: links },
+  } = globalData;
 
   return (
     <footer

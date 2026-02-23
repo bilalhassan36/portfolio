@@ -40,7 +40,10 @@ export const AuditSection = ({ content }: AuditSectionProps) => {
   };
 
   return (
-    <section id="freeAuditSection" className="flex flex-col gap-12">
+    <section
+      id="freeAuditSection"
+      className="flex flex-col gap-12 px-2 md:px-6 lg:px-10"
+    >
       <SectionHeader content={headerContent} />
       <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
         <div>

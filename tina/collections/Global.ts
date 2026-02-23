@@ -165,6 +165,68 @@ const Global: Collection = {
         },
       ],
     },
+    {
+      type: "object",
+      name: "clientBrands",
+      label: "Client Brands (Marquee)",
+      description: "Logos displayed in the scrolling marquee across the site.",
+      list: true,
+      ui: {
+        // This makes the CMS list view cleaner by showing the brand name instead of "Item 1, Item 2"
+        itemProps: (item) => {
+          return { label: item?.name || "New Brand" };
+        },
+      },
+      fields: [
+        {
+          type: "string",
+          name: "name",
+          label: "Brand Name",
+          description: "Used for alt text and CMS organization.",
+        },
+        {
+          type: "image",
+          name: "logo",
+          label: "Brand Logo",
+          description:
+            "Upload a high-quality logo (transparent PNG/SVG recommended).",
+        },
+      ],
+    },
+    {
+      type: "object",
+      name: "gallery",
+      label: "Masonry Gallery",
+      description: "Images displayed in the masonry grid layout.",
+      list: true,
+      ui: {
+        // Displays the image title in the CMS sidebar for easier sorting
+        itemProps: (item) => {
+          return { label: item?.title || "New Gallery Image" };
+        },
+      },
+      fields: [
+        {
+          type: "image",
+          name: "src",
+          label: "Image",
+          description: "Upload the high-res image.",
+          required: true,
+        },
+        {
+          type: "string",
+          name: "title",
+          label: "Title",
+          description: "e.g., 'Campaign Manager Overview'",
+        },
+        {
+          type: "string",
+          name: "label",
+          label: "Tag/Label",
+          description: "e.g., 'Dashboard', 'Analytics', 'Growth'",
+        },
+      ],
+    },
   ],
 };
 

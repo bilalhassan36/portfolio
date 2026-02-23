@@ -27,6 +27,19 @@
 
   --shadow-premium: var(--shadow-premium);
   --ease-in-out-expo: var(--ease-in-out-expo);
+
+  /* Define the animation */
+  --animate-marquee-scroll: marquee-scroll 35s linear infinite;
+
+  /* Define the keyframes */
+  @keyframes marquee-scroll {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-100%);
+    }
+  }
 }
 
 @media (prefers-color-scheme: dark) {

@@ -19,6 +19,10 @@
     {
       "label": "Team",
       "href": "/team"
+    },
+    {
+      "label": "Portfolio",
+      "href": "/portfolio"
     }
   ],
   "teamMembers": [
@@ -121,5 +125,73 @@
         "study": "content/caseStudies/new-product-launch.json"
       }
     ]
-  }
+  },
+  "clientBrands": [
+    {
+      "name": "Natural Life",
+      "logo": "/brand-logos/naturallife.png"
+    },
+    {
+      "name": "ProFit",
+      "logo": "/brand-logos/profit-C7_9OBmn.png"
+    },
+    {
+      "name": "Active Gear",
+      "logo": "/brand-logos/activegear-DcMCKNuD.png"
+    },
+    {
+      "name": "Baby Nest",
+      "logo": "/brand-logos/babynest-V7UgZWrT.png"
+    },
+    {
+      "name": "Clean Glow Beauty",
+      "logo": "/brand-logos/cleanglow-B5TJdmSG.png"
+    },
+    {
+      "name": "Fresh Brew Coffee",
+      "logo": "/brand-logos/freshbrew-BXHY5vwH.png"
+    }
+  ],
+  "gallery": [
+    {
+      "src": "/mansory-gallery/gallery-sponsored-products-CKS2Exva.jpg",
+      "title": "Campaign Manger Overview",
+      "label": "Dashboard"
+    },
+    {
+      "src": "/mansory-gallery/gallery-dsp-campaign-DUuMRw_L.jpg",
+      "title": "Amazon DSP Campaign",
+      "label": "DSP"
+    },
+    {
+      "src": "/mansory-gallery/dashboard-campaign-overview-KKYK9WWC.jpg",
+      "title": "Sponsored Product Report ",
+      "label": "ADS"
+    },
+    {
+      "src": "/mansory-gallery/gallery-before-after-DCp2rh7Q.jpg",
+      "title": "Before & After Results",
+      "label": "Results"
+    },
+    {
+      "src": "/mansory-gallery/dashboard-acos-trend-Cch0oBV9.jpg",
+      "title": "ACos Trend 90days",
+      "label": "Analytics"
+    },
+    {
+      "src": "/mansory-gallery/dashboard-bid-optimization-BrRbzBS-.jpg",
+      "title": "Bid Optimization",
+      "label": "Biding"
+    },
+    {
+      "src": "/mansory-gallery/dashboard-revenue-growth-DRe04eeh.jpg",
+      "title": "Revenue Scaling Chart",
+      "label": "Growth"
+    },
+    {
+      "src": "/mansory-gallery/dashboard-rank-tracker-Bm8SBxiL.jpg",
+      "title": "Organic Rank Tracker",
+      "label": "Ranking"
+    }
+  ]
 }
