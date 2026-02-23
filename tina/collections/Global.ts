@@ -227,6 +227,45 @@ const Global: Collection = {
         },
       ],
     },
+    {
+      type: "object",
+      name: "blogConfig",
+      label: "Blog Configuration",
+      fields: [
+        {
+          type: "reference",
+          name: "featuredPost",
+          label: "Featured Blog Post",
+          collections: ["blog"], // Must match the `name` of your Blog collection
+          description:
+            "Select the post to highlight at the top of the blog page.",
+        },
+        {
+          type: "object",
+          name: "postList",
+          label: "Standard Blog Posts",
+          description:
+            "Add and drag to reorder the standard blog posts in the grid.",
+          list: true,
+          ui: {
+            itemProps: (item) => ({
+              // Extracts the filename for a cleaner label in the CMS sidebar
+              label:
+                item?.post?.split("/").pop()?.replace(".mdx", "") ||
+                "Select a post",
+            }),
+          },
+          fields: [
+            {
+              type: "reference",
+              name: "post",
+              label: "Blog Post",
+              collections: ["blog"],
+            },
+          ],
+        },
+      ],
+    },
   ],
 };
 

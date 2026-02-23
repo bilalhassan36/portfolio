@@ -1,5 +1,6 @@
 import { defineConfig } from "tinacms";
 
+import Blog from "./collections/Blog";
 import CaseStudy from "./collections/CaseStudy";
 import Footer from "./collections/Footer";
 import FormConfig from "./collections/FormConfig";
@@ -47,6 +48,7 @@ export default defineConfig({
       Packages,
       FormConfig,
       CaseStudy,
+      Blog,
     ],
   },
 });

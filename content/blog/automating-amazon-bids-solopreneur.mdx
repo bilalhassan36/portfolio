@@ -1,0 +1,41 @@
+---
+featured: false
+category: Workflow
+title: "Automating the Grind: Rules-Based Bidding for the Solopreneur"
+excerpt: "Managing millions in Amazon ad spend does not require a massive team. It requires ruthless workflow automation and strictly defined operational logic."
+date: "2026-02-14T11:15:00.000Z"
+readingTime: 7
+author:
+  name: Hamas Munawar
+  initials: HM
+---
+
+When you are acting as the lead strategist, data analyst, and execution partner, manually adjusting bids on 10,000 keywords across 500 campaigns is not an option. It is a failure of system design.
+
+To scale an Amazon PPC operation as a lean team, you have to replace manual intuition with algorithmic rules.
+
+## Defining the Logic
+
+Before you can automate, you must define the logic. We structure our bid management workflows into three distinct operational states:
+
+1. **Harvesting Data:** For keywords with low impressions. Increase bids incrementally until we find the market clearing price.
+2. **Profit Optimization:** For keywords with high spend but no sales, or an ACoS above the target threshold. Decrease bids aggressively.
+3. **Scale & Protect:** For keywords hitting our target ROAS. Defend the position by adjusting bids slightly to maintain Top of Search placement.
+
+## Building the Rule Engine
+
+Whether you use Amazon's native rules, a third-party software layer, or a custom Python script interfacing with the Amazon Ads API, the logic remains the same.
+
+> "Automation does not replace strategy; it enforces it at scale."
+
+### Example Workflow: The Bleeder Rule
+
+If a keyword has spent $20 (or 1.5x the average order value) with 0 sales over a 7-day lookback window, drop the bid by 20%.
+
+### Example Workflow: The Winner Rule
+
+If a keyword has generated more than 3 orders with an ACoS under 20% over a 14-day lookback window, increase the bid by 10% and apply a Top of Search modifier.
+
+## The Result
+
+By automating the micro-decisions (bid adjustments), you free up your mental bandwidth to focus on the macro-decisions (launching new products, creative optimization, and market positioning). Ship the rules, monitor the anomalies, and let the system do the heavy lifting.

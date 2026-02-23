@@ -9,12 +9,12 @@
       "href": "/packages"
     },
     {
-      "label": "Case Studies",
-      "href": "/caseStudies"
+      "label": "Blog",
+      "href": "/blog"
     },
     {
-      "label": "Contact",
-      "href": "/contact"
+      "label": "Case Studies",
+      "href": "/caseStudies"
     },
     {
       "label": "Team",
@@ -23,6 +23,10 @@
     {
       "label": "Portfolio",
       "href": "/portfolio"
+    },
+    {
+      "label": "Contact",
+      "href": "/contact"
     }
   ],
   "teamMembers": [
@@ -193,5 +197,16 @@
       "title": "Organic Rank Tracker",
       "label": "Ranking"
     }
-  ]
+  ],
+  "blogConfig": {
+    "featuredPost": "content/blog/architecting-amazon-ppc-complexity.mdx",
+    "postList": [
+      {
+        "post": "content/blog/stop-chasing-acos-understand-tacos.mdx"
+      },
+      {
+        "post": "content/blog/automating-amazon-bids-solopreneur.mdx"
+      }
+    ]
+  }
 }
