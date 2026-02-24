@@ -6,13 +6,23 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 
+import type client from "@/../tina/__generated__/client";
 import { usePreloaderStore } from "@/store/use-preloader-store";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(MotionPathPlugin);
 }
 
-const Preloader = () => {
+// 1. Extract the specific type from the Preloader query response
+type PreloaderResponse = Awaited<ReturnType<typeof client.queries.preloader>>;
+type PreloaderData = PreloaderResponse["data"]["preloader"];
+
+interface PreloaderProps {
+  // Pass the preloader config from your server layout
+  data?: PreloaderData | null;
+}
+
+const Preloader = ({ data }: PreloaderProps) => {
   const [currency, setCurrency] = useState("$0.00");
   const container = useRef<HTMLDivElement>(null);
   const pathRef = useRef<SVGPathElement>(null);
@@ -21,7 +31,15 @@ const Preloader = () => {
 
   const setFinished = usePreloaderStore((state) => state.setFinished);
 
-  const targetRevenue = 2000000;
+  // 2. Map CMS data with your original hardcoded values as failsafe fallbacks
+  const targetRevenue = data?.metrics?.targetRevenue ?? 2000000;
+  const firstName = data?.name?.first || "Bilal";
+  const lastName = data?.name?.last || "Hassan";
+  const titleLine1 = data?.titles?.line1 || "Strategic";
+  const titleLine2 = data?.titles?.line2 || "Amazon Growth";
+  const titleLine3 = data?.titles?.line3 || "Partner";
+  const metricLabel = data?.metrics?.label || "Ad Spend Managed";
+
   const chartEase = "cubic-bezier(0.25, 1, 0.5, 1)";
 
   useGSAP(
@@ -94,7 +112,7 @@ const Preloader = () => {
         .to(
           counter,
           {
-            value: targetRevenue,
+            value: targetRevenue, // 3. Target revenue injected into GSAP timeline
             duration: animationDuration,
             ease: chartEase,
             onUpdate: () => setCurrency(formatter.format(counter.value)),
@@ -114,7 +132,7 @@ const Preloader = () => {
 
       tl.set(container.current, { display: "none" });
     },
-    { scope: container }
+    { scope: container, dependencies: [targetRevenue] } // Added targetRevenue to dependencies so GSAP knows if it changes
   );
 
   return (
@@ -129,34 +147,37 @@ const Preloader = () => {
       <div className="pointer-events-none absolute inset-0 z-20 flex h-full flex-col justify-between px-4 py-8 md:p-14 lg:p-20">
         <div className="flex flex-col items-start gap-4 md:gap-8">
           <div className="overflow-hidden">
+            {/* 4. Inject CMS Name */}
             <h1 className="reveal-text text-foreground block text-5xl leading-[0.8] font-black tracking-tighter uppercase sm:text-7xl md:text-8xl lg:text-9xl">
-              Bilal
+              {firstName}
               <br />
-              Hassan
+              {lastName}
             </h1>
           </div>
           <div className="flex flex-col items-start gap-0.5 md:gap-1">
+            {/* 5. Inject CMS Titles */}
             <div className="overflow-hidden">
               <span className="reveal-text text-muted-foreground block font-serif text-base italic md:text-2xl">
-                Strategic
+                {titleLine1}
               </span>
             </div>
             <div className="overflow-hidden">
               <span className="reveal-text text-foreground block text-2xl font-extrabold tracking-tight uppercase md:text-4xl lg:text-5xl">
-                Amazon Growth
+                {titleLine2}
               </span>
             </div>
             <div className="overflow-hidden">
               <span className="reveal-text text-brand block text-2xl font-extrabold tracking-tight uppercase md:text-4xl lg:text-5xl">
-                Partner
+                {titleLine3}
               </span>
             </div>
           </div>
         </div>
         <div className="mt-auto flex flex-col items-end text-right">
+          {/* 6. Inject CMS Metrics Label */}
           <div className="mb-1 overflow-hidden md:mb-2">
             <p className="reveal-text text-muted-foreground block text-[10px] font-bold tracking-[0.2em] uppercase md:text-sm md:tracking-[0.3em] lg:text-base">
-              Ad Spend Managed
+              {metricLabel}
             </p>
           </div>
           <div className="overflow-hidden">

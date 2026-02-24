@@ -10,6 +10,7 @@ import HomePage from "./collections/HomePage";
 import Packages from "./collections/Packages";
 import Page from "./collections/Page";
 import People from "./collections/People";
+import PreloaderConfig from "./collections/Preloader";
 
 // Your hosting provider likely exposes this as an environment variable
 const branch =
@@ -49,6 +50,7 @@ export default defineConfig({
       FormConfig,
       CaseStudy,
       Blog,
+      PreloaderConfig,
     ],
   },
 });

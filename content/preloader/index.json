@@ -1,0 +1,15 @@
+{
+  "name": {
+    "first": "Bilal",
+    "last": "Hassan"
+  },
+  "titles": {
+    "line1": "Strategic",
+    "line2": "Amazon Growth",
+    "line3": "Partner"
+  },
+  "metrics": {
+    "label": "Ad Spend Managed",
+    "targetRevenue": 2000000
+  }
+}

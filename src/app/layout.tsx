@@ -38,6 +38,10 @@ export default async function RootLayout({
     relativePath: "bilal-hassan.json",
   });
 
+  const preloaderResponse = await client.queries.preloader({
+    relativePath: "index.json",
+  });
+
   return (
     <html lang="en">
       <body
@@ -45,7 +49,7 @@ export default async function RootLayout({
       >
         {/* Manage scroll state globally */}
         <ScrollLockProvider>
-          <Preloader />
+          <Preloader data={preloaderResponse.data?.preloader} />
           <Navbar
             globalResponse={globalResponse}
             navbarResponse={navbarResponse}
