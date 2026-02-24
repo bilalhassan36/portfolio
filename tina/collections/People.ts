@@ -46,6 +46,12 @@ const People: Collection = {
           label: "Status Badge",
           required: false,
         },
+        {
+          type: "image",
+          name: "avatar",
+          label: "Avatar Image",
+          required: false,
+        },
       ],
     },
 

@@ -42,9 +42,9 @@ export const CaseStudiesGrid = ({
     "relative overflow-hidden inline-flex items-center justify-center whitespace-nowrap rounded-full text-xs md:text-sm font-bold tracking-wide transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand disabled:pointer-events-none disabled:opacity-50 active:scale-95 select-none border border-linen bg-white text-clay hover:text-brand hover:border-brand/50 hover:bg-brand/5";
 
   return (
-    <div className="mx-auto flex max-w-5xl flex-col gap-4">
+    <div className="reveal-item mx-auto flex max-w-5xl flex-col gap-4">
       {/* 1. Results Header */}
-      <div className="reveal-item mb-2 flex items-end justify-between px-1">
+      <div className="mb-2 flex items-end justify-between px-1">
         <div className="text-clay flex items-center gap-2 text-xs font-bold tracking-wider uppercase">
           <Zap className="text-brand fill-brand h-3.5 w-3.5" />
           Showing {totalCount} Results

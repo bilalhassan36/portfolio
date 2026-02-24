@@ -19,7 +19,7 @@ export const FeaturedBlogPost = ({ post }: { post: PostItemWrapper }) => {
   const postId = post.id.split("/")[2].split(".")[0];
 
   return (
-    <div className="reveal-item col-span-1 mb-6 md:col-span-2 lg:col-span-3">
+    <div className="col-span-1 mb-6 md:col-span-2 lg:col-span-3">
       <Link
         href={`/blog/${postId}`}
         className="group bg-background border-linen hover:shadow-brand/10 hover:border-brand/40 relative block overflow-hidden rounded-3xl border transition-all duration-500 hover:-translate-y-1 hover:shadow-xl"

@@ -126,13 +126,10 @@ export const Table = ({ config, billingPeriod }: TableProps) => {
             </tr>
           </thead>
 
-          <tbody className="text-sm">
+          <tbody className="reveal-item text-sm">
             {/* --- SUMMARY ROWS --- */}
             {config.summaryRows?.map((row, i) => (
-              <tr
-                key={`sum-${i}`}
-                className="reveal-item group border-linen/50 border-b"
-              >
+              <tr key={`sum-${i}`} className="group border-linen/50 border-b">
                 <td className="text-clay bg-background group-hover:bg-surface border-linen/50 cursor-default border-b px-4 py-4 text-xs font-semibold transition-colors duration-200 md:text-sm">
                   {row?.label}
                 </td>
@@ -155,7 +152,7 @@ export const Table = ({ config, billingPeriod }: TableProps) => {
             {/* --- SECTIONS --- */}
             {config.sections?.map((section, sIndex) => (
               <React.Fragment key={`cat-${sIndex}`}>
-                <tr className="reveal-item">
+                <tr>
                   <td
                     colSpan={packages.length + 1}
                     className="text-foreground bg-background sticky left-0 cursor-default px-4 pt-8 pb-3 text-[10px] font-black tracking-widest uppercase md:text-xs"
@@ -167,7 +164,7 @@ export const Table = ({ config, billingPeriod }: TableProps) => {
                 {section?.rows?.map((row, rIndex) => (
                   <tr
                     key={`${sIndex}-${rIndex}`}
-                    className="reveal-item group border-linen/50 border-b"
+                    className="group border-linen/50 border-b"
                   >
                     <td className="text-clay bg-background group-hover:bg-surface border-linen/50 cursor-default border-b px-4 py-3.5 text-xs font-medium transition-colors duration-200 md:text-sm">
                       {row?.label}
@@ -202,7 +199,7 @@ export const Table = ({ config, billingPeriod }: TableProps) => {
                 <td
                   key={`cta-${pkg.id || index}`}
                   className={cn(
-                    "rounded-b-2xl p-4 text-center transition-colors duration-300 md:p-6",
+                    "reveal-item rounded-b-2xl p-4 text-center transition-colors duration-300 md:p-6",
                     hoveredColumn === index ? "bg-brand/5" : "bg-background"
                   )}
                   onMouseEnter={() => setHoveredColumn(index)}
@@ -211,7 +208,7 @@ export const Table = ({ config, billingPeriod }: TableProps) => {
                   <a href="/contact" className="block w-full">
                     <button
                       className={cn(
-                        "reveal-item group relative inline-flex h-10 w-full cursor-pointer items-center justify-center overflow-hidden rounded-full px-4 text-xs font-bold tracking-wide transition-all duration-300 ease-out active:scale-95 disabled:opacity-50 md:h-12 md:text-sm",
+                        "group relative inline-flex h-10 w-full cursor-pointer items-center justify-center overflow-hidden rounded-full px-4 text-xs font-bold tracking-wide transition-all duration-300 ease-out active:scale-95 disabled:opacity-50 md:h-12 md:text-sm",
                         pkg.isPopular
                           ? "bg-brand hover:shadow-brand/20 text-white shadow-md hover:shadow-lg"
                           : "border-linen text-foreground hover:bg-surface hover:border-brand border bg-transparent"

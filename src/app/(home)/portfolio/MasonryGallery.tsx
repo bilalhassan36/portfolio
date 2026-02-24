@@ -41,7 +41,7 @@ export const MasonryGallery = ({ images }: MasonryGalleryProps) => {
           {safeImages.map((img, i) => (
             <div
               key={i}
-              className="reveal-item gallery-item group bg-muted hover:shadow-primary/10 /* CSS Native Hover Logic: 1. If anything in the gallery is hovered, scale down and dim everything to 60%. 2. Force the currently hovered item back up to 100% scale and opacity. */ relative mb-4 break-inside-avoid overflow-hidden rounded-2xl transition-all duration-300 group-has-[:hover]/gallery:opacity-70 hover:scale-100! hover:opacity-100! hover:shadow-2xl"
+              className="gallery-item group bg-muted hover:shadow-primary/10 /* CSS Native Hover Logic: 1. If anything in the gallery is hovered, scale down and dim everything to 60%. 2. Force the currently hovered item back up to 100% scale and opacity. */ relative mb-4 break-inside-avoid overflow-hidden rounded-2xl transition-all duration-300 group-has-[:hover]/gallery:opacity-70 hover:scale-100! hover:opacity-100! hover:shadow-2xl"
             >
               <Image
                 src={img?.src as string}

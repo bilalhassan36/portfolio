@@ -34,7 +34,7 @@ export const BlogGrid = ({
   return (
     <div className="reveal-item mx-auto flex max-w-5xl flex-col gap-4">
       <div className="mb-2 flex items-end justify-between px-1">
-        <div className="reveal-item text-clay flex items-center gap-2 text-xs font-bold tracking-wider uppercase">
+        <div className="text-clay flex items-center gap-2 text-xs font-bold tracking-wider uppercase">
           <Zap className="text-brand fill-brand h-3.5 w-3.5" />
           Showing {totalCount} Articles
         </div>
@@ -42,7 +42,7 @@ export const BlogGrid = ({
 
       <div className="flex flex-col gap-6">
         {posts && posts.length > 0 ? (
-          <div className="reveal-item grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {posts.map((post) => {
               if (!post) return null;
               if (post.featured)

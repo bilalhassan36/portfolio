@@ -12,6 +12,8 @@
  * - `IconMapper` to resolve social icons
  * - `RollingLabel` for animated labels (encapsulated)
  */
+import Image from "next/image";
+
 import { ArrowRight } from "lucide-react";
 
 import { type PeopleQuery } from "@/../tina/__generated__/types";
@@ -48,9 +50,19 @@ const Profile = ({
               <div className="border-linen overflow-hidden rounded-2xl border shadow-xl md:rounded-3xl">
                 <div className="bg-linen flex aspect-4/5 items-center justify-center">
                   {/* Initials */}
-                  <span className="text-clay/40 text-6xl font-bold select-none md:text-8xl">
-                    {identity.initials}
-                  </span>
+                  {identity.avatar ? (
+                    <Image
+                      src={identity.avatar}
+                      alt={identity.name}
+                      width={200}
+                      height={200}
+                      className="h-full w-full object-cover"
+                    />
+                  ) : (
+                    <span className="text-clay/40 text-6xl font-bold select-none md:text-8xl">
+                      {identity.initials}
+                    </span>
+                  )}
                 </div>
                 <div className="reveal-item border-linen border-t p-5 md:p-6">
                   <h3 className="text-foreground text-xl font-bold md:text-2xl">

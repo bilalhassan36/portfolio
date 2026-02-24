@@ -86,6 +86,9 @@ const Browser = ({ blogConfig: { featuredPost, postList } }: BrowserProps) => {
             },
           }}
         />
+      </RevealWrapper>
+
+      <RevealWrapper>
         <BlogGrid
           posts={displayedList}
           meta={{

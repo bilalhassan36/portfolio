@@ -92,11 +92,11 @@ export const ContactForm = ({
       <form
         ref={formRef}
         onSubmit={validateAndSubmit}
-        className="space-y-8"
+        className="reveal-item space-y-8"
         noValidate
       >
         {/* ROW 1 */}
-        <div className="reveal-item grid gap-8 md:grid-cols-2">
+        <div className="grid gap-8 md:grid-cols-2">
           <InputField
             label={labels?.nameLabel || "Your name"}
             name="name"
@@ -117,7 +117,7 @@ export const ContactForm = ({
         </div>
 
         {/* ROW 2 */}
-        <div className="reveal-item grid gap-8 md:grid-cols-2">
+        <div className="grid gap-8 md:grid-cols-2">
           <InputField
             label={labels?.companyLabel || "Company (Optional)"}
             name="company"
@@ -131,7 +131,7 @@ export const ContactForm = ({
         </div>
 
         {/* ROW 3 */}
-        <div className="reveal-item grid gap-8 md:grid-cols-2">
+        <div className="grid gap-8 md:grid-cols-2">
           <SelectInput
             label={labels?.serviceLabel || "Interested in"}
             name="service"
@@ -151,7 +151,7 @@ export const ContactForm = ({
         </div>
 
         {/* ROW 4 */}
-        <div className="reveal-item">
+        <div className="">
           <TextAreaField
             label={labels?.messageLabel || "Your goals"}
             name="message"

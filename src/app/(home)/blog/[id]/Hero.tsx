@@ -14,7 +14,7 @@ type BlogResponse = Awaited<
 
 export const Hero = ({ post }: { post: BlogResponse }) => {
   return (
-    <header className="border-linen mb-12 border-b pb-8">
+    <header className="reveal-item border-linen mb-12 border-b pb-8">
       {/* Back Link */}
       <Link
         href="/blog"
@@ -25,7 +25,7 @@ export const Hero = ({ post }: { post: BlogResponse }) => {
       </Link>
 
       {/* Meta Tags */}
-      <div className="reveal-item mb-6 flex flex-wrap items-center gap-4">
+      <div className="mb-6 flex flex-wrap items-center gap-4">
         <span className="bg-surface border-linen text-brand inline-flex items-center rounded-md border px-2.5 py-1 text-[10px] font-bold tracking-wider uppercase shadow-sm">
           {post.category}
         </span>

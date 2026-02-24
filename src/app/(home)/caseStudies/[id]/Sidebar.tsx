@@ -22,7 +22,7 @@ export const Sidebar = ({ study }: { study: CaseStudyResponse }) => {
   return (
     <aside className="space-y-8 lg:sticky lg:top-24">
       {/* 1. Download Widget (Static for now) — primary access to full report */}
-      <div className="reveal-item border-linen hover:border-brand/30 group flex w-full cursor-pointer items-center gap-4 rounded-xl border bg-white p-4 text-left transition-all hover:shadow-md">
+      <div className="border-linen hover:border-brand/30 group flex w-full cursor-pointer items-center gap-4 rounded-xl border bg-white p-4 text-left transition-all hover:shadow-md">
         <div className="bg-brand/10 text-brand flex h-12 w-12 shrink-0 items-center justify-center rounded-lg">
           <Download className="h-6 w-6" />
         </div>
@@ -36,7 +36,7 @@ export const Sidebar = ({ study }: { study: CaseStudyResponse }) => {
 
       {/* 2. Key Tactics — render when highlights exist */}
       {highlights && highlights.length > 0 && (
-        <div className="reveal-item border-linen rounded-2xl border bg-white p-6 shadow-sm">
+        <div className="border-linen rounded-2xl border bg-white p-6 shadow-sm">
           <h4 className="text-foreground mb-6 flex items-center gap-2 font-bold">
             <CheckCircle2 className="text-brand h-5 w-5" />
             Key Tactics Used
@@ -61,7 +61,7 @@ export const Sidebar = ({ study }: { study: CaseStudyResponse }) => {
 
       {/* 3. Testimonial — render if an author object exists */}
       {study.author && (
-        <div className="reveal-item bg-surface border-linen relative overflow-hidden rounded-2xl border p-6">
+        <div className="bg-surface border-linen relative overflow-hidden rounded-2xl border p-6">
           <div className="pointer-events-none absolute top-0 right-0 p-4 opacity-10">
             <ExternalLink className="text-brand h-24 w-24" />
           </div>
