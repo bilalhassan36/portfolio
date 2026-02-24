@@ -8,6 +8,7 @@ import { useTina } from "tinacms/dist/react";
 
 import type client from "@/../tina/__generated__/client";
 import Container from "@/components/Container";
+import { RevealWrapper } from "@/components/RevealWrapper";
 
 import { Content } from "./Content";
 import { Hero } from "./Hero";
@@ -35,19 +36,23 @@ export default function BlogPostPage({
 
   return (
     <div className="bg-background min-h-screen">
-      <Container className="pt-32 pb-16 lg:pt-40">
-        <article className="mx-auto max-w-3xl">
-          <Hero post={post} />
-          <Content post={post} />
-        </article>
-      </Container>
+      <RevealWrapper>
+        <Container className="pt-32 pb-16 lg:pt-40">
+          <article className="mx-auto max-w-3xl">
+            <Hero post={post} />
+            <Content post={post} />
+          </article>
+        </Container>
+      </RevealWrapper>
 
       {/* Related Posts Section mapping the global post list */}
-      <RelatedPosts
-        currentId={post.id}
-        category={post.category || ""}
-        allPosts={postList}
-      />
+      <RevealWrapper>
+        <RelatedPosts
+          currentId={post.id}
+          category={post.category || ""}
+          allPosts={postList}
+        />
+      </RevealWrapper>
     </div>
   );
 }

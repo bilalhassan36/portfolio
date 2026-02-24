@@ -22,7 +22,7 @@ export const Content = ({ study }: { study: CaseStudyResponse }) => {
   return (
     <div className="space-y-16">
       {/* 1. Executive Summary */}
-      <div>
+      <div className="reveal-item">
         <h2 className="text-foreground mb-6 flex items-center gap-3 text-2xl font-bold">
           <span className="bg-brand h-1 w-8 rounded-full" />
           Executive Summary
@@ -34,7 +34,7 @@ export const Content = ({ study }: { study: CaseStudyResponse }) => {
       </div>
 
       {/* 2. Strategy Timeline */}
-      <div>
+      <div className="reveal-item">
         <h2 className="text-foreground mb-8 text-2xl font-bold">
           The Strategy
         </h2>
@@ -48,7 +48,7 @@ export const Content = ({ study }: { study: CaseStudyResponse }) => {
 
       {/* 3. Performance Data */}
       {details?.beforeAfter && details.beforeAfter.length > 0 && (
-        <div>
+        <div className="reveal-item">
           <h2 className="text-foreground mb-6 text-2xl font-bold">
             Performance Data
           </h2>
@@ -59,7 +59,7 @@ export const Content = ({ study }: { study: CaseStudyResponse }) => {
 
       {/* 4. Visual Assets */}
       {details?.proofImages && details.proofImages.length > 0 && (
-        <div>
+        <div className="reveal-item">
           <h2 className="text-foreground mb-6 text-2xl font-bold">
             Visual Proof
           </h2>

@@ -120,7 +120,7 @@ const Browser = ({
   };
 
   return (
-    <>
+    <div className="flex flex-col gap-8">
       <CaseStudyFilter
         categories={industryCategories}
         filters={filters}
@@ -132,7 +132,7 @@ const Browser = ({
         meta={gridMeta}
         actions={gridActions}
       />
-    </>
+    </div>
   );
 };
 

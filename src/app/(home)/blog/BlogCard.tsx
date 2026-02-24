@@ -21,7 +21,7 @@ export const BlogCard = ({ post }: { post: PostItemWrapper }) => {
   return (
     <Link
       href={`/blog/${postId}`}
-      className="group bg-background border-linen hover:border-brand/40 hover:shadow-brand/10 relative flex h-full flex-col justify-between overflow-hidden rounded-2xl border p-5 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl md:p-6"
+      className="reveal-item group bg-background border-linen hover:border-brand/40 hover:shadow-brand/10 relative flex h-full flex-col justify-between overflow-hidden rounded-2xl border p-5 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl md:p-6"
     >
       {/* Corner Gradient Hover Overlay */}
       <div className="from-brand/5 to-brand/0 pointer-events-none absolute inset-0 bg-linear-to-br via-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />

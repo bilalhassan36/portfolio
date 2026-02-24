@@ -22,14 +22,14 @@ export const Hero = ({ study }: { study: CaseStudyResponse }) => {
         {/* Navigation: back to case studies index */}
         <Link
           href="/case-studies"
-          className="text-clay hover:text-brand group mb-8 inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase transition-colors"
+          className="reveal-item text-clay hover:text-brand group mb-8 inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase transition-colors"
         >
           <ArrowLeft className="h-3 w-3 transition-transform group-hover:-translate-x-1" />
           Back to Portfolio
         </Link>
 
         {/* Header Content */}
-        <div className="space-y-6">
+        <div className="reveal-item space-y-6">
           <div className="flex items-center gap-3">
             {/* Category is optional in schema; show if present */}
             <span className="bg-brand/10 text-brand border-brand/20 rounded-full border px-3 py-1 text-[10px] font-bold tracking-wider uppercase">
@@ -41,17 +41,17 @@ export const Hero = ({ study }: { study: CaseStudyResponse }) => {
             </span>
           </div>
 
-          <h1 className="text-foreground text-4xl leading-[1.1] font-black tracking-tight md:text-5xl lg:text-6xl">
+          <h1 className="reveal-item text-foreground text-4xl leading-[1.1] font-black tracking-tight md:text-5xl lg:text-6xl">
             {study.headline}
           </h1>
 
           {/* Using description as subheadline/intro */}
-          <p className="text-clay max-w-3xl text-lg leading-relaxed md:text-xl">
+          <p className="reveal-item text-clay max-w-3xl text-lg leading-relaxed md:text-xl">
             {study.description}
           </p>
 
           {/* Project metadata (static placeholders; can be extended in CMS schema) */}
-          <div className="text-clay flex flex-wrap items-center gap-8 pt-4 text-sm font-medium">
+          <div className="reveal-item text-clay flex flex-wrap items-center gap-8 pt-4 text-sm font-medium">
             <div className="flex items-center gap-2">
               <Calendar className="text-brand h-4 w-4" />
               <span>
@@ -68,7 +68,7 @@ export const Hero = ({ study }: { study: CaseStudyResponse }) => {
         </div>
 
         {/* Metrics Grid — render metric cards if provided */}
-        <div className="mt-16 grid grid-cols-2 gap-4 md:grid-cols-4">
+        <div className="reveal-item mt-16 grid grid-cols-2 gap-4 md:grid-cols-4">
           {study.metrics?.map((metric, index) => (
             <div
               key={index}

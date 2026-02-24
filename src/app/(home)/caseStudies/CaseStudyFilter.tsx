@@ -33,7 +33,7 @@ export const CaseStudyFilter = ({
     "relative cursor-pointer rounded-md px-4 py-1.5 text-xs font-semibold whitespace-nowrap transition-all duration-300 select-none md:text-sm";
 
   return (
-    <div className="mx-auto w-fit max-w-5xl">
+    <div className="reveal-item mx-auto w-fit max-w-5xl">
       <div className="bg-linen/50 border-linen shadow-clay/5 hover:border-brand/20 flex flex-col items-center justify-between gap-3 rounded-xl border p-1.5 shadow-lg backdrop-blur-xl transition-all md:flex-row">
         {/* Category List */}
         <div className="inline-flex w-full max-w-full items-center overflow-x-auto rounded-lg p-1 md:w-auto">

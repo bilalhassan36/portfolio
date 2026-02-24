@@ -40,7 +40,7 @@ export const RelatedPosts = ({
   if (related.length === 0) return null;
 
   return (
-    <section className="bg-surface/30 border-linen border-t py-16 lg:py-24">
+    <section className="reveal-item bg-surface/30 border-linen border-t py-16 lg:py-24">
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         <div className="mb-8 flex items-center justify-between">
           <h2 className="text-foreground text-2xl font-bold tracking-tight">

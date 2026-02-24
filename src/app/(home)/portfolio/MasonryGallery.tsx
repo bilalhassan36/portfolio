@@ -23,25 +23,25 @@ export const MasonryGallery = ({ images }: MasonryGalleryProps) => {
   if (safeImages.length === 0) return null;
 
   return (
-    <div className="container mx-auto px-4 py-12 sm:px-6 lg:px-8">
+    <div className="reveal-item container mx-auto px-4 py-12 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-6xl">
         {/* Header */}
         <div className="mb-10 text-center">
-          <span className="text-primary text-xs font-medium tracking-widest uppercase">
+          <span className="reveal-item text-primary text-xs font-medium tracking-widest uppercase">
             Visual Proof
           </span>
-          <h2 className="text-foreground mt-3 text-2xl font-bold md:text-3xl">
+          <h2 className="reveal-item text-foreground mt-3 text-2xl font-bold md:text-3xl">
             Dashboards & Analytics
           </h2>
         </div>
 
         {/* Masonry Layout using CSS Columns */}
         {/* Added group/gallery to act as the parent controller for the hover states */}
-        <div className="group/gallery columns-1 gap-4 [column-fill:balance] sm:columns-2 lg:columns-3">
+        <div className="reveal-item group/gallery columns-1 gap-4 [column-fill:balance] sm:columns-2 lg:columns-3">
           {safeImages.map((img, i) => (
             <div
               key={i}
-              className="gallery-item group bg-muted hover:shadow-primary/10 /* CSS Native Hover Logic: 1. If anything in the gallery is hovered, scale down and dim everything to 60%. 2. Force the currently hovered item back up to 100% scale and opacity. */ relative mb-4 break-inside-avoid overflow-hidden rounded-2xl transition-all duration-300 group-has-[:hover]/gallery:opacity-70 hover:scale-100! hover:opacity-100! hover:shadow-2xl"
+              className="reveal-item gallery-item group bg-muted hover:shadow-primary/10 /* CSS Native Hover Logic: 1. If anything in the gallery is hovered, scale down and dim everything to 60%. 2. Force the currently hovered item back up to 100% scale and opacity. */ relative mb-4 break-inside-avoid overflow-hidden rounded-2xl transition-all duration-300 group-has-[:hover]/gallery:opacity-70 hover:scale-100! hover:opacity-100! hover:shadow-2xl"
             >
               <Image
                 src={img?.src as string}

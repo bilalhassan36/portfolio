@@ -21,6 +21,7 @@ import { BillingToggle } from "@/app/(home)/packages/BillingToggle";
 import Callout from "@/components/Callout";
 import Container from "@/components/Container";
 import PageHero from "@/components/PageHero";
+import { RevealWrapper } from "@/components/RevealWrapper";
 
 import { Table } from "./Table";
 
@@ -55,17 +56,19 @@ const PackagesPage = ({ globalResponse, pageResponse }: PackagesPageProps) => {
       {/* PageHero consumes the server-provided `pages` payload for hero content */}
       <PageHero data={pageData.pages} />
 
-      <section className="flex flex-col items-center gap-12">
-        <BillingToggle
-          currentPeriod={billingPeriod}
-          onPeriodChange={setBillingPeriod}
-        />
-        {/* Table builds the pricing matrix from `global.pricingTable` */}
-        <Table
-          config={globalData.global.pricingTable}
-          billingPeriod={billingPeriod}
-        />
-      </section>
+      <RevealWrapper asChild>
+        <section className="flex flex-col items-center gap-12">
+          <BillingToggle
+            currentPeriod={billingPeriod}
+            onPeriodChange={setBillingPeriod}
+          />
+          {/* Table builds the pricing matrix from `global.pricingTable` */}
+          <Table
+            config={globalData.global.pricingTable}
+            billingPeriod={billingPeriod}
+          />
+        </section>
+      </RevealWrapper>
 
       {/* Optional callout at the bottom of the page, using `pages.callout` */}
       <Callout data={pageData.pages.callout} className="w-full" />

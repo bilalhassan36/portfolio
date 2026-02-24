@@ -44,7 +44,7 @@ export const CaseStudiesGrid = ({
   return (
     <div className="mx-auto flex max-w-5xl flex-col gap-4">
       {/* 1. Results Header */}
-      <div className="mb-2 flex items-end justify-between px-1">
+      <div className="reveal-item mb-2 flex items-end justify-between px-1">
         <div className="text-clay flex items-center gap-2 text-xs font-bold tracking-wider uppercase">
           <Zap className="text-brand fill-brand h-3.5 w-3.5" />
           Showing {totalCount} Results

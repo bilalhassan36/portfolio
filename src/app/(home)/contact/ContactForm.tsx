@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { useForm } from "@formspree/react";
 
 import type client from "@/../tina/__generated__/client";
+import { RevealWrapper } from "@/components/RevealWrapper";
 
 import { InputField, SelectInput, TextAreaField } from "./FormInputs";
 import { SubmitButton } from "./SubmitButton";
@@ -80,7 +81,7 @@ export const ContactForm = ({
   };
 
   return (
-    <>
+    <RevealWrapper>
       <SuccessModal
         isOpen={showModal}
         onClose={() => setShowModal(false)}
@@ -95,7 +96,7 @@ export const ContactForm = ({
         noValidate
       >
         {/* ROW 1 */}
-        <div className="grid gap-8 md:grid-cols-2">
+        <div className="reveal-item grid gap-8 md:grid-cols-2">
           <InputField
             label={labels?.nameLabel || "Your name"}
             name="name"
@@ -116,7 +117,7 @@ export const ContactForm = ({
         </div>
 
         {/* ROW 2 */}
-        <div className="grid gap-8 md:grid-cols-2">
+        <div className="reveal-item grid gap-8 md:grid-cols-2">
           <InputField
             label={labels?.companyLabel || "Company (Optional)"}
             name="company"
@@ -130,7 +131,7 @@ export const ContactForm = ({
         </div>
 
         {/* ROW 3 */}
-        <div className="grid gap-8 md:grid-cols-2">
+        <div className="reveal-item grid gap-8 md:grid-cols-2">
           <SelectInput
             label={labels?.serviceLabel || "Interested in"}
             name="service"
@@ -150,24 +151,26 @@ export const ContactForm = ({
         </div>
 
         {/* ROW 4 */}
-        <TextAreaField
-          label={labels?.messageLabel || "Your goals"}
-          name="message"
-          required
-          placeholder={
-            labels?.messagePlaceholder || "Tell me about your project..."
-          }
-          clientError={errors.message}
-          formErrors={state.errors}
-        />
+        <div className="reveal-item">
+          <TextAreaField
+            label={labels?.messageLabel || "Your goals"}
+            name="message"
+            required
+            placeholder={
+              labels?.messagePlaceholder || "Tell me about your project..."
+            }
+            clientError={errors.message}
+            formErrors={state.errors}
+          />
+        </div>
 
-        <div className="pt-6">
+        <div className="reveal-item pt-6">
           <SubmitButton
             isSubmitting={state.submitting}
             text={labels?.submitText}
           />
         </div>
       </form>
-    </>
+    </RevealWrapper>
   );
 };

@@ -25,7 +25,7 @@ export const Hero = ({ post }: { post: BlogResponse }) => {
       </Link>
 
       {/* Meta Tags */}
-      <div className="mb-6 flex flex-wrap items-center gap-4">
+      <div className="reveal-item mb-6 flex flex-wrap items-center gap-4">
         <span className="bg-surface border-linen text-brand inline-flex items-center rounded-md border px-2.5 py-1 text-[10px] font-bold tracking-wider uppercase shadow-sm">
           {post.category}
         </span>
@@ -48,12 +48,12 @@ export const Hero = ({ post }: { post: BlogResponse }) => {
       </div>
 
       {/* Title */}
-      <h1 className="text-foreground mb-8 text-3xl leading-tight font-black tracking-tight md:text-4xl lg:text-5xl">
+      <h1 className="reveal-item text-foreground mb-8 text-3xl leading-tight font-black tracking-tight md:text-4xl lg:text-5xl">
         {post.title}
       </h1>
 
       {/* Author Block */}
-      <div className="flex items-center gap-4">
+      <div className="reveal-item flex items-center gap-4">
         <div className="bg-brand/10 text-brand flex h-12 w-12 items-center justify-center rounded-full text-sm font-bold">
           {post.author?.initials}
         </div>

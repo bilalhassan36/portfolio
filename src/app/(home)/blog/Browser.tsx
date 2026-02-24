@@ -7,6 +7,7 @@
 import { useMemo, useState } from "react";
 
 import type client from "@/../tina/__generated__/client";
+import { RevealWrapper } from "@/components/RevealWrapper";
 
 import { BlogFilter } from "./BlogFilter";
 import { BlogGrid } from "./BlogGrid";
@@ -70,36 +71,38 @@ const Browser = ({ blogConfig: { featuredPost, postList } }: BrowserProps) => {
 
   return (
     <>
-      <BlogFilter
-        categories={categories}
-        filters={{ activeCategory, searchQuery }}
-        actions={{
-          handleCategoryChange: (c) => {
-            setActiveCategory(c);
-            setVisibleCount(6);
-          },
-          handleQueryChange: (q) => {
-            setSearchQuery(q);
-            setVisibleCount(6);
-          },
-        }}
-      />
-      <BlogGrid
-        posts={displayedList}
-        meta={{
-          totalCount: filteredPosts?.length ?? 0,
-          hasMore,
-          isEmpty: !displayedList.length,
-        }}
-        actions={{
-          handleLoadMore: () => setVisibleCount((prev) => prev + 6),
-          handleClear: () => {
-            setActiveCategory("All");
-            setSearchQuery("");
-            setVisibleCount(6);
-          },
-        }}
-      />
+      <RevealWrapper>
+        <BlogFilter
+          categories={categories}
+          filters={{ activeCategory, searchQuery }}
+          actions={{
+            handleCategoryChange: (c) => {
+              setActiveCategory(c);
+              setVisibleCount(6);
+            },
+            handleQueryChange: (q) => {
+              setSearchQuery(q);
+              setVisibleCount(6);
+            },
+          }}
+        />
+        <BlogGrid
+          posts={displayedList}
+          meta={{
+            totalCount: filteredPosts?.length ?? 0,
+            hasMore,
+            isEmpty: !displayedList.length,
+          }}
+          actions={{
+            handleLoadMore: () => setVisibleCount((prev) => prev + 6),
+            handleClear: () => {
+              setActiveCategory("All");
+              setSearchQuery("");
+              setVisibleCount(6);
+            },
+          }}
+        />
+      </RevealWrapper>
     </>
   );
 };

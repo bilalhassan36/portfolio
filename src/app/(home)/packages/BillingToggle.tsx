@@ -28,7 +28,7 @@ export const BillingToggle = ({
   const periods: BillingPeriod[] = ["weekly", "monthly", "yearly"];
 
   return (
-    <div className="bg-linen/50 border-linen no-scrollbar inline-flex max-w-full items-center overflow-x-auto rounded-full border p-1 md:p-1.5">
+    <div className="reveal-item bg-linen/50 border-linen no-scrollbar inline-flex max-w-full items-center overflow-x-auto rounded-full border p-1 md:p-1.5">
       {periods.map((period) => (
         <button
           key={period}

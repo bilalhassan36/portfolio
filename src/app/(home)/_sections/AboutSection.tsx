@@ -15,6 +15,7 @@ import {
   type PeopleQuery,
 } from "@/../../tina/__generated__/types";
 import Profile from "@/components/Profile";
+import { RevealWrapper } from "@/components/RevealWrapper";
 import SectionHeader from "@/components/SectionHeader";
 
 // Props: `content` from homepage.aboutSection and `person` from PeopleQuery
@@ -30,7 +31,9 @@ const AboutSection = ({ content, person }: AboutSectionProps) => {
   return (
     <section id="aboutSection">
       {/* Header driven by `content` */}
-      <SectionHeader content={content} />
+      <RevealWrapper>
+        <SectionHeader content={content} animationClass="reveal-item" />
+      </RevealWrapper>
       {/* Profile component renders person details */}
       <Profile person={person} />
     </section>

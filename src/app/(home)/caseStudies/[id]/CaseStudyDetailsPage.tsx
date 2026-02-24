@@ -12,6 +12,7 @@ import { useTina } from "tinacms/dist/react";
 
 import type client from "@/../tina/__generated__/client";
 import Container from "@/components/Container";
+import { RevealWrapper } from "@/components/RevealWrapper";
 
 import { Content } from "./Content";
 import { Hero } from "./Hero";
@@ -39,23 +40,26 @@ export default function CaseStudyDetails({
   return (
     <Container className="bg-background text-foreground selection:bg-brand/20 min-h-screen font-sans">
       {/* Page hero displays title, metadata and hero media */}
-      <Hero study={study} />
+      <RevealWrapper>
+        <Hero study={study} />
+      </RevealWrapper>
 
-      <div className="relative z-10 pt-16 pb-24">
-        <div className="mx-auto max-w-5xl">
-          <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
-            {/* Main Narrative (article content) */}
-            <div className="lg:col-span-8">
-              <Content study={study} />
-            </div>
-
-            {/* Sticky Sidebar (metrics, before/after, CTA) */}
-            <div className="lg:col-span-4">
-              <Sidebar study={study} />
+      <RevealWrapper>
+        <div className="relative z-10 pt-16 pb-24">
+          <div className="mx-auto max-w-5xl">
+            <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
+              {/* Main Narrative (article content) */}
+              <div className="lg:col-span-8">
+                <Content study={study} />
+              </div>
+              {/* Sticky Sidebar (metrics, before/after, CTA) */}
+              <div className="lg:col-span-4">
+                <Sidebar study={study} />
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </RevealWrapper>
     </Container>
   );
 }

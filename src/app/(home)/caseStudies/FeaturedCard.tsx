@@ -37,7 +37,7 @@ export const FeaturedCard = ({ study }: { study: StudyItemWrapper }) => {
 
   return (
     /* Link wraps the whole card and navigates to the study detail */
-    <Link href={`/caseStudies/${studyId}`} className="col-span-2">
+    <Link href={`/caseStudies/${studyId}`} className="reveal-item col-span-2">
       <article className="group bg-background border-linen hover:shadow-brand/10 hover:border-brand/40 relative overflow-hidden rounded-3xl border transition-all duration-500 hover:-translate-y-1 hover:shadow-xl md:rounded-3xl">
         <div className="via-brand/5 pointer-events-none absolute inset-0 z-0 -translate-x-full bg-linear-to-r from-transparent to-transparent transition-transform duration-1000 ease-in-out group-hover:translate-x-full" />
 

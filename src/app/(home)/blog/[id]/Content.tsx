@@ -18,7 +18,7 @@ export const Content = ({ post }: { post: BlogResponse }) => {
         'prose-brand' applies your custom CSS variables.
         'max-w-none' prevents Tailwind from forcing a max-width, letting it fill the container.
       */}
-      <div className="prose prose-lg prose-brand prose-a:underline-offset-4 prose-a:transition-colors hover:prose-a:text-brand/80 max-w-none">
+      <div className="reveal-item prose prose-lg prose-brand prose-a:underline-offset-4 prose-a:transition-colors hover:prose-a:text-brand/80 max-w-none">
         <TinaMarkdown content={post.body} />
       </div>
     </div>
