@@ -5,25 +5,42 @@ import React, { useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
+import { Pause, Play, RotateCcw } from "lucide-react";
 
 import type client from "@/../tina/__generated__/client";
+import { cn } from "@/lib/utils";
 import { usePreloaderStore } from "@/store/use-preloader-store";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(MotionPathPlugin);
 }
 
-// 1. Extract the specific type from the Preloader query response
 type PreloaderResponse = Awaited<ReturnType<typeof client.queries.preloader>>;
 type PreloaderData = PreloaderResponse["data"]["preloader"];
 
 interface PreloaderProps {
-  // Pass the preloader config from your server layout
   data?: PreloaderData | null;
+  isLivePreview?: boolean;
 }
 
-const Preloader = ({ data }: PreloaderProps) => {
-  const [currency, setCurrency] = useState("$0.00");
+const Preloader = ({ data, isLivePreview = false }: PreloaderProps) => {
+  const targetRevenue = data?.metrics?.targetRevenue ?? 2000000;
+
+  // Define formatter outside so we can use it for initial state
+  const formatter = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: 0,
+  });
+
+  // 1. Pre-fill the final state if in live preview
+  const [currency, setCurrency] = useState(() =>
+    isLivePreview ? formatter.format(targetRevenue) : formatter.format(0)
+  );
+
+  // 2. Default to paused in preview mode, playing in app mode
+  const [isPlaying, setIsPlaying] = useState(!isLivePreview);
+
   const container = useRef<HTMLDivElement>(null);
   const pathRef = useRef<SVGPathElement>(null);
   const arrowHeadRef = useRef<SVGGElement>(null);
@@ -31,8 +48,6 @@ const Preloader = ({ data }: PreloaderProps) => {
 
   const setFinished = usePreloaderStore((state) => state.setFinished);
 
-  // 2. Map CMS data with your original hardcoded values as failsafe fallbacks
-  const targetRevenue = data?.metrics?.targetRevenue ?? 2000000;
   const firstName = data?.name?.first || "Bilal";
   const lastName = data?.name?.last || "Hassan";
   const titleLine1 = data?.titles?.line1 || "Strategic";
@@ -41,6 +56,7 @@ const Preloader = ({ data }: PreloaderProps) => {
   const metricLabel = data?.metrics?.label || "Ad Spend Managed";
 
   const chartEase = "cubic-bezier(0.25, 1, 0.5, 1)";
+  const tlRef = useRef<gsap.core.Timeline | null>(null);
 
   useGSAP(
     () => {
@@ -48,16 +64,26 @@ const Preloader = ({ data }: PreloaderProps) => {
       if (!path) return;
 
       const length = path.getTotalLength();
-      const formatter = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-        maximumFractionDigits: 0,
-      });
+
+      // Reset states explicitly when timeline rebuilds
+      setCurrency(
+        isLivePreview ? formatter.format(targetRevenue) : formatter.format(0)
+      );
+      setIsPlaying(!isLivePreview);
 
       const tl = gsap.timeline({
-        onComplete: () => setFinished(), // Signal entire app
+        paused: isLivePreview, // 3. Start paused if we are editing
+        onComplete: () => {
+          if (!isLivePreview) {
+            setFinished();
+            gsap.set(container.current, { display: "none" });
+          } else {
+            setIsPlaying(false);
+          }
+        },
       });
 
+      tlRef.current = tl;
       const counter = { value: 0 };
 
       tl.set(container.current, { display: "flex" })
@@ -112,7 +138,7 @@ const Preloader = ({ data }: PreloaderProps) => {
         .to(
           counter,
           {
-            value: targetRevenue, // 3. Target revenue injected into GSAP timeline
+            value: targetRevenue,
             duration: animationDuration,
             ease: chartEase,
             onUpdate: () => setCurrency(formatter.format(counter.value)),
@@ -120,26 +146,92 @@ const Preloader = ({ data }: PreloaderProps) => {
           "<"
         );
 
-      tl.to(
-        maskRef.current,
-        {
-          clipPath: "circle(150% at 100% 0%)",
-          duration: 1.2,
-          ease: "expo.inOut",
-        },
-        "-=0.2"
-      );
-
-      tl.set(container.current, { display: "none" });
+      if (!isLivePreview) {
+        tl.to(
+          maskRef.current,
+          {
+            clipPath: "circle(150% at 100% 0%)",
+            duration: 1.2,
+            ease: "expo.inOut",
+          },
+          "-=0.2"
+        );
+      } else {
+        // 4. If we are in live preview, instantly jump to the end of the timeline
+        // so the user sees the final populated state.
+        tl.progress(1);
+      }
     },
-    { scope: container, dependencies: [targetRevenue] } // Added targetRevenue to dependencies so GSAP knows if it changes
+    {
+      scope: container,
+      dependencies: [
+        targetRevenue,
+        firstName,
+        lastName,
+        titleLine1,
+        titleLine2,
+        titleLine3,
+        metricLabel,
+        isLivePreview,
+      ],
+      revertOnUpdate: true,
+    }
   );
+
+  const togglePlayPause = () => {
+    if (!tlRef.current) return;
+    if (isPlaying) {
+      tlRef.current.pause();
+    } else {
+      if (tlRef.current.progress() === 1) {
+        tlRef.current.restart();
+      } else {
+        tlRef.current.play();
+      }
+    }
+    setIsPlaying(!isPlaying);
+  };
+
+  if (!data?.enabled && !isLivePreview) {
+    return null; // Don't render anything if preloader is disabled and we're not in live preview
+  }
 
   return (
     <div
       ref={container}
-      className="bg-background text-foreground fixed inset-0 z-[9999] flex flex-col justify-between overflow-hidden font-sans select-none"
+      className={cn(
+        "bg-background text-foreground overflow-hidden font-sans select-none",
+        isLivePreview
+          ? "relative min-h-screen w-full"
+          : "fixed inset-0 z-9999 flex flex-col justify-between"
+      )}
     >
+      {isLivePreview && (
+        <div className="absolute top-6 right-6 z-100 flex items-center gap-2 rounded-full bg-black/5 p-1 backdrop-blur-md dark:bg-white/10">
+          <button
+            onClick={togglePlayPause}
+            className="bg-brand hover:bg-brand/90 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full text-white shadow-xl transition-all active:scale-95"
+            title={isPlaying ? "Pause" : "Play"}
+          >
+            {isPlaying ? (
+              <Pause size={16} fill="currentColor" />
+            ) : (
+              <Play size={16} fill="currentColor" className="ml-0.5" />
+            )}
+          </button>
+          <button
+            onClick={() => {
+              tlRef.current?.restart();
+              setIsPlaying(true);
+            }}
+            className="hover:bg-brand/10 text-foreground flex h-10 cursor-pointer items-center gap-2 rounded-full px-4 text-xs font-bold transition-all active:scale-95"
+          >
+            <RotateCcw size={14} /> Replay
+          </button>
+        </div>
+      )}
+
+      {/* --- Preloader UI --- */}
       <div
         ref={maskRef}
         className="bg-background pointer-events-none absolute inset-0 z-50"
@@ -147,7 +239,6 @@ const Preloader = ({ data }: PreloaderProps) => {
       <div className="pointer-events-none absolute inset-0 z-20 flex h-full flex-col justify-between px-4 py-8 md:p-14 lg:p-20">
         <div className="flex flex-col items-start gap-4 md:gap-8">
           <div className="overflow-hidden">
-            {/* 4. Inject CMS Name */}
             <h1 className="reveal-text text-foreground block text-5xl leading-[0.8] font-black tracking-tighter uppercase sm:text-7xl md:text-8xl lg:text-9xl">
               {firstName}
               <br />
@@ -155,7 +246,6 @@ const Preloader = ({ data }: PreloaderProps) => {
             </h1>
           </div>
           <div className="flex flex-col items-start gap-0.5 md:gap-1">
-            {/* 5. Inject CMS Titles */}
             <div className="overflow-hidden">
               <span className="reveal-text text-muted-foreground block font-serif text-base italic md:text-2xl">
                 {titleLine1}
@@ -174,7 +264,6 @@ const Preloader = ({ data }: PreloaderProps) => {
           </div>
         </div>
         <div className="mt-auto flex flex-col items-end text-right">
-          {/* 6. Inject CMS Metrics Label */}
           <div className="mb-1 overflow-hidden md:mb-2">
             <p className="reveal-text text-muted-foreground block text-[10px] font-bold tracking-[0.2em] uppercase md:text-sm md:tracking-[0.3em] lg:text-base">
               {metricLabel}

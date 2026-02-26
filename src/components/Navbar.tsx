@@ -115,7 +115,7 @@ const Navbar: React.FC<NavbarProps> = ({
           >
             <Link
               href="/"
-              className="block text-2xl font-black tracking-tight text-black"
+              className="block text-2xl font-black tracking-tight text-black dark:text-white"
             >
               {header.logoText}
               <span className="text-brand">.</span>
@@ -124,7 +124,7 @@ const Navbar: React.FC<NavbarProps> = ({
 
           {/* --- Desktop Links --- */}
           {navLinks && (
-            <ul className="hidden items-center gap-1 md:flex lg:gap-2">
+            <ul className="hidden items-center gap-1 lg:flex lg:gap-2">
               {navLinks!.map((link) => {
                 // Check active state
                 const isActive =
@@ -157,7 +157,7 @@ const Navbar: React.FC<NavbarProps> = ({
           {/* --- CTA Button (Desktop) --- */}
           {header.cta && (
             <div
-              className={`nav-reveal relative hidden shrink-0 md:block ${initialVisibilityClass}`}
+              className={`nav-reveal relative hidden shrink-0 lg:block ${initialVisibilityClass}`}
             >
               <Link href={header.cta.href || "/contact"}>
                 <button className="group bg-brand relative h-12 cursor-pointer overflow-hidden rounded-full px-18 text-xs font-bold tracking-widest text-white uppercase">
@@ -175,7 +175,7 @@ const Navbar: React.FC<NavbarProps> = ({
           {/* --- Mobile Hamburger Trigger --- */}
           <button
             onClick={() => setIsOpen(true)}
-            className={`group nav-reveal relative flex cursor-pointer flex-col items-end gap-2 p-3 md:hidden ${initialVisibilityClass}`}
+            className={`group nav-reveal relative flex cursor-pointer flex-col items-end gap-2 p-3 lg:hidden ${initialVisibilityClass}`}
             aria-label="Open Menu"
           >
             <svg

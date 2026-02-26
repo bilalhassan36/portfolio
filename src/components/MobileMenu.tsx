@@ -7,22 +7,29 @@
  * Client-safe: No — manipulates `document` and uses browser APIs
  * Presentational: Yes (UI wrapper + navigation logic)
  * Key dependencies:
- *  - `react` for hooks
- *  - `next/link` for navigation
- *  - `lucide-react` for the close icon
- *  - Tina types for `navLinks` and `socials` shapes
- * Notes: Locks scroll when open and renders nav links + socials.
+ * - `react` for hooks
+ * - `next/link` for navigation
+ * - `lucide-react` for the close icon
+ * - `gsap` & `@gsap/react` for complex animation choreography
+ * - Tina types for `navLinks` and `socials` shapes
  */
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 
 import Link from "next/link";
 
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 import { X } from "lucide-react";
 
 import {
   type GlobalQuery,
   type PeopleQuery,
 } from "@/../tina/__generated__/types";
+
+// Register GSAP plugins to prevent tree-shaking issues
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(useGSAP);
+}
 
 interface Props {
   isOpen: boolean;
@@ -37,7 +44,72 @@ const MobileMenu: React.FC<Props> = ({
   navLinks,
   socials,
 }) => {
-  // Lock page scroll while the menu is open
+  const containerRef = useRef<HTMLDivElement>(null);
+  const tl = useRef<gsap.core.Timeline | null>(null);
+
+  // 1. Setup GSAP Timeline and Initial States
+  useGSAP(
+    () => {
+      // Set initial states to prevent FOUC (Flash of Unstyled Content)
+      gsap.set(containerRef.current, { yPercent: -100, autoAlpha: 0 });
+      gsap.set(".menu-header", { autoAlpha: 0, y: -20 });
+      gsap.set(".nav-link-inner", { yPercent: 120 }); // Pushed down for mask reveal
+      gsap.set(".social-link", { autoAlpha: 0, y: 20 });
+
+      // Build the paused timeline
+      tl.current = gsap
+        .timeline({ paused: true })
+        // Slide in the main container
+        .to(containerRef.current, {
+          yPercent: 0,
+          autoAlpha: 1,
+          duration: 0.7,
+          ease: "power4.inOut",
+        })
+        // Fade/slide down the header
+        .to(
+          ".menu-header",
+          { autoAlpha: 1, y: 0, duration: 0.4, ease: "power2.out" },
+          "-=0.2" // Overlap with container animation
+        )
+        // Stagger the navigation links up from behind their hidden overflow mask
+        .to(
+          ".nav-link-inner",
+          {
+            yPercent: 0,
+            stagger: 0.08,
+            duration: 0.6,
+            ease: "power4.out",
+          },
+          "-=0.3"
+        )
+        // Stagger in the social links
+        .to(
+          ".social-link",
+          {
+            autoAlpha: 1,
+            y: 0,
+            stagger: 0.05,
+            duration: 0.4,
+            ease: "power3.out",
+          },
+          "-=0.4"
+        );
+    },
+    { scope: containerRef } // Scope all selector strings strictly to this component
+  );
+
+  // 2. Play or Reverse Timeline based on `isOpen` prop
+  useEffect(() => {
+    if (isOpen) {
+      tl.current?.timeScale(1).play();
+    } else {
+      // Speed up the reverse animation slightly for a snappier close
+      tl.current?.timeScale(1.5).reverse();
+    }
+  }, [isOpen]);
+
+  // 3. Lock page scroll
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "auto";
     return () => {
@@ -49,15 +121,15 @@ const MobileMenu: React.FC<Props> = ({
 
   return (
     <div
+      ref={containerRef}
       role="dialog"
       aria-modal="true"
       aria-hidden={!isOpen}
-      className={`bg-background fixed -top-full left-0 z-50 flex h-screen w-full flex-col justify-between p-8 transition-all duration-1000 ease-in-out md:hidden ${
-        isOpen ? "visible translate-y-full" : "invisible"
-      }`}
+      // Removed standard CSS transitions. GSAP handles visibility and transform now.
+      className="bg-background invisible fixed inset-0 z-50 flex h-screen w-full flex-col justify-between p-8 md:hidden"
     >
       {/* Header */}
-      <div className="flex items-start justify-between pt-4">
+      <div className="menu-header flex items-start justify-between pt-4">
         <div className="flex flex-col gap-1">
           <p className="text-[10px] font-bold tracking-[0.3em] text-black/40 uppercase">
             Navigation
@@ -81,15 +153,19 @@ const MobileMenu: React.FC<Props> = ({
       {/* Navigation */}
       <nav className="flex flex-col gap-4">
         {navLinks.map((link) => (
-          <div key={link.label} className="overflow-hidden">
-            <Link href={link.href}>
-              <button
+          // The outer div acts as the mask (overflow-hidden)
+          <div key={link.label} className="overflow-hidden p-1">
+            {/* The inner div is what GSAP actually animates (translates up) */}
+            <div className="nav-link-inner block">
+              <Link
+                href={link.href}
                 onClick={onClose}
-                className="hover:text-brand ease-in-out-expo block cursor-pointer text-5xl leading-[0.85] font-bold tracking-tighter uppercase transition-all duration-500 hover:translate-x-4"
+                // Removed the nested <button>. Next.js links handle clicks natively.
+                className="hover:text-brand ease-in-out-expo block cursor-pointer text-5xl leading-[0.85] font-bold tracking-tighter uppercase transition-colors duration-500 hover:translate-x-4"
               >
                 {link.label}
-              </button>
-            </Link>
+              </Link>
+            </div>
           </div>
         ))}
       </nav>
@@ -97,7 +173,7 @@ const MobileMenu: React.FC<Props> = ({
       {/* Socials */}
       <div className="flex items-end justify-between border-t border-black/10 pt-10 pb-4">
         <div className="flex flex-col gap-4">
-          <p className="text-[10px] font-bold tracking-[0.3em] text-black/40 uppercase">
+          <p className="menu-header text-[10px] font-bold tracking-[0.3em] text-black/40 uppercase">
             Socials
           </p>
           <div className="flex flex-wrap gap-x-8 gap-y-2 text-xs font-bold tracking-wide uppercase">
@@ -108,7 +184,7 @@ const MobileMenu: React.FC<Props> = ({
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={onClose}
-                className="hover:text-brand ease-in-out-expo decoration-2 transition-all duration-300 hover:-translate-y-1"
+                className="social-link hover:text-brand ease-in-out-expo block decoration-2 transition-all duration-300 hover:-translate-y-1"
               >
                 {social!.platform}
               </a>

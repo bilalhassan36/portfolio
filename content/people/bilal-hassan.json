@@ -9,16 +9,16 @@
   },
   "socials": [
     {
-      "platform": "github",
-      "url": "https://github.com/hamas-munawar"
-    },
-    {
       "platform": "linkedin",
       "url": "https://www.linkedin.com/in/bilal-hassan-978b4120b/"
     },
     {
       "platform": "twitter",
       "url": "https://twitter.com/hamas_munawar"
+    },
+    {
+      "platform": "github",
+      "url": "https://github.com/hamas-munawar"
     }
   ],
   "skills": [

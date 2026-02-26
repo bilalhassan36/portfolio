@@ -57,7 +57,7 @@ const PackagesPage = ({ globalResponse, pageResponse }: PackagesPageProps) => {
       <PageHero data={pageData.pages} />
 
       <RevealWrapper asChild>
-        <section className="flex flex-col items-center gap-12">
+        <section className="flex w-full flex-col items-center gap-12">
           <BillingToggle
             currentPeriod={billingPeriod}
             onPeriodChange={setBillingPeriod}

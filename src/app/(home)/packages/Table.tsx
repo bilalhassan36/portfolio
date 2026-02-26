@@ -15,6 +15,8 @@
  */
 import React, { useState } from "react";
 
+import Link from "next/link";
+
 import { ArrowRight, Check, X } from "lucide-react";
 
 import type client from "@/../tina/__generated__/client";
@@ -87,7 +89,7 @@ export const Table = ({ config, billingPeriod }: TableProps) => {
   };
 
   return (
-    <section className="pb-20">
+    <section className="max-w-full self-start overflow-x-auto pb-20 lg:self-center">
       <div className="no-scrollbar mx-auto max-w-5xl overflow-x-auto overflow-y-visible pb-12">
         <table className="w-full min-w-175 border-separate border-spacing-0 overflow-hidden">
           {/* --- HEADER --- */}
@@ -205,7 +207,7 @@ export const Table = ({ config, billingPeriod }: TableProps) => {
                   onMouseEnter={() => setHoveredColumn(index)}
                   onMouseLeave={() => setHoveredColumn(null)}
                 >
-                  <a href="/contact" className="block w-full">
+                  <Link href="/contact" className="block w-full">
                     <button
                       className={cn(
                         "group relative inline-flex h-10 w-full cursor-pointer items-center justify-center overflow-hidden rounded-full px-4 text-xs font-bold tracking-wide transition-all duration-300 ease-out active:scale-95 disabled:opacity-50 md:h-12 md:text-sm",
@@ -217,7 +219,7 @@ export const Table = ({ config, billingPeriod }: TableProps) => {
                       Choose {pkg.name}
                       <ArrowRight className="ml-2 h-3 w-3 transition-transform group-hover:translate-x-1 md:h-4 md:w-4" />
                     </button>
-                  </a>
+                  </Link>
                 </td>
               ))}
             </tr>

@@ -15,8 +15,16 @@ const PreloaderConfig: Collection = {
       create: false,
       delete: false,
     },
+    router: () => "/preloader", // Redirect to the Preloader editing page when clicking this collection in the sidebar
   },
   fields: [
+    {
+      type: "boolean",
+      name: "enabled",
+      label: "Enable Preloader",
+      description: "Toggle the preloader on or off for the site.",
+    },
+
     {
       type: "object",
       name: "name",

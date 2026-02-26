@@ -1,18 +1,15 @@
 /**
  * File: src/app/(home)/_sections/AuditSection.tsx
  * Purpose: Renders the Audit CTA section on the homepage (headline, benefits,
- *  CTA and optional ticket savings card).
+ * CTA and optional ticket savings card).
  * Component: Server component (renders on server).
  * Client-safe: Yes — no browser-only APIs used directly in this file.
  * Presentational: Yes
  * Key dependencies:
- *  - `next/link` : client navigation for CTAs
- *  - `lucide-react` : icons (`ArrowRight`, `Check`)
- *  - `@/../tina/__generated__/types` : `HomepageQuery` content types
- *  - `@/components/RollingLabel`, `@/components/SectionHeader` : UI pieces
- * Notes:
- *  - Expects `content` shaped like `HomepageQuery["homepage"]["auditSection"]`.
- *  - Rendered on the server; safe to use in App Router layouts/pages.
+ * - `next/link` : client navigation for CTAs
+ * - `lucide-react` : icons (`ArrowRight`, `Check`)
+ * - `@/../tina/__generated__/types` : `HomepageQuery` content types
+ * - `@/components/RollingLabel`, `@/components/SectionHeader` : UI pieces
  */
 import Link from "next/link";
 
@@ -27,10 +24,6 @@ interface AuditSectionProps {
   content: HomepageQuery["homepage"]["auditSection"];
 }
 
-/**
- * AuditSection
- * @param content - auditSection content from TinaCMS
- */
 export const AuditSection = ({ content }: AuditSectionProps) => {
   if (!content) return null;
 
@@ -91,14 +84,24 @@ export const AuditSection = ({ content }: AuditSectionProps) => {
               </div>
             )}
           </div>
+
           {/* Ticket card */}
           {content.ticket && (
             <div className="reveal-item group perspective-1000 relative z-10 mx-auto w-full max-w-lg lg:max-w-none">
-              <div className="bg-brand/20 absolute top-1/2 left-1/2 -z-10 h-[102%] w-[101%] -translate-x-1/2 -translate-y-1/2 rounded-[2.5rem] opacity-0 blur-sm transition-all duration-500 group-hover:opacity-100" />
-              <div className="border-linen/50 hover:border-brand/30 ease-in-out-expo relative overflow-hidden rounded-4xl border-[3px] bg-white p-6 shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-lg md:p-8">
-                <div className="bg-background border-linen/50 group-hover:border-brand/30 absolute top-1/2 -left-6 z-20 h-12 w-12 -translate-y-1/2 rounded-full border-[3px] transition-colors duration-500" />
-                <div className="bg-background border-linen/50 group-hover:border-brand/30 absolute top-1/2 -right-6 z-20 h-12 w-12 -translate-y-1/2 rounded-full border-[3px] transition-colors duration-500" />
-                <div className="border-linen/80 pointer-events-none absolute top-1/2 right-6 left-6 z-0 h-px border-t-2 border-dashed" />
+              {/* Outer Glow (Adjusted for Dark Mode) */}
+              <div className="bg-brand/20 dark:bg-brand/10 absolute top-1/2 left-1/2 -z-10 h-[102%] w-[101%] -translate-x-1/2 -translate-y-1/2 rounded-[2.5rem] opacity-0 blur-md transition-all duration-500 group-hover:opacity-100" />
+
+              {/* Main Ticket Container: Replaced bg-white with dynamic background */}
+              <div className="border-linen/50 dark:border-linen/20 hover:border-brand/30 dark:hover:border-brand/40 ease-in-out-expo dark:hover:shadow-brand/5 relative overflow-hidden rounded-4xl border-[3px] bg-white p-6 shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-lg md:p-8 dark:bg-zinc-900/90 dark:shadow-none dark:backdrop-blur-sm">
+                {/* Left Cutout */}
+                <div className="bg-background border-linen/50 dark:border-linen/20 group-hover:border-brand/30 dark:group-hover:border-brand/40 absolute top-1/2 -left-6 z-20 h-12 w-12 -translate-y-1/2 rounded-full border-[3px] transition-colors duration-500" />
+
+                {/* Right Cutout */}
+                <div className="bg-background border-linen/50 dark:border-linen/20 group-hover:border-brand/30 dark:group-hover:border-brand/40 absolute top-1/2 -right-6 z-20 h-12 w-12 -translate-y-1/2 rounded-full border-[3px] transition-colors duration-500" />
+
+                {/* Dashed Line */}
+                <div className="border-linen/80 dark:border-linen/30 pointer-events-none absolute top-1/2 right-6 left-6 z-0 h-px border-t-2 border-dashed" />
+
                 <div className="relative z-10">
                   <div className="mb-8 flex items-center justify-between md:mb-10">
                     <span className="text-clay text-xs font-bold tracking-wider uppercase md:text-sm">
@@ -108,12 +111,13 @@ export const AuditSection = ({ content }: AuditSectionProps) => {
                       {content.ticket.badge}
                     </span>
                   </div>
+
                   <div className="relative mb-10 cursor-default text-center md:mb-14">
                     <div className="relative inline-block transition-all duration-300 group-hover:scale-105">
-                      <span className="text-brand/5 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-7xl font-black select-none md:text-8xl">
+                      <span className="text-brand/5 dark:text-brand/10 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-7xl font-black select-none md:text-8xl">
                         $
                       </span>
-                      <div className="text-foreground group-hover:text-brand relative z-10 mb-1 text-4xl font-black tracking-tight drop-shadow-sm transition-colors duration-300">
+                      <div className="text-foreground group-hover:text-brand relative z-10 mb-1 text-4xl font-black tracking-tight drop-shadow-sm transition-colors duration-300 dark:drop-shadow-none">
                         {content.ticket.mainValue}
                       </div>
                     </div>
@@ -121,12 +125,13 @@ export const AuditSection = ({ content }: AuditSectionProps) => {
                       {content.ticket.subLabel}
                     </div>
                   </div>
+
                   {content.ticket.breakdown && (
                     <div className="relative space-y-2 pt-2">
                       {content.ticket.breakdown.map((item, index) => (
                         <div
                           key={index}
-                          className="hover:bg-brand/5 group/row hover:border-brand/10 -mx-3 flex cursor-default items-center justify-between rounded-xl border border-transparent p-3 transition-all duration-300"
+                          className="hover:bg-brand/5 dark:hover:bg-brand/10 group/row hover:border-brand/10 dark:hover:border-brand/20 -mx-3 flex cursor-default items-center justify-between rounded-xl border border-transparent p-3 transition-all duration-300"
                         >
                           <span className="text-clay group-hover/row:text-foreground flex items-center gap-2 text-sm font-medium transition-colors duration-300">
                             <div className="bg-brand/30 group-hover/row:bg-brand h-1.5 w-1.5 rounded-full transition-colors duration-300" />
