@@ -1,6 +1,11 @@
 /**
- * File: src/app/(home)/blog/Browser.tsx
- * Purpose: Client-side explorer composing filters and grid.
+ * @file Browser.tsx
+ * @description Client-side controller for the blog exploration experience.
+ * Manages state for filtering, searching, and pagination logic, combining data
+ * from the featured post and the general post list.
+ * @dependencies
+ * - UI: `BlogFilter`, `BlogGrid`, `RevealWrapper`
+ * - Types: `GlobalResponse` (TinaCMS generated)
  */
 "use client";
 
@@ -25,32 +30,38 @@ interface BrowserProps {
 const Browser = ({ blogConfig: { featuredPost, postList } }: BrowserProps) => {
   const [activeCategory, setActiveCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
-  const [visibleCount, setVisibleCount] = useState(6); // Blogs usually show more per row
+  const [visibleCount, setVisibleCount] = useState(6);
 
+  // Consolidates all post sources into a single unified array
   const allPosts = useMemo(() => {
     if (!postList && !featuredPost) return [];
-    if (!postList) return [featuredPost];
-    if (!featuredPost)
-      return postList.map((item) => item?.post).filter(Boolean);
 
-    return [
-      featuredPost,
-      ...postList.map((item) => item?.post).filter(Boolean),
-    ];
+    const posts = postList?.map((item) => item?.post).filter(Boolean) || [];
+
+    if (featuredPost) {
+      // Logic check: Ensure we don't duplicate the post if it exists in both places
+      const isAlreadyInList = posts.some((p) => p?.id === featuredPost.id);
+      return isAlreadyInList ? posts : [featuredPost, ...posts];
+    }
+
+    return posts;
   }, [postList, featuredPost]);
 
+  // Extracts unique categories for the filter component
   const categories = useMemo(() => {
     const cats = new Set<string>();
     cats.add("All");
-    if (featuredPost?.category) cats.add(featuredPost.category);
-    postList?.forEach((item) => {
-      if (item?.post?.category) cats.add(item.post.category);
+
+    allPosts.forEach((post) => {
+      if (post?.category) cats.add(post.category);
     });
+
     return Array.from(cats);
-  }, [postList, featuredPost]);
+  }, [allPosts]);
 
   const filteredPosts = useMemo(() => {
     const queryLower = searchQuery.toLowerCase();
+
     return allPosts?.filter((p) => {
       const matchesCategory =
         activeCategory === "All" || p?.category === activeCategory;
@@ -67,6 +78,7 @@ const Browser = ({ blogConfig: { featuredPost, postList } }: BrowserProps) => {
     0,
     visibleCount
   ) as PostItemWrapper[];
+
   const hasMore = (filteredPosts?.length ?? 0) > visibleCount;
 
   return (

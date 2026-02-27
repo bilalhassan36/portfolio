@@ -1,3 +1,8 @@
+/**
+ * @file MasonryGallery.tsx
+ * @description CSS-column based gallery.
+ * Audited for dark mode color support while preserving original hover logic and gradients.
+ */
 import Image from "next/image";
 
 import type client from "@/../tina/__generated__/client";
@@ -11,11 +16,7 @@ export interface MasonryGalleryProps {
   images?: (GalleryItem | null)[] | null | undefined;
 }
 
-// ============================================
-// COMPONENT
-// ============================================
 export const MasonryGallery = ({ images }: MasonryGalleryProps) => {
-  // Safely filter out empty images and ensure TypeScript knows 'src' exists
   const safeImages = (images || []).filter(
     (img): img is GalleryItem => !!img && !!img.src
   );
@@ -27,21 +28,20 @@ export const MasonryGallery = ({ images }: MasonryGalleryProps) => {
       <div className="mx-auto max-w-6xl">
         {/* Header */}
         <div className="mb-10 text-center">
-          <span className="reveal-item text-primary text-xs font-medium tracking-widest uppercase">
+          <span className="reveal-item text-primary dark:text-brand-400 text-xs font-medium tracking-widest uppercase">
             Visual Proof
           </span>
-          <h2 className="reveal-item text-foreground mt-3 text-2xl font-bold md:text-3xl">
+          <h2 className="reveal-item text-foreground mt-3 text-2xl font-bold md:text-3xl dark:text-zinc-50">
             Dashboards & Analytics
           </h2>
         </div>
 
-        {/* Masonry Layout using CSS Columns */}
-        {/* Added group/gallery to act as the parent controller for the hover states */}
+        {/* Masonry Layout */}
         <div className="reveal-item group/gallery columns-1 gap-4 [column-fill:balance] sm:columns-2 lg:columns-3">
           {safeImages.map((img, i) => (
             <div
               key={i}
-              className="gallery-item group bg-muted hover:shadow-primary/10 /* CSS Native Hover Logic: 1. If anything in the gallery is hovered, scale down and dim everything to 60%. 2. Force the currently hovered item back up to 100% scale and opacity. */ relative mb-4 break-inside-avoid overflow-hidden rounded-2xl transition-all duration-300 group-has-[:hover]/gallery:opacity-70 hover:scale-100! hover:opacity-100! hover:shadow-2xl"
+              className="gallery-item group bg-muted hover:shadow-primary/10 relative mb-4 break-inside-avoid overflow-hidden rounded-2xl border border-transparent transition-all duration-300 group-has-[:hover]/gallery:opacity-70 hover:scale-100! hover:opacity-100! hover:shadow-2xl dark:border-zinc-800 dark:bg-zinc-900"
             >
               <Image
                 src={img?.src as string}
@@ -53,19 +53,19 @@ export const MasonryGallery = ({ images }: MasonryGalleryProps) => {
                 loading="lazy"
               />
 
-              {/* Dark Gradient Overlay (Appears on Hover) */}
-              <div className="from-background/90 via-background/10 absolute inset-0 flex flex-col justify-end rounded-2xl bg-linear-to-t to-transparent p-5 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                <span className="text-brand mb-1 text-[10px] font-bold tracking-wider uppercase">
+              {/* Dark Gradient Overlay */}
+              <div className="from-background/90 via-background/10 absolute inset-0 flex flex-col justify-end rounded-2xl bg-linear-to-t to-transparent p-5 opacity-0 transition-opacity duration-300 group-hover:opacity-100 dark:from-zinc-950/90 dark:via-zinc-950/10">
+                <span className="text-brand dark:text-brand-400 mb-1 text-[10px] font-bold tracking-wider uppercase">
                   {img?.label}
                 </span>
-                <h3 className="text-foreground translate-y-2 text-sm font-semibold transition-transform duration-300 group-hover:translate-y-0">
+                <h3 className="text-foreground translate-y-2 text-sm font-semibold transition-transform duration-300 group-hover:translate-y-0 dark:text-zinc-50">
                   {img?.title}
                 </h3>
               </div>
 
-              {/* Top-left floating label (Disappears on hover) */}
+              {/* Top-left floating label */}
               {img?.label && (
-                <span className="bg-background/70 text-foreground border-border/50 absolute top-3 left-3 rounded-lg border px-3 py-1.5 text-[10px] font-bold tracking-wide shadow-sm backdrop-blur-md transition-opacity duration-300 group-hover:opacity-0">
+                <span className="bg-background/70 text-foreground border-border/50 absolute top-3 left-3 rounded-lg border px-3 py-1.5 text-[10px] font-bold tracking-wide shadow-sm backdrop-blur-md transition-opacity duration-300 group-hover:opacity-0 dark:border-zinc-700/50 dark:bg-zinc-900/70 dark:text-zinc-50">
                   {img?.label}
                 </span>
               )}

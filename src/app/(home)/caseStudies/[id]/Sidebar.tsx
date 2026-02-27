@@ -1,10 +1,10 @@
 /**
- * File: src/app/(home)/caseStudies/[id]/Sidebar.tsx
- * Purpose: Sidebar shown on individual case study pages (download, tactics, testimonial, CTA).
- * Component: `Sidebar`
- * Client-safe: Yes — presentational, no browser-only APIs or hooks.
- * Presentational: Yes — renders props from the `study` response.
- * Key dependencies: `next/link`, `lucide-react`, Tina generated `client` types.
+ * @file Sidebar.tsx
+ * @description Renders the sticky sidebar for individual case study pages.
+ * Displays the download widget, key tactics, testimonial, and the primary CTA.
+ * @dependencies
+ * - TinaCMS: CaseStudy query response type
+ * - UI: `Callout`, `CheckCircle2`, `Download`, `ExternalLink` (Lucide icons)
  */
 import { CheckCircle2, Download, ExternalLink } from "lucide-react";
 
@@ -15,42 +15,49 @@ type CaseStudyResponse = Awaited<
   ReturnType<typeof client.queries.caseStudy>
 >["data"]["caseStudy"];
 
-export const Sidebar = ({ study }: { study: CaseStudyResponse }) => {
-  // Extract highlights array from the study details (may be undefined)
+interface SidebarProps {
+  study: CaseStudyResponse;
+}
+
+export const Sidebar = ({ study }: SidebarProps) => {
   const highlights = study.details?.highlights;
 
   return (
     <aside className="space-y-8 lg:sticky lg:top-24">
-      {/* 1. Download Widget (Static for now) — primary access to full report */}
-      <div className="border-linen hover:border-brand/30 group flex w-full cursor-pointer items-center gap-4 rounded-xl border bg-white p-4 text-left transition-all hover:shadow-md">
-        <div className="bg-brand/10 text-brand flex h-12 w-12 shrink-0 items-center justify-center rounded-lg">
+      {/* 1. Download Widget (Restored & Updated) */}
+      <div className="border-linen hover:border-brand/30 dark:hover:border-brand/40 group dark:bg-linen/10 flex w-full cursor-pointer items-center gap-4 rounded-xl border bg-white p-4 text-left transition-all duration-300 hover:shadow-md dark:border-zinc-800 dark:hover:shadow-none">
+        {/* Child Background Alteration: Adjusting the icon wrapper for dark mode */}
+        <div className="bg-brand/10 dark:bg-brand-400/10 text-brand dark:text-brand-400 flex h-12 w-12 shrink-0 items-center justify-center rounded-lg transition-colors duration-300">
           <Download className="h-6 w-6" />
         </div>
         <div>
-          <div className="text-foreground group-hover:text-brand text-sm font-bold transition-colors">
+          <div className="text-foreground group-hover:text-brand dark:group-hover:text-brand-400 text-sm font-bold transition-colors duration-300 dark:text-zinc-50">
             Download Full Report
           </div>
-          <div className="text-clay text-xs">PDF • Detailed Analysis</div>
+          <div className="text-clay text-xs transition-colors duration-300 dark:text-zinc-400">
+            PDF • Detailed Analysis
+          </div>
         </div>
       </div>
 
-      {/* 2. Key Tactics — render when highlights exist */}
+      {/* 2. Key Tactics */}
       {highlights && highlights.length > 0 && (
-        <div className="border-linen rounded-2xl border bg-white p-6 shadow-sm">
-          <h4 className="text-foreground mb-6 flex items-center gap-2 font-bold">
-            <CheckCircle2 className="text-brand h-5 w-5" />
+        <div className="border-linen dark:bg-linen/10 rounded-2xl border bg-white p-6 shadow-sm transition-colors duration-300 dark:border-zinc-800 dark:shadow-none">
+          <h4 className="text-foreground mb-6 flex items-center gap-2 font-bold transition-colors duration-300 dark:text-zinc-50">
+            <CheckCircle2 className="text-brand dark:text-brand-400 h-5 w-5 transition-colors duration-300" />
             Key Tactics Used
           </h4>
-          <div className="space-y-4">
+          <div className="space-y-2">
             {highlights.map((highlight, index) => (
               <div
                 key={index}
-                className="border-linen border-b pb-4 last:border-0 last:pb-0"
+                // Child Background Alteration: Added hover backgrounds to inner rows for a premium interactive feel
+                className="border-linen -mx-3 rounded-xl border-b p-3 transition-colors duration-300 last:border-0 hover:bg-zinc-50 dark:border-zinc-800/50 dark:hover:bg-zinc-800/50"
               >
-                <div className="text-foreground mb-1 text-sm font-bold">
+                <div className="text-foreground mb-1 text-sm font-bold transition-colors duration-300 dark:text-zinc-50">
                   {highlight?.title}
                 </div>
-                <div className="text-clay text-xs leading-relaxed">
+                <div className="text-clay text-xs leading-relaxed transition-colors duration-300 dark:text-zinc-400">
                   {highlight?.description}
                 </div>
               </div>
@@ -59,33 +66,35 @@ export const Sidebar = ({ study }: { study: CaseStudyResponse }) => {
         </div>
       )}
 
-      {/* 3. Testimonial — render if an author object exists */}
+      {/* 3. Testimonial */}
       {study.author && (
-        <div className="bg-surface border-linen relative overflow-hidden rounded-2xl border p-6">
-          <div className="pointer-events-none absolute top-0 right-0 p-4 opacity-10">
-            <ExternalLink className="text-brand h-24 w-24" />
+        <div className="bg-surface border-linen dark:bg-linen/10 relative overflow-hidden rounded-2xl border p-6 transition-colors duration-300 dark:border-zinc-800">
+          <div className="pointer-events-none absolute top-0 right-0 p-4 opacity-10 dark:opacity-5">
+            <ExternalLink className="text-brand dark:text-brand-400 h-24 w-24 transition-colors duration-300" />
           </div>
 
-          <blockquote className="text-foreground relative z-10 mb-4 text-sm leading-relaxed italic">
+          <blockquote className="text-foreground relative z-10 mb-4 text-sm leading-relaxed italic transition-colors duration-300 dark:text-zinc-50">
             &quot;{study.author.quote}&quot;
           </blockquote>
 
           <div className="relative z-10">
-            <div className="text-brand text-sm font-bold">
+            <div className="text-brand dark:text-brand-400 text-sm font-bold transition-colors duration-300">
               {study.author.name}
             </div>
-            <div className="text-clay text-xs tracking-wider uppercase">
+            <div className="text-clay text-xs tracking-wider uppercase transition-colors duration-300 dark:text-zinc-400">
               {study.author.role}
             </div>
           </div>
         </div>
       )}
 
-      {/* 4. CTA Widget — primary conversion action for this page */}
+      {/* 4. CTA */}
       <Callout
         data={
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           (study as any).callout
-            ? (study as any).callout
+            ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              (study as any).callout
             : {
                 headline: "Need scale like this?",
                 copy: "Let's audit your current setup.",

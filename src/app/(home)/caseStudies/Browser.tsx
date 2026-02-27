@@ -1,3 +1,12 @@
+/**
+ * @file Browser.tsx
+ * @description Client-side controller for the case studies exploration experience.
+ * Manages state for filtering, searching, and pagination, combining data
+ * from the featured study and the general study list.
+ * @dependencies
+ * - UI: `CaseStudyFilter`, `CaseStudiesGrid`
+ * - Types: `GlobalResponse` (TinaCMS generated)
+ */
 "use client";
 
 import { useMemo, useState } from "react";
@@ -7,16 +16,6 @@ import type client from "@/../tina/__generated__/client";
 import { CaseStudiesGrid } from "./CaseStudiesGrid";
 import { CaseStudyFilter } from "./CaseStudyFilter";
 
-/**
- * File: src/app/(home)/caseStudies/Browser.tsx
- * Purpose: Client-side explorer that composes filter controls and the case studies grid.
- * Component: Client
- * Client-safe: Yes — manages local UI state (filters, pagination) and derives a filtered list.
- * Presentational: Yes (wires `CaseStudyFilter` -> `CaseStudiesGrid`)
- * Key dependencies: Tina-generated types, `CaseStudyFilter`, `CaseStudiesGrid`
- */
-
-// Tina-derived types for the case study config and wrapped study node
 type GlobalResponse = Awaited<ReturnType<typeof client.queries.global>>;
 type GlobalConfig = NonNullable<
   GlobalResponse["data"]["global"]["caseStudyConfig"]
@@ -32,40 +31,37 @@ interface BrowserProps {
 const Browser = ({
   caseStudyConfig: { featuredStudy, studyList },
 }: BrowserProps) => {
-  // Local filter + pagination state
   const [activeCategory, setActiveCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
   const [visibleCount, setVisibleCount] = useState(4);
 
-  // Combine featuredStudy (if present) with the studyList into a single array
+  // Consolidates all study sources into a single unified array, preventing duplicates
   const allStudies = useMemo(() => {
     if (!studyList && !featuredStudy) return [];
-    if (!studyList) return [featuredStudy];
-    if (!featuredStudy)
-      return studyList.map((item) => item?.study).filter(Boolean);
 
-    return [
-      featuredStudy,
-      ...studyList.map((item) => item?.study).filter(Boolean),
-    ];
+    const studies = studyList?.map((item) => item?.study).filter(Boolean) || [];
+
+    if (featuredStudy) {
+      // Logic check: Ensure we don't duplicate the study if it exists in both places
+      const isAlreadyInList = studies.some((s) => s?.id === featuredStudy.id);
+      return isAlreadyInList ? studies : [featuredStudy, ...studies];
+    }
+
+    return studies;
   }, [studyList, featuredStudy]);
 
-  // Build category list (includes "All" and featured industry)
+  // Extracts unique industry categories for the filter component from the unified array
   const industryCategories = useMemo(() => {
     const categories = new Set<string>();
     categories.add("All");
 
-    if (featuredStudy?.industry) categories.add(featuredStudy.industry);
-
-    studyList?.forEach((item) => {
-      const industry = item?.study?.industry;
-      if (industry) categories.add(industry);
+    allStudies.forEach((study) => {
+      if (study?.industry) categories.add(study.industry);
     });
 
     return Array.from(categories);
-  }, [studyList, featuredStudy]);
+  }, [allStudies]);
 
-  // Filter by active category and search query
   const filteredStudies = useMemo(() => {
     const queryLower = searchQuery.toLowerCase();
 
@@ -83,54 +79,46 @@ const Browser = ({
     });
   }, [activeCategory, searchQuery, allStudies]);
 
-  // Pagination helpers
   const displayedList = filteredStudies?.slice(
     0,
     visibleCount
   ) as StudyItemWrapper[];
-  const hasMore = (filteredStudies?.length ?? 0) > visibleCount;
+
   const totalCount = filteredStudies?.length ?? 0;
-
-  const filterActions = {
-    handleCategoryChange: (category: string) => {
-      setActiveCategory(category);
-      setVisibleCount(4);
-    },
-    handleQueryChange: (query: string) => {
-      setSearchQuery(query);
-      setVisibleCount(4);
-    },
-  };
-
-  const filters = { activeCategory, searchQuery };
-
-  const gridActions = {
-    handleLoadMore: () => setVisibleCount((prev) => prev + 4),
-    handleClear: () => {
-      setActiveCategory("All");
-      setSearchQuery("");
-      setVisibleCount(4);
-    },
-  };
-
-  const gridMeta = {
-    totalCount,
-    hasMore,
-    isEmpty: !displayedList || displayedList.length === 0,
-  };
+  const hasMore = totalCount > visibleCount;
 
   return (
     <div className="flex flex-col gap-8">
       <CaseStudyFilter
         categories={industryCategories}
-        filters={filters}
-        actions={filterActions}
+        filters={{ activeCategory, searchQuery }}
+        actions={{
+          handleCategoryChange: (category: string) => {
+            setActiveCategory(category);
+            setVisibleCount(4);
+          },
+          handleQueryChange: (query: string) => {
+            setSearchQuery(query);
+            setVisibleCount(4);
+          },
+        }}
       />
 
       <CaseStudiesGrid
         caseStudies={displayedList}
-        meta={gridMeta}
-        actions={gridActions}
+        meta={{
+          totalCount,
+          hasMore,
+          isEmpty: !displayedList || displayedList.length === 0,
+        }}
+        actions={{
+          handleLoadMore: () => setVisibleCount((prev) => prev + 4),
+          handleClear: () => {
+            setActiveCategory("All");
+            setSearchQuery("");
+            setVisibleCount(4);
+          },
+        }}
       />
     </div>
   );

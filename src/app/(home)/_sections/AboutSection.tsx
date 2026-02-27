@@ -1,14 +1,10 @@
 /**
- * File: src/app/(home)/_sections/AboutSection.tsx
- * Purpose: Renders the About section on the homepage (section header + profile).
- * Component: Server component (renders on server).
- * Client-safe: Yes
- * Presentational: Yes
- * Key dependencies:
- *  - `@/../../tina/__generated__/types` : `HomepageQuery`, `PeopleQuery` types
- *  - `@/components/Profile`, `@/components/SectionHeader` : UI components
- * Notes:
- *  - Expects `content` and `person` shaped according to TinaCMS generated types.
+ * @file AboutSection.tsx
+ * @description Renders the About section on the homepage, combining the section header and user profile.
+ * Designed as a Server Component.
+ * * @dependencies
+ * - Types: `HomepageQuery`, `PeopleQuery` (TinaCMS generated)
+ * - UI: `Profile`, `RevealWrapper`, `SectionHeader`
  */
 import {
   type HomepageQuery,
@@ -18,23 +14,24 @@ import Profile from "@/components/Profile";
 import { RevealWrapper } from "@/components/RevealWrapper";
 import SectionHeader from "@/components/SectionHeader";
 
-// Props: `content` from homepage.aboutSection and `person` from PeopleQuery
 interface AboutSectionProps {
   content: HomepageQuery["homepage"]["aboutSection"];
   person: PeopleQuery["people"];
 }
 
 const AboutSection = ({ content, person }: AboutSectionProps) => {
-  // Guard: nothing to render without content
   if (!content) return null;
 
   return (
-    <section id="aboutSection">
-      {/* Header driven by `content` */}
+    <section
+      id="aboutSection"
+      // Cascading text colors to children; backgrounds left untouched.
+      className="text-zinc-900 transition-colors duration-300 dark:text-zinc-100"
+    >
       <RevealWrapper>
         <SectionHeader content={content} animationClass="reveal-item" />
       </RevealWrapper>
-      {/* Profile component renders person details */}
+
       <Profile person={person} />
     </section>
   );

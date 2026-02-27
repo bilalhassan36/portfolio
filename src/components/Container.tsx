@@ -1,25 +1,31 @@
 /**
- * File: src/components/Container.tsx
- * Purpose: Layout wrapper that constrains content width and applies padding.
- * Component: Client/Server-safe presentational component.
- * Client-safe: Yes
- * Presentational: Yes
- * Key dependencies: React types (`ReactNode`)
- * Notes: Adds `aria-live="polite"` to assistive technologies when content
- *  updates are delivered to this region.
+ * @file Container.tsx
+ * @description The primary layout constraint for the application.
+ * Defines the global max-width, horizontal gutters, and the baseline
+ * background transition for the Dark Mode ecosystem.
  */
 import { type ReactNode } from "react";
+
+import { cn } from "@/lib/utils";
 
 interface Props {
   children: ReactNode;
   className?: string;
 }
 
-// Simple wrapper to apply consistent max-width and horizontal padding
-const Container = ({ children, className = "" }: Props) => {
+/**
+ * @component Container
+ * @description Constrains content to a maximum width of 1280px (7xl) and
+ * provides responsive horizontal padding.
+ */
+const Container = ({ children, className }: Props) => {
   return (
     <main
-      className={`mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 ${className}`}
+      className={cn(
+        "mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8",
+        "duration-500 ease-in-out",
+        className
+      )}
       aria-live="polite"
     >
       {children}

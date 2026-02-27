@@ -1,17 +1,13 @@
+/**
+ * @file TeamPage.tsx
+ * @description Client-side orchestrator for the Team section.
+ * Handles live-preview hydration for page content and the global team registry.
+ * @dependencies
+ * - TinaCMS: `useTina` for hydration
+ * - UI: `Container`, `PageHero`, `Profile`, `Callout`
+ */
 "use client";
 
-/**
- * File: src/app/(home)/team/TeamPage.tsx
- * Purpose: Team listing page — hydrates TinaCMS preview data and renders
- * a `PageHero` followed by `Profile` cards for each team member.
- * Component: Client (uses `useTina` hook)
- * Client-safe: Yes
- * Presentational: No — acts as a page/container for team members
- * Key dependencies:
- *  - `tinacms/react` : `useTina` for preview/live-edit hydration
- *  - `@/../tina/__generated__/client` : generated types for queries
- *  - `PageHero`, `Profile`, `Container` components for layout and cards
- */
 import { useTina } from "tinacms/react";
 
 import type client from "@/../tina/__generated__/client";
@@ -29,7 +25,6 @@ interface TeamPageProps {
 }
 
 const TeamPage = ({ teamPageResponse, globalResponse }: TeamPageProps) => {
-  // hydrate Tina preview data so components show live edits during preview
   const { data: teamPageData } = useTina({
     ...teamPageResponse,
   });
@@ -39,25 +34,29 @@ const TeamPage = ({ teamPageResponse, globalResponse }: TeamPageProps) => {
   });
 
   return (
-    <Container className="flex min-h-screen flex-col items-center gap-6 py-32">
+    <Container
+      // Synchronizing typography and theme transitions across the whole team view
+      className="flex min-h-screen flex-col items-center gap-6 py-32 text-zinc-900 transition-colors duration-300 dark:text-zinc-50"
+    >
       <PageHero data={teamPageData.pages} />
-      {/* PageHero: receives the server-provided `pages` object for hero content */}
-      {/* Render team members from global data (guard nulls) */}
-      {globalData.global.teamMembers?.map((member, i) => {
-        if (!member?.member) return null;
 
-        return (
-          <Profile
-            // key: use stable Tina id when available
-            key={member.member?.id}
-            person={member.member}
-            // `invert` alternates layout for odd-indexed profiles (visual variation)
-            invert={i % 2 === 1}
-          />
-        );
-      })}
+      {/* Renders individual Profile components.
+          The 'invert' prop ensures a staggered visual layout (Left vs Right alignment).
+      */}
+      <div className="flex w-full flex-col gap-12 md:gap-24">
+        {globalData.global.teamMembers?.map((member, i) => {
+          if (!member?.member) return null;
 
-      {/* Optional callout at the bottom of the page, using `pages.callout` */}
+          return (
+            <Profile
+              key={member.member?.id || i}
+              person={member.member}
+              invert={i % 2 === 1}
+            />
+          );
+        })}
+      </div>
+
       <Callout data={teamPageData.pages.callout} className="w-full" />
     </Container>
   );

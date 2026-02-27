@@ -1,17 +1,14 @@
+/**
+ * @file PackagesPage.tsx
+ * @description Main client-side orchestrator for the pricing section.
+ * Manages billing period state and hydrates TinaCMS data for both
+ * the static page content and the global pricing configuration.
+ * @dependencies
+ * - TinaCMS: `useTina` for hydration
+ * - UI: `BillingToggle`, `Table`, `Callout`, `Container`, `PageHero`
+ */
 "use client";
 
-/**
- * File: src/app/(home)/packages/PackagesPage.tsx
- * Purpose: Client page for the Packages section — hydrates Tina preview data
- * and renders the packages pricing UI (billing toggle + pricing table).
- * Component: Client (uses `useState` and `useTina`)
- * Client-safe: Yes
- * Presentational: No — page/container with interactive controls
- * Key dependencies:
- *  - `tinacms/react` : `useTina` for preview/live-edit data
- *  - `BillingToggle` : switch billing period
- *  - `Table`/`AnimatedPrice` : pricing UI
- */
 import { useState } from "react";
 
 import { useTina } from "tinacms/react";
@@ -32,12 +29,12 @@ interface PackagesPageProps {
   globalResponse: GlobalResponse;
   pageResponse: PagesResponse;
 }
+
 export type BillingPeriod = "weekly" | "monthly" | "yearly";
+
 const PackagesPage = ({ globalResponse, pageResponse }: PackagesPageProps) => {
-  // local UI state for selected billing cadence
   const [billingPeriod, setBillingPeriod] = useState<BillingPeriod>("monthly");
 
-  // hydrate Tina preview data for global and page contexts
   const { data: globalData } = useTina({
     ...globalResponse,
   });
@@ -46,14 +43,16 @@ const PackagesPage = ({ globalResponse, pageResponse }: PackagesPageProps) => {
     ...pageResponse,
   });
 
-  // guard: pricingTable must exist in global settings
   if (!globalData.global.pricingTable) {
     return null;
   }
 
   return (
-    <Container className="flex min-h-screen flex-col items-center gap-4 py-32">
-      {/* PageHero consumes the server-provided `pages` payload for hero content */}
+    <Container
+      // Cascading text defaults for dark mode to ensure total readability
+      // across all child components (Table, Hero, Callout).
+      className="flex min-h-screen flex-col items-center gap-4 py-32 text-zinc-900 transition-colors duration-300 dark:text-zinc-50"
+    >
       <PageHero data={pageData.pages} />
 
       <RevealWrapper asChild>
@@ -62,7 +61,7 @@ const PackagesPage = ({ globalResponse, pageResponse }: PackagesPageProps) => {
             currentPeriod={billingPeriod}
             onPeriodChange={setBillingPeriod}
           />
-          {/* Table builds the pricing matrix from `global.pricingTable` */}
+
           <Table
             config={globalData.global.pricingTable}
             billingPeriod={billingPeriod}
@@ -70,7 +69,6 @@ const PackagesPage = ({ globalResponse, pageResponse }: PackagesPageProps) => {
         </section>
       </RevealWrapper>
 
-      {/* Optional callout at the bottom of the page, using `pages.callout` */}
       <Callout data={pageData.pages.callout} className="w-full" />
     </Container>
   );

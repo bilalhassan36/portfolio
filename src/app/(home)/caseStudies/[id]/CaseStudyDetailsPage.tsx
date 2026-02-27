@@ -1,10 +1,10 @@
 /**
- * File: src/app/(home)/caseStudies/[id]/CaseStudyDetailsPage.tsx
- * Purpose: Client page that hydrates a single case study from Tina and composes the Hero, Content and Sidebar.
- * Component: Client
- * Client-safe: Yes — uses `useTina` to hydrate server-provided data for inline editing/preview.
- * Presentational: Yes
- * Key dependencies: `tinacms` (`useTina`), `Container`, `Hero`, `Content`, `Sidebar`
+ * @file CaseStudyDetailsPage.tsx
+ * @description Client-side layout component for individual case study pages.
+ * Hydrates TinaCMS data and orchestrates the Hero, Content (narrative), and Sidebar sections.
+ * @dependencies
+ * - TinaCMS: `useTina` for live-editing hydration
+ * - UI: `Container`, `RevealWrapper`, `Content`, `Hero`, `Sidebar`
  */
 "use client";
 
@@ -27,19 +27,16 @@ interface ClientPageProps {
 export default function CaseStudyDetails({
   caseStudyResponse,
 }: ClientPageProps) {
-  // Hydrate Tina preview data on the client so editors see live content
   const { data } = useTina({
     ...caseStudyResponse,
   });
 
   const study = data.caseStudy;
 
-  // Guard: if CMS data is missing, render nothing
   if (!study) return null;
 
   return (
-    <Container className="bg-background text-foreground selection:bg-brand/20 min-h-screen font-sans">
-      {/* Page hero displays title, metadata and hero media */}
+    <Container className="bg-background text-foreground selection:bg-brand/20 dark:selection:bg-brand/40 min-h-screen font-sans transition-colors duration-300 dark:text-zinc-50">
       <RevealWrapper>
         <Hero study={study} />
       </RevealWrapper>
@@ -48,11 +45,9 @@ export default function CaseStudyDetails({
         <div className="relative z-10 pt-16 pb-24">
           <div className="mx-auto max-w-5xl">
             <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
-              {/* Main Narrative (article content) */}
               <div className="lg:col-span-8">
                 <Content study={study} />
               </div>
-              {/* Sticky Sidebar (metrics, before/after, CTA) */}
               <div className="lg:col-span-4">
                 <Sidebar study={study} />
               </div>

@@ -1,6 +1,10 @@
 /**
- * File: src/app/(home)/blog/[id]/page.tsx
- * Purpose: Server route that loads a single blog post and global config.
+ * @file page.tsx
+ * @description Server route for individual blog posts (/blog/[id]). Handles static path generation,
+ * metadata formulation, and data fetching for the post and global configurations.
+ * @dependencies
+ * - Next.js: `notFound`, `generateStaticParams`, `generateMetadata`
+ * - TinaCMS: `client.queries` for fetching blog and global data
  */
 import { notFound } from "next/navigation";
 
@@ -21,37 +25,30 @@ export async function generateStaticParams() {
   const posts = blogConfig?.postList || [];
   const featuredPostId = blogConfig?.featuredPost?.id;
 
-  // 1. Map the standard post list into the required Next.js object shape
   const params = posts
     .map((postItem) => {
       const rawId = postItem?.post?.id || "";
-      // Smart regex strips out the path and any common TinaCMS extension
       const slug = rawId
         .split("/")
         .pop()
         ?.replace(/\.(mdx?|json)$/, "");
 
-      // Return null if no slug is found to prevent empty route generation
       return slug ? { id: slug } : null;
     })
-    // Filter out the nulls and keep TypeScript happy
     .filter((param): param is { id: string } => param !== null);
 
-  // 2. Format and inject the featured post (if it exists)
   if (featuredPostId) {
     const featuredSlug = featuredPostId
       .split("/")
       .pop()
       ?.replace(/\.(mdx?|json)$/, "");
 
-    // Check for duplicates before unshifting
     if (featuredSlug && !params.find((p) => p.id === featuredSlug)) {
       params.unshift({ id: featuredSlug });
     }
   }
 
-  // 3. Return the fully assembled array of objects
-  return params.slice(0, 5); // Limit to 5 for performance; adjust as needed
+  return params.slice(0, 5);
 }
 
 export async function generateMetadata(props: PageProps) {
@@ -59,19 +56,17 @@ export async function generateMetadata(props: PageProps) {
 
   return {
     title: `${id} - Blog Post`,
-    description: `Read Bilal's insights on Amazon Brand Manager in this blog post.`,
+    description: `Read Bilal Hassan's latest insights on ${id} and more in his blog.`,
   };
 }
 
 export default async function Page({ params }: PageProps) {
   const { id } = await params;
 
-  // Fetch the specific blog post
   const blogResponse = await client.queries.blog({
     relativePath: `${id}.mdx`,
   });
 
-  // Fetch global config to populate "Related Posts"
   const globalResponse = await client.queries.global({
     relativePath: "index.json",
   });

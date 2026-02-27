@@ -1,6 +1,10 @@
 /**
- * File: src/app/(home)/blog/[id]/BlogPostPage.tsx
- * Purpose: Client page hydrating the blog post from Tina.
+ * @file BlogPostPage.tsx
+ * @description Client-side page component for rendering and hydrating a single blog post using TinaCMS.
+ * Acts as the top-level layout wrapper for the post's hero, content, and related posts sections.
+ * @dependencies
+ * - TinaCMS: `useTina` for live editing hydration
+ * - UI: `Container`, `RevealWrapper`, `Hero`, `Content`, `RelatedPosts`
  */
 "use client";
 
@@ -35,7 +39,10 @@ export default function BlogPostPage({
   if (!post) return null;
 
   return (
-    <div className="bg-background min-h-screen">
+    <div
+      // Background left untouched; cascading text colors added for children inheritance.
+      className="bg-background min-h-screen text-zinc-900 transition-colors duration-300 dark:text-zinc-50"
+    >
       <RevealWrapper>
         <Container className="pt-32 pb-16 lg:pt-40">
           <article className="mx-auto max-w-3xl">
@@ -45,7 +52,6 @@ export default function BlogPostPage({
         </Container>
       </RevealWrapper>
 
-      {/* Related Posts Section mapping the global post list */}
       <RevealWrapper>
         <RelatedPosts
           currentId={post.id}

@@ -1,6 +1,10 @@
 /**
- * File: src/app/(home)/blog/BlogPage.tsx
- * Purpose: Client-side page component for rendering blog with CMS hydration.
+ * @file BlogPage.tsx
+ * @description Client-side layout component for the main blog index page.
+ * Hydrates TinaCMS data and orchestrates the PageHero, Browser (filtering/grid), and Callout sections.
+ * @dependencies
+ * - TinaCMS: `useTina` for live-editing hydration
+ * - UI: `Callout`, `Container`, `PageHero`, `Browser`
  */
 "use client";
 
@@ -29,18 +33,19 @@ export default function BlogPage({
 
   const {
     data: {
-      global: { blogConfig }, // Assuming a blogConfig mirrors caseStudyConfig
+      global: { blogConfig },
     },
   } = useTina({ ...globalResponse });
 
   return (
-    <Container className="flex min-h-screen flex-col gap-16 py-32">
+    <Container
+      // Applying cascading text colors here to cleanly propagate down to children
+      className="flex min-h-screen flex-col gap-16 py-32 text-zinc-900 transition-colors duration-300 dark:text-zinc-50"
+    >
       <PageHero data={pageData.pages} />
 
-      {/* Interactive explorer */}
       {blogConfig && <Browser blogConfig={blogConfig} />}
 
-      {/* CTA / Newsletter mapping */}
       <Callout data={pageData.pages.callout} />
     </Container>
   );

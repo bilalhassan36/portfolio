@@ -1,3 +1,12 @@
+/**
+ * @file ContactPageContent.tsx
+ * @description Client-side layout component for the main contact page.
+ * Hydrates TinaCMS data for both the page content and global form configuration,
+ * orchestrating the PageHero, ContactForm, and ContactSidebar.
+ * @dependencies
+ * - TinaCMS: `useTina` for live-editing hydration
+ * - UI: `Container`, `PageHero`, `ContactForm`, `ContactSidebar`
+ */
 "use client";
 
 import { useTina } from "tinacms/dist/react";
@@ -9,7 +18,6 @@ import PageHero from "@/components/PageHero";
 import { ContactForm } from "./ContactForm";
 import { ContactSidebar } from "./ContactLayouts";
 
-// --- TYPE INFERENCE ---
 type PageQueryResponse = Awaited<ReturnType<typeof client.queries.pages>>;
 type FormConfigQueryResponse = Awaited<
   ReturnType<typeof client.queries.formConfig>
@@ -24,14 +32,12 @@ export default function ContactPageContent({
   pageProp,
   formProp,
 }: ContactPageContentProps) {
-  // 1. Live Hook for Page Content
   const { data: pageData } = useTina({
     query: pageProp.query,
     variables: pageProp.variables,
     data: pageProp.data,
   });
 
-  // 2. Live Hook for Form Config
   const { data: formData } = useTina({
     query: formProp.query,
     variables: formProp.variables,
@@ -42,12 +48,14 @@ export default function ContactPageContent({
   const formSettings = formData.formConfig;
 
   return (
-    <Container className="flex min-h-screen flex-col items-center gap-6 py-32">
+    <Container
+      // Applying cascading text colors here to cleanly propagate down to the PageHero and form layout
+      className="flex min-h-screen flex-col items-center gap-6 py-32 text-zinc-900 transition-colors duration-300 dark:text-zinc-50"
+    >
       <PageHero data={contactPage} />
 
-      <div className="pt-16 pb-24">
-        <div className="grid gap-12 lg:grid-cols-12">
-          {/* Form Area */}
+      <div className="w-full pt-16 pb-24">
+        <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-12">
           <div className="order-2 lg:order-1 lg:col-span-8">
             <ContactForm
               formId={formSettings.formspreeId}
@@ -57,7 +65,6 @@ export default function ContactPageContent({
             />
           </div>
 
-          {/* Sidebar Area */}
           <div className="order-1 lg:order-2 lg:col-span-4">
             <ContactSidebar data={formSettings.sidebar} />
           </div>

@@ -1,18 +1,10 @@
 "use client";
-
 /**
- * File: src/components/Footer.tsx
- * Purpose: Footer UI — renders bio, socials, navigation, expertise and bottom bar.
- * Component: Client component (uses `useTina` for live edits and browser links)
- * Client-safe: Yes
- * Presentational: Yes
- * Key dependencies:
- *  - `next/link` for navigation
- *  - `lucide-react` for icons
- *  - `tinacms` (`useTina`) for live-edit preview
- *  - `@/../tina/__generated__/client` types for query responses
- *  - `./IconMapper` to resolve social icons
- * Notes: Expects TinaCMS query responses for `footer`, `person`, and `global`.
+ * @file Footer.tsx
+ * @description Global footer orchestrator. Hydrates bio, navigation, and expertise
+ * data from TinaCMS. Optimized for dark mode with subtle border transitions.
+ * @dependencies
+ * - UI: `ArrowUpRight`, `useTina`, `IconMapper`
  */
 import Link from "next/link";
 
@@ -38,18 +30,11 @@ export const Footer = ({
   peopleResponse,
   globalResponse,
 }: FooterProps) => {
-  // Live-edit enabled footer data (TinaCMS)
-  const { data: footerData } = useTina({
-    ...footerResponse,
-  });
-
+  const { data: footerData } = useTina({ ...footerResponse });
   const { copyrightText, tagline } = footerData.footer;
 
-  const { data: peopleData } = useTina({
-    ...peopleResponse,
-  });
+  const { data: peopleData } = useTina({ ...peopleResponse });
 
-  // Normalize person data
   const person = {
     name: peopleData.people.identity.name,
     bio: peopleData.people.bio?.[0]?.text || "",
@@ -57,10 +42,7 @@ export const Footer = ({
     socials: peopleData.people.socials,
   };
 
-  const { data: globalData } = useTina({
-    ...globalResponse,
-  });
-
+  const { data: globalData } = useTina({ ...globalResponse });
   const {
     global: { navLinks: links },
   } = globalData;
@@ -68,7 +50,7 @@ export const Footer = ({
   return (
     <footer
       id="footer"
-      className="bg-background overflow-hidden border-t border-black/10 py-16"
+      className="bg-background overflow-hidden border-t border-black/10 py-16 transition-colors duration-500 dark:border-zinc-800 dark:bg-zinc-950"
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-12 grid gap-10 md:grid-cols-4">
@@ -76,27 +58,23 @@ export const Footer = ({
           <div className="md:col-span-2">
             <Link
               href="/"
-              className="text-foreground group inline-block text-2xl font-black transition-transform duration-300 hover:scale-105"
+              className="text-foreground group inline-block text-2xl font-black transition-transform duration-300 hover:scale-105 dark:text-zinc-50"
             >
               {person.name}
-              <span className="text-brand group-hover:text-foreground transition-colors duration-300">
+              <span className="text-brand dark:text-brand-400 group-hover:text-foreground transition-colors duration-300">
                 .
               </span>
             </Link>
 
-            <p className="text-foreground mt-4 max-w-sm text-sm leading-relaxed">
-              {person.bio ||
-                "Amazon Brand Manager helping sellers transform advertising from a cost center into a profit engine."}
+            <p className="text-foreground mt-4 max-w-sm text-sm leading-relaxed transition-colors duration-300 dark:text-zinc-400">
+              {person.bio}
             </p>
 
-            {person.socials && person.socials.length > 0 && (
+            {person.socials && (
               <div className="mt-6 flex items-center gap-3">
-                {person.socials.map((item, i: number) => {
-                  // skip empty entries
+                {person.socials.map((item, i) => {
                   if (!item || !item.platform) return null;
-
                   const Icon = getSocialIcon(item.platform);
-
                   const finalHref =
                     item.platform === "Email" && !item.url.startsWith("mailto:")
                       ? `mailto:${item.url}`
@@ -108,13 +86,9 @@ export const Footer = ({
                       href={finalHref}
                       target="_blank"
                       rel="noopener noreferrer"
-                      aria-label={item.platform}
-                      className="text-foreground hover:bg-brand border-linen hover:text-background rounded-lg border p-2 transition-colors duration-300"
+                      className="text-foreground hover:bg-brand dark:hover:bg-brand-400 border-linen rounded-lg border p-2 transition-all duration-300 hover:text-white dark:border-zinc-800 dark:text-zinc-50 dark:hover:text-zinc-950"
                     >
-                      <Icon
-                        size={18}
-                        className="transition-transform duration-300 group-hover:scale-110"
-                      />
+                      <Icon size={18} />
                     </a>
                   );
                 })}
@@ -124,7 +98,7 @@ export const Footer = ({
 
           {/* --- COLUMN 2: Navigation --- */}
           <div>
-            <h4 className="text-foreground mb-6 text-xs font-bold tracking-wider uppercase">
+            <h4 className="text-foreground mb-6 text-xs font-bold tracking-wider uppercase transition-colors duration-300 dark:text-zinc-500">
               Navigation
             </h4>
             <ul className="space-y-3">
@@ -132,7 +106,7 @@ export const Footer = ({
                 <li key={link?.label}>
                   <Link
                     href={link.href}
-                    className="text-foreground hover:text-brand group inline-flex items-center gap-1 text-sm font-medium transition-all duration-300 hover:translate-x-1"
+                    className="text-foreground hover:text-brand dark:hover:text-brand-400 group inline-flex items-center gap-1 text-sm font-medium transition-all duration-300 hover:translate-x-1 dark:text-zinc-400"
                   >
                     {link?.label}
                     <ArrowUpRight className="h-3 w-3 -translate-x-1 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100" />
@@ -144,30 +118,29 @@ export const Footer = ({
 
           {/* --- COLUMN 3: Expertise --- */}
           <div>
-            <h4 className="text-foreground mb-6 text-xs font-bold tracking-wider uppercase">
+            <h4 className="text-foreground mb-6 text-xs font-bold tracking-wider uppercase transition-colors duration-300 dark:text-zinc-500">
               Expertise
             </h4>
             <ul className="space-y-3">
-              {person.skills?.slice(0, 6).map((item, index) =>
-                item ? (
-                  <li key={index}>
-                    <span className="text-foreground hover:text-brand block cursor-default text-sm transition-all duration-300 hover:translate-x-1">
-                      {item}
-                    </span>
-                  </li>
-                ) : null
-              )}
+              {person.skills?.slice(0, 6).map((item, index) => (
+                <li key={index}>
+                  <span className="text-foreground hover:text-brand dark:hover:text-brand-400 block cursor-default text-sm transition-all duration-300 hover:translate-x-1 dark:text-zinc-400">
+                    {item}
+                  </span>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
 
         {/* --- BOTTOM BAR --- */}
-        <div className="flex flex-col items-center justify-between gap-4 border-t border-black/10 pt-8 sm:flex-row">
-          <p className="text-foreground text-xs font-medium">
-            {copyrightText ||
-              `© ${new Date().getFullYear()} ${person.name}. All rights reserved.`}
+        <div className="flex flex-col items-center justify-between gap-4 border-t border-black/10 pt-8 transition-colors duration-300 sm:flex-row dark:border-zinc-800">
+          <p className="text-foreground text-xs font-medium dark:text-zinc-500">
+            {copyrightText || `© ${new Date().getFullYear()} ${person.name}.`}
           </p>
-          <p className="text-foreground text-xs font-medium">{tagline}</p>
+          <p className="text-foreground text-xs font-medium dark:text-zinc-500">
+            {tagline}
+          </p>
         </div>
       </div>
     </footer>

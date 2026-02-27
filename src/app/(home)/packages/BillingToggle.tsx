@@ -1,14 +1,11 @@
 /**
- * File: src/app/(home)/packages/BillingToggle.tsx
- * Purpose: Interactive billing period toggle used on the Packages page.
- * Component: Client (uses user interaction)
- * Client-safe: Yes
- * Presentational: No — interactive control that updates parent state
- * Key dependencies:
- *  - `@/lib/utils` : `cn` for class merging
- *  - `BillingPeriod` type from `PackagesPage`
+ * @file BillingToggle.tsx
+ * @description A high-end interactive selection control for switching between
+ * billing cadences. Features smooth transitions and highlighted savings badges.
+ * @dependencies
+ * - Utils: `cn` (Tailwind class merging)
+ * - Types: `BillingPeriod`
  */
-
 "use client";
 
 import { cn } from "@/lib/utils";
@@ -24,11 +21,10 @@ export const BillingToggle = ({
   currentPeriod,
   onPeriodChange,
 }: BillingToggleProps) => {
-  // available billing cadences
   const periods: BillingPeriod[] = ["weekly", "monthly", "yearly"];
 
   return (
-    <div className="reveal-item bg-linen/50 border-linen no-scrollbar inline-flex max-w-full items-center overflow-x-auto rounded-full border p-1 md:p-1.5">
+    <div className="reveal-item bg-linen/50 border-linen no-scrollbar dark:bg-linen/10 inline-flex max-w-full items-center overflow-x-auto rounded-full border p-1 transition-all duration-300 md:p-1.5 dark:border-zinc-800">
       {periods.map((period) => (
         <button
           key={period}
@@ -36,14 +32,15 @@ export const BillingToggle = ({
           className={cn(
             "relative cursor-pointer rounded-full px-4 py-1.5 text-xs font-bold whitespace-nowrap transition-all duration-300 select-none md:px-5 md:py-2 md:text-sm",
             currentPeriod === period
-              ? "bg-background text-foreground shadow-sm"
-              : "text-clay/80 hover:text-foreground hover:bg-white/50"
+              ? "bg-background text-foreground shadow-sm dark:bg-zinc-800 dark:text-zinc-50"
+              : "text-clay/80 hover:text-foreground hover:bg-white/50 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-50"
           )}
         >
           {period.charAt(0).toUpperCase() + period.slice(1)}
-          {/* small savings badge shown for monthly/yearly plans */}
-          {period && (
-            <span className="text-brand ml-1.5 hidden text-[10px] font-extrabold sm:inline">
+
+          {/* Promotion Badge: Incentivizing longer commitments with brand-colored text */}
+          {period !== "weekly" && (
+            <span className="text-brand dark:text-brand-400 ml-1.5 hidden text-[10px] font-extrabold transition-colors duration-300 sm:inline">
               {period === "monthly"
                 ? "• Save 10%"
                 : period === "yearly"

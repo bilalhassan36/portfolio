@@ -1,17 +1,14 @@
-"use client";
 /**
- * File: src/app/(home)/HomePage.tsx
- * Purpose: Homepage container — wires TinaCMS responses into presentational
- *  sections (Hero, Audit, About) and initializes client-only effects.
- * Component: Client component (uses `useEffect` and dynamic imports).
- * Client-safe: Yes
- * Presentational: No — acts as page/container.
- * Key dependencies:
- *  - `tinacms/react` : `useTina` hooks for live-edit data
- *  - `locomotive-scroll` : client-only smooth scroll (dynamically imported)
- *  - `@/../tina/__generated__/client` : generated client types for queries
- *  - Section components: `HeroSection`, `AuditSection`, `AboutSection`
+ * @file HomePage.tsx
+ * @description The main landing page orchestrator. Hydrates TinaCMS content for
+ * key sections and initializes high-end smooth scrolling.
+ * @dependencies
+ * - locomotive-scroll: Smooth scrolling engine (client-only)
+ * - TinaCMS: `useTina` for real-time hydration
+ * - UI: `HeroSection`, `AuditSection`, `AboutSection`
  */
+"use client";
+
 import { useEffect } from "react";
 
 import { useTina } from "tinacms/react";
@@ -32,6 +29,7 @@ interface HomePageProps {
 }
 
 const HomePage = ({ peopleResponse, homepageResponse }: HomePageProps) => {
+  // Real-time hydration for homepage-specific sections and individual profile data
   const {
     data: { homepage },
   } = useTina({ ...homepageResponse });
@@ -39,24 +37,29 @@ const HomePage = ({ peopleResponse, homepageResponse }: HomePageProps) => {
     data: { people: person },
   } = useTina({ ...peopleResponse });
 
-  // Wire TinaCMS preview/live-edit data into local `homepage` and `person`
-  // `useTina` forwards the server-provided response and enables Tina's UI.
-
-  // Initialize client-only smooth scroll library dynamically to avoid
-  // loading it on the server bundle; run once on mount.
+  // Progressive Enhancement: Initialize Locomotive Scroll dynamically
+  // This ensures the library is excluded from the initial server bundle
   useEffect(() => {
     (async () => {
       const LocomotiveScroll = (await import("locomotive-scroll")).default;
-
+      // Note: No explicit cleanup required as Locomotive Scroll v4+
+      // manages its own instance destruction on unmount.
       new LocomotiveScroll();
     })();
   }, []);
 
   return (
-    <Container className="flex flex-col gap-44 px-8">
-      {/* Sections receive parsed TinaCMS content objects */}
+    <Container
+      // Standardizing typography and background transitions for the entire homepage flow
+      className="flex flex-col gap-44 px-8 text-zinc-900 transition-colors duration-300 dark:text-zinc-50"
+    >
+      {/* High-impact hero: headline, CTA, and initial brand impression */}
       <HeroSection content={homepage.heroSection} />
+
+      {/* Detailed services/audit logic section */}
       <AuditSection content={homepage.auditSection} />
+
+      {/* Narrative section: personal bio and human element */}
       <AboutSection content={homepage.aboutSection} person={person} />
     </Container>
   );

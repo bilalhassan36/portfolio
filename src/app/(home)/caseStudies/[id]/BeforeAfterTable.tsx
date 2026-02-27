@@ -1,39 +1,48 @@
 /**
- * File: src/app/(home)/caseStudies/[id]/BeforeAfterTable.tsx
- * Purpose: Render a before/after metric table used in case study pages.
- * Component: Server
- * Client-safe: Yes — purely presentational (no hooks) and can be used in server or client components.
- * Presentational: Yes
- * Key dependencies: `lucide-react` (ArrowRight icon)
+ * @file BeforeAfterTable.tsx
+ * @description Renders a before/after metric comparison table for case study pages.
+ * Designed as a purely presentational Server Component.
+ * @dependencies
+ * - UI: `ArrowRight` (Lucide icon)
  */
 import { ArrowRight } from "lucide-react";
 
-// Use a partial type to handle potential nulls returned by the CMS/GraphQL
 interface MetricRow {
   metric?: string | null;
   before?: string | null;
   after?: string | null;
 }
 
-export const BeforeAfterTable = ({ data }: { data: (MetricRow | null)[] }) => {
+interface BeforeAfterTableProps {
+  data: (MetricRow | null)[];
+}
+
+export const BeforeAfterTable = ({ data }: BeforeAfterTableProps) => {
   return (
-    <div className="border-linen bg-surface/30 overflow-hidden rounded-xl border">
-      <div className="bg-surface border-linen text-clay grid grid-cols-3 border-b p-4 text-xs font-bold tracking-wider uppercase">
+    <div className="border-linen bg-surface/30 dark:bg-linen/10 overflow-hidden rounded-xl border transition-colors duration-300 dark:border-zinc-800">
+      {/* Table Header */}
+      <div className="bg-surface dark:bg-linen/20 border-linen text-clay grid grid-cols-3 border-b p-4 text-xs font-bold tracking-wider uppercase transition-colors duration-300 dark:border-zinc-800 dark:text-white">
         <div>Metric</div>
         <div>Before</div>
         <div>After</div>
       </div>
+
+      {/* Table Rows */}
       {data.map((row, index) => (
         <div
           key={index}
-          className="border-linen grid grid-cols-3 border-b p-4 transition-colors last:border-0 hover:bg-white"
+          // The hover state here is the only background modification to prevent invisible text in dark mode.
+          className="border-linen grid grid-cols-3 border-b p-4 transition-colors duration-300 last:border-0 hover:bg-white dark:border-zinc-800 dark:hover:bg-white/5"
         >
-          <div className="text-foreground text-sm font-medium">
+          <div className="text-foreground text-sm font-medium transition-colors duration-300 dark:text-zinc-50">
             {row?.metric}
           </div>
-          <div className="text-clay text-sm">{row?.before}</div>
-          <div className="text-brand flex items-center gap-1 text-sm font-bold">
-            {/* After value with subtle arrow indicating progression */}
+
+          <div className="text-clay text-sm transition-colors duration-300 dark:text-zinc-400">
+            {row?.before}
+          </div>
+
+          <div className="text-brand dark:text-brand-400 flex items-center gap-1 text-sm font-bold transition-colors duration-300">
             {row?.after}
             <ArrowRight className="ml-1 h-3 w-3 opacity-50" />
           </div>

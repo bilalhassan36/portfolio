@@ -1,13 +1,11 @@
 /**
- * File: src/app/(home)/packages/AnimatedPrice.tsx
- * Purpose: Animate numeric price changes using GSAP for a smooth counting effect.
- * Component: Client (uses `useLayoutEffect` and direct DOM updates)
- * Client-safe: Yes
- * Presentational: Yes (visual only)
- * Key dependencies:
- *  - `gsap`: animation engine for tweening counter values
+ * @file AnimatedPrice.tsx
+ * @description A high-performance pricing display that uses GSAP to animate
+ * numeric transitions. Employs direct DOM manipulation to bypass React
+ * reconciliation for smooth, 60fps counting effects.
+ * @dependencies
+ * - gsap: Core animation engine
  */
-
 "use client";
 
 import { useLayoutEffect, useRef } from "react";
@@ -25,36 +23,35 @@ export const AnimatedPrice = ({ price, period }: AnimatedPriceProps) => {
   // Parse numeric value for animation (strip non-numeric chars except period)
   const numericValue = parseFloat(price.replace(/[^0-9.]/g, ""));
 
-  // Use a ref to hold the animated counter value to avoid React re-renders
+  // Ref-based counter prevents unnecessary React re-renders during the tween
   const counter = useRef({ val: isNaN(numericValue) ? 0 : numericValue });
 
   useLayoutEffect(() => {
     const el = priceRef.current;
     if (!el || isNaN(numericValue)) return;
 
-    // Tween the `counter.current.val` to the target numericValue and update DOM
     gsap.to(counter.current, {
       val: numericValue,
-      duration: 0.6,
+      duration: 0.8, // Slightly increased duration for a more luxurious ease
       ease: "power4.out",
       onUpdate: () => {
-        // Direct DOM manipulation for high-performance counting
+        // Direct DOM update for performance
         el.innerText = `$${Math.round(counter.current.val).toLocaleString()}`;
       },
     });
   }, [numericValue]);
 
   return (
-    <div className="flex items-baseline justify-center gap-1 overflow-hidden">
+    <div className="flex items-baseline justify-center gap-1 overflow-hidden transition-colors duration-300">
       <span
         ref={priceRef}
-        className="text-foreground cursor-default text-2xl font-extrabold tracking-tight tabular-nums will-change-contents sm:text-3xl md:text-4xl"
+        className="text-foreground cursor-default text-2xl font-extrabold tracking-tight tabular-nums transition-colors duration-300 will-change-contents sm:text-3xl md:text-4xl dark:text-zinc-50"
       >
         {price}
       </span>
-      {/* show period suffix only when price is numeric */}
+
       {!isNaN(numericValue) && (
-        <span className="text-clay cursor-default text-[10px] font-bold tracking-wide uppercase sm:text-xs">
+        <span className="text-clay cursor-default text-[10px] font-bold tracking-wide uppercase transition-colors duration-300 sm:text-xs dark:text-zinc-500">
           {period}
         </span>
       )}

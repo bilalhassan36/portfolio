@@ -1,3 +1,13 @@
+/**
+ * @file ContactForm.tsx
+ * @description Client-side state controller and orchestrator for the contact form.
+ * Handles custom client-side validation, Formspree submission state, and triggers
+ * the success modal upon completion.
+ * @dependencies
+ * - @formspree/react: `useForm` for submission handling
+ * - UI: `InputField`, `SelectInput`, `TextAreaField`, `SubmitButton`, `SuccessModal`
+ * - TinaCMS: Global query types for dynamic form labels and dropdown options
+ */
 "use client";
 
 import { useEffect, useRef, useState } from "react";
@@ -11,8 +21,6 @@ import { InputField, SelectInput, TextAreaField } from "./FormInputs";
 import { SubmitButton } from "./SubmitButton";
 import { SuccessModal } from "./SuccessModal";
 
-// --- TYPE INFERENCE ---
-// Drill down: FormConfig Query -> Data -> formConfig -> labels
 type LabelsData = NonNullable<
   Awaited<ReturnType<typeof client.queries.formConfig>>["data"]["formConfig"]
 >["labels"];
@@ -40,12 +48,12 @@ export const ContactForm = ({
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [showModal, setShowModal] = useState(false);
 
-  // Safe Lists (Filter out nulls)
   const safeServices = services?.filter((s): s is string => !!s) || [];
   const safeBudgets = budgets?.filter((b): b is string => !!b) || [];
 
   useEffect(() => {
     if (state.succeeded) {
+      // Deferring state resets to prevent React warnings during rapid render cycles
       setTimeout(() => {
         setShowModal(true);
         setService("");
@@ -61,14 +69,16 @@ export const ContactForm = ({
     const formData = new FormData(e.currentTarget);
     const newErrors: Record<string, string> = {};
 
-    if (!formData.get("name")) newErrors.name = "Name is required.";
+    const name = formData.get("name") as string;
     const email = formData.get("email") as string;
+    const message = formData.get("message") as string;
+
+    if (!name?.trim()) newErrors.name = "Name is required.";
     if (!email || !EMAIL_REGEX.test(email))
       newErrors.email = "Valid email is required.";
     if (!service) newErrors.service = "Selection required.";
     if (!budget) newErrors.budget = "Selection required.";
-    const message = formData.get("message") as string;
-    if (!message || message.length < 10)
+    if (!message || message.trim().length < 10)
       newErrors.message = "Message too short.";
 
     if (Object.keys(newErrors).length > 0) {
@@ -95,7 +105,6 @@ export const ContactForm = ({
         className="reveal-item space-y-8"
         noValidate
       >
-        {/* ROW 1 */}
         <div className="grid gap-8 md:grid-cols-2">
           <InputField
             label={labels?.nameLabel || "Your name"}
@@ -116,7 +125,6 @@ export const ContactForm = ({
           />
         </div>
 
-        {/* ROW 2 */}
         <div className="grid gap-8 md:grid-cols-2">
           <InputField
             label={labels?.companyLabel || "Company (Optional)"}
@@ -130,7 +138,6 @@ export const ContactForm = ({
           />
         </div>
 
-        {/* ROW 3 */}
         <div className="grid gap-8 md:grid-cols-2">
           <SelectInput
             label={labels?.serviceLabel || "Interested in"}
@@ -150,7 +157,6 @@ export const ContactForm = ({
           />
         </div>
 
-        {/* ROW 4 */}
         <div className="">
           <TextAreaField
             label={labels?.messageLabel || "Your goals"}

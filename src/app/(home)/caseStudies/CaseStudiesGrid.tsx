@@ -1,10 +1,10 @@
 /**
- * File: src/app/(home)/caseStudies/CaseStudiesGrid.tsx
- * Purpose: Display a responsive grid of case studies with support for empty state and pagination.
- * Component: Client
- * Client-safe: Yes — receives data from server and exposes interactive handlers (load more, clear).
- * Presentational: Yes
- * Key dependencies: `lucide-react` (icons), `cn` utility, `FeaturedCard`/`Card` components
+ * @file CaseStudiesGrid.tsx
+ * @description Orchestrates the layout for the case studies index, rendering a responsive grid
+ * of `Card` and `FeaturedCard` components. Handles pagination (Load More) and empty states.
+ * @dependencies
+ * - UI: `Filter`, `Zap` (Lucide icons), `Card`, `FeaturedCard`
+ * - Utils: `cn` (Tailwind class merging)
  */
 import { Filter, Zap } from "lucide-react";
 
@@ -14,7 +14,6 @@ import { cn } from "@/lib/utils";
 
 import { Card } from "./Card";
 
-// Global types derived from Tina-generated client for the case study config
 type GlobalResponse = Awaited<ReturnType<typeof client.queries.global>>;
 type GlobalConfig = NonNullable<
   GlobalResponse["data"]["global"]["caseStudyConfig"]
@@ -37,43 +36,39 @@ export const CaseStudiesGrid = ({
   meta: { totalCount, hasMore, isEmpty },
   actions: { handleLoadMore, handleClear },
 }: GridProps) => {
-  // Shared outline-style button classes used for Clear and Load More actions
+  // Centralized button styling with corresponding dark mode tokens injected directly into the string.
   const outlineButtonStyles =
-    "relative overflow-hidden inline-flex items-center justify-center whitespace-nowrap rounded-full text-xs md:text-sm font-bold tracking-wide transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand disabled:pointer-events-none disabled:opacity-50 active:scale-95 select-none border border-linen bg-white text-clay hover:text-brand hover:border-brand/50 hover:bg-brand/5";
+    "relative overflow-hidden inline-flex items-center justify-center whitespace-nowrap rounded-full text-xs md:text-sm font-bold tracking-wide transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand disabled:pointer-events-none disabled:opacity-50 active:scale-95 select-none border border-linen dark:border-zinc-800 bg-white dark:bg-zinc-900 text-clay dark:text-zinc-300 hover:text-brand dark:hover:text-brand-400 hover:border-brand/50 dark:hover:border-brand-400/50 hover:bg-brand/5 dark:hover:bg-brand-400/10";
 
   return (
     <div className="reveal-item mx-auto flex max-w-5xl flex-col gap-4">
-      {/* 1. Results Header */}
       <div className="mb-2 flex items-end justify-between px-1">
-        <div className="text-clay flex items-center gap-2 text-xs font-bold tracking-wider uppercase">
-          <Zap className="text-brand fill-brand h-3.5 w-3.5" />
+        <div className="text-clay flex items-center gap-2 text-xs font-bold tracking-wider uppercase transition-colors duration-300 dark:text-zinc-400">
+          <Zap className="text-brand fill-brand dark:text-brand-400 dark:fill-brand-400 h-3.5 w-3.5 transition-colors duration-300" />
           Showing {totalCount} Results
         </div>
       </div>
 
       <div className="flex flex-col gap-4">
-        {/* 2. Grid Content */}
         {caseStudies && caseStudies.length > 0 ? (
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
             {caseStudies.map((study) => {
               if (!study) return null;
-              // Rendering all as standard cards since everything is in one list
               if (study.featured)
                 return <FeaturedCard key={study.id} study={study} />;
               return <Card key={study.id} study={study} />;
             })}
           </div>
         ) : (
-          // 3. Empty State
           isEmpty && (
-            <div className="border-linen/80 rounded-3xl border-2 border-dashed bg-white/40 px-4 py-16 text-center backdrop-blur-sm">
-              <div className="bg-surface mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full">
-                <Filter className="text-clay/40 h-6 w-6" />
+            <div className="border-linen/80 rounded-3xl border-2 border-dashed bg-white/40 px-4 py-16 text-center backdrop-blur-sm transition-colors duration-300 dark:border-zinc-800/80 dark:bg-zinc-900/40">
+              <div className="bg-surface mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full transition-colors duration-300 dark:bg-zinc-800/50">
+                <Filter className="text-clay/40 h-6 w-6 transition-colors duration-300 dark:text-zinc-500" />
               </div>
-              <h3 className="text-foreground mb-2 text-lg font-bold">
+              <h3 className="text-foreground mb-2 text-lg font-bold transition-colors duration-300 dark:text-zinc-50">
                 No results found
               </h3>
-              <p className="text-clay mx-auto mb-6 max-w-xs text-sm">
+              <p className="text-clay mx-auto mb-6 max-w-xs text-sm transition-colors duration-300 dark:text-zinc-400">
                 Try adjusting your filters or search query.
               </p>
               <button
@@ -87,14 +82,14 @@ export const CaseStudiesGrid = ({
         )}
       </div>
 
-      {/* 4. Load More Button */}
       {hasMore && (
         <div className="mb-12 flex justify-center">
           <button
             onClick={handleLoadMore}
             className={cn(
               outlineButtonStyles,
-              "h-10 bg-white px-8 text-sm shadow-md md:h-12"
+              // Stripped redundant bg-white and removed muddy shadow in dark mode
+              "h-10 px-8 text-sm shadow-md md:h-12 dark:shadow-none"
             )}
           >
             Load More Case Studies

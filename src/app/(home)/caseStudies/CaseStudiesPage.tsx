@@ -1,10 +1,10 @@
 /**
- * File: src/app/(home)/caseStudies/CaseStudiesPage.tsx
- * Purpose: Client-side page component for rendering case studies with CMS hydration.
- * Component: Client
- * Client-safe: Yes — uses `useTina` to hydrate server-provided data for preview.
- * Presentational: Yes (composes PageHero, Browser, and CTA)
- * Key dependencies: `tinacms` (`useTina`), `Container`, `PageHero`
+ * @file CaseStudiesPage.tsx
+ * @description Client-side layout component for the main case studies index page.
+ * Hydrates TinaCMS data and orchestrates the PageHero, company stats, Browser (filtering/grid), and Callout sections.
+ * @dependencies
+ * - TinaCMS: `useTina` for live-editing hydration
+ * - UI: `Callout`, `Container`, `PageHero`, `RevealWrapper`, `Browser`
  */
 "use client";
 
@@ -43,10 +43,13 @@ export default function CaseStudiesPage({
   });
 
   return (
-    <Container className="flex min-h-screen flex-col gap-16 py-32">
+    <Container
+      // Applying cascading text colors here to cleanly propagate down to children (PageHero, Callout)
+      className="flex min-h-screen flex-col gap-16 py-32 text-zinc-900 transition-colors duration-300 dark:text-zinc-50"
+    >
       <div>
         <PageHero data={pageData.pages} />
-        {/* Company stats grid (if provided by global data) */}
+
         {companyStats && companyStats.length > 0 && (
           <RevealWrapper>
             <div className="mx-auto grid w-full max-w-3xl grid-cols-3 gap-4 md:gap-16">
@@ -55,10 +58,10 @@ export default function CaseStudiesPage({
                   className="reveal-item flex flex-col gap-1 text-center md:gap-2"
                   key={i}
                 >
-                  <span className="text-main text-2xl font-bold tabular-nums sm:text-3xl md:text-4xl">
+                  <span className="text-foreground text-2xl font-bold tabular-nums transition-colors duration-300 sm:text-3xl md:text-4xl dark:text-zinc-50">
                     {stat?.value}
                   </span>
-                  <span className="text-[10px] font-bold tracking-widest text-gray-400 uppercase md:text-xs">
+                  <span className="text-clay text-[10px] font-bold tracking-widest uppercase transition-colors duration-300 md:text-xs dark:text-zinc-400">
                     {stat?.label}
                   </span>
                 </div>
@@ -68,14 +71,12 @@ export default function CaseStudiesPage({
         )}
       </div>
 
-      {/* Browser: interactive case study explorer using global config */}
       {caseStudyConfig && (
         <RevealWrapper>
           <Browser caseStudyConfig={caseStudyConfig} />
         </RevealWrapper>
       )}
 
-      {/* CTA: page call-to-action */}
       <Callout data={pageData.pages.callout} />
     </Container>
   );

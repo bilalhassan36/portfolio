@@ -1,9 +1,10 @@
 /**
- * File: src/app/(home)/caseStudies/[id]/Content.tsx
- * Purpose: Render the main case study article sections (summary, timeline, metrics, gallery).
- * Component: Presentational (can be used in server or client pages)
- * Client-safe: Yes — relies on passed `study` data and composes subcomponents.
- * Key dependencies: `BeforeAfterTable`, `ProofGallery`, `Timeline`
+ * @file Content.tsx
+ * @description Renders the main narrative sections of a case study, including the
+ * executive summary, strategy timeline, performance metrics, and visual proof gallery.
+ * @dependencies
+ * - TinaCMS: CaseStudy query response type
+ * - Subcomponents: `BeforeAfterTable`, `ProofGallery`, `Timeline`
  */
 import type client from "@/../tina/__generated__/client";
 
@@ -15,30 +16,30 @@ type CaseStudyResponse = Awaited<
   ReturnType<typeof client.queries.caseStudy>
 >["data"]["caseStudy"];
 
-export const Content = ({ study }: { study: CaseStudyResponse }) => {
-  // Structured details block (may be undefined when not provided in CMS)
+interface ContentProps {
+  study: CaseStudyResponse;
+}
+
+export const Content = ({ study }: ContentProps) => {
   const details = study.details;
 
   return (
-    <div className="space-y-16">
-      {/* 1. Executive Summary */}
+    <div className="reveal-item space-y-16">
       <div>
-        <h2 className="reveal-item text-foreground mb-6 flex items-center gap-3 text-2xl font-bold">
-          <span className="bg-brand h-1 w-8 rounded-full" />
+        <h2 className="text-foreground mb-6 flex items-center gap-3 text-2xl font-bold transition-colors duration-300 dark:text-zinc-50">
+          {/* Accent Line: Treating this as a decorative border/text equivalent */}
+          <span className="bg-brand dark:bg-brand-400 h-1 w-8 rounded-full transition-colors duration-300" />
           Executive Summary
         </h2>
-        <p className="text-clay text-lg leading-relaxed">
-          {/* Reusing description or could be a specific field */}
+        <p className="text-clay text-lg leading-relaxed transition-colors duration-300 dark:text-zinc-400">
           {study.description}
         </p>
       </div>
 
-      {/* 2. Strategy Timeline */}
       <div>
-        <h2 className="text-foreground mb-8 text-2xl font-bold">
+        <h2 className="text-foreground mb-8 text-2xl font-bold transition-colors duration-300 dark:text-zinc-50">
           The Strategy
         </h2>
-        {/* Timeline uses challenge/solution/results from `details` */}
         <Timeline
           challenge={details?.challenge || ""}
           solution={details?.solution || ""}
@@ -46,24 +47,20 @@ export const Content = ({ study }: { study: CaseStudyResponse }) => {
         />
       </div>
 
-      {/* 3. Performance Data */}
       {details?.beforeAfter && details.beforeAfter.length > 0 && (
         <div>
-          <h2 className="text-foreground mb-6 text-2xl font-bold">
+          <h2 className="text-foreground mb-6 text-2xl font-bold transition-colors duration-300 dark:text-zinc-50">
             Performance Data
           </h2>
-          {/* Render before/after metrics table when available */}
           <BeforeAfterTable data={details.beforeAfter} />
         </div>
       )}
 
-      {/* 4. Visual Assets */}
       {details?.proofImages && details.proofImages.length > 0 && (
         <div>
-          <h2 className="text-foreground mb-6 text-2xl font-bold">
+          <h2 className="text-foreground mb-6 text-2xl font-bold transition-colors duration-300 dark:text-zinc-50">
             Visual Proof
           </h2>
-          {/* Image gallery of proof screenshots / charts */}
           <ProofGallery images={details.proofImages} />
         </div>
       )}

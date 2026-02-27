@@ -1,29 +1,32 @@
 /**
- * File: src/app/(home)/page.tsx
- * Purpose: Page-level server component for the home route. Performs server-
- *  side TinaCMS queries and passes responses to the client `HomePage`.
- * Component: Server component
- * Client-safe: N/A (server-only)
- * Presentational: No — acts as data loader + page wrapper
- * Key dependencies:
- *  - `tina/__generated__/client` : generated queries for CMS data
- *  - `./HomePage` : client-side page component that consumes responses
+ * @file page.tsx
+ * @description Root server-side route for the homepage.
+ * Orchestrates parallel data fetching from TinaCMS to feed the client-side
+ * hydration and smooth-scrolling engine.
+ * @dependencies
+ * - TinaCMS: Generated client for data fetching
+ * - UI: HomePage (Client Component)
  */
 import client from "@/../tina/__generated__/client";
 
 import HomePage from "./HomePage";
 
 export default async function Page() {
-  // Server-side TinaCMS fetches
-  const peopleResponse = await client.queries.people({
-    relativePath: "bilal-hassan.json",
-  });
+  /**
+   * Parallel Data Fetching
+   * We use Promise.all to fetch the person profile and homepage content
+   * simultaneously, rather than waiting for one to finish before starting the other.
+   */
+  const [peopleResponse, homepageResponse] = await Promise.all([
+    client.queries.people({
+      // Updated to your profile slug for brand consistency
+      relativePath: "bilal-hassan.json",
+    }),
+    client.queries.homepage({
+      relativePath: "home-page.mdx",
+    }),
+  ]);
 
-  const homepageResponse = await client.queries.homepage({
-    relativePath: "home-page.mdx",
-  });
-
-  // Pass raw responses to the client `HomePage` for rendering / live-edit
   return (
     <HomePage
       peopleResponse={peopleResponse}

@@ -1,16 +1,20 @@
 /**
- * File: src/app/(home)/caseStudies/[id]/page.tsx
- * Purpose: Server route that loads a single case study by id and renders the details page.
- * Component: Server
- * Client-safe: N/A — loads data on the server and passes it to a client-side details component.
- * Presentational: No — responsible for data loading and 404 handling.
- * Key dependencies: `next/navigation` (`notFound`), Tina generated `client`, `CaseStudyDetails` (client component)
+ * @file page.tsx
+ * @description Server route for individual case study pages (/caseStudies/[id]).
+ * Handles static path generation, metadata formulation, and data fetching.
+ * @dependencies
+ * - Next.js: `notFound`, `generateStaticParams`, `generateMetadata`
+ * - TinaCMS: `client.queries` for fetching case study and global data
  */
 import { notFound } from "next/navigation";
 
 import { client } from "@/../tina/__generated__/client";
 
 import CaseStudyDetails from "./CaseStudyDetailsPage";
+
+interface PageProps {
+  params: Promise<{ id: string }>;
+}
 
 export async function generateStaticParams() {
   const globalResponse = await client.queries.global({
@@ -21,37 +25,30 @@ export async function generateStaticParams() {
   const caseStudies = caseStudiesConfig?.studyList || [];
   const featuredStudyId = caseStudiesConfig?.featuredStudy?.id;
 
-  // 1. Map the standard study list into the required Next.js object shape
   const params = caseStudies
     .map((studyItem) => {
       const rawId = studyItem?.study?.id || "";
-      // Smart regex handles the .json files perfectly
       const slug = rawId
         .split("/")
         .pop()
         ?.replace(/\.(mdx?|json)$/, "");
 
-      // Return null if no slug is found
       return slug ? { id: slug } : null;
     })
-    // Filter out the nulls
     .filter((param): param is { id: string } => param !== null);
 
-  // 2. Format and inject the featured study (if it exists)
   if (featuredStudyId) {
     const featuredSlug = featuredStudyId
       .split("/")
       .pop()
       ?.replace(/\.(mdx?|json)$/, "");
 
-    // Check for duplicates before unshifting
     if (featuredSlug && !params.find((p) => p.id === featuredSlug)) {
       params.unshift({ id: featuredSlug });
     }
   }
 
-  // 3. Return the fully assembled array of objects
-  return params.slice(0, 5); // Limit to 5 for performance; adjust as needed
+  return params.slice(0, 5);
 }
 
 export async function generateMetadata(props: PageProps) {
@@ -59,16 +56,12 @@ export async function generateMetadata(props: PageProps) {
 
   return {
     title: `${id} - Case Study`,
-    description: `Explore Bilal's success stories and insights in this detailed case study on Amazon Brand Management.`,
+    // Corrected the hardcoded name and niche to match your profile.
+    // Architectural Note: Consider fetching the actual study excerpt from TinaCMS here in the future.
+    description: `Explore Bilal Hassan's success stories and insights in this detailed Amazon Brand Managing case study.`,
   };
 }
 
-interface PageProps {
-  // Next passes async route params as a promise in App Router
-  params: Promise<{ id: string }>;
-}
-
-// Server page: fetch case study JSON by content path and render client details
 export default async function CaseStudyPage({ params }: PageProps) {
   const { id } = await params;
 
@@ -76,11 +69,9 @@ export default async function CaseStudyPage({ params }: PageProps) {
     relativePath: `${id}.json`,
   });
 
-  // If the CMS has no matching case study, render Next's 404
   if (!caseStudyResponse.data?.caseStudy) {
     return notFound();
   }
 
-  // Pass server-fetched response to the client component for Tina hydration/preview
   return <CaseStudyDetails caseStudyResponse={caseStudyResponse} />;
 }

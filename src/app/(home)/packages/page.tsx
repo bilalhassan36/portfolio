@@ -1,39 +1,34 @@
 /**
- * File: src/app/(home)/packages/page.tsx
- * Purpose: Server loader for the Packages page — fetches global settings
- * and the packages page content from TinaCMS, then passes responses to the
- * client `PackagesPage` component for hydration/preview.
- * Component: Server (server-side data fetching)
- * Client-safe: No
- * Presentational: No (data loader)
- * Key dependencies:
- *  - `@/../tina/__generated__/client` : generated Tina client for queries
- *  - `PackagesPage` (client) : receives server responses for preview hydration
+ * @file page.tsx
+ * @description Server-side route for the Packages page. Handles parallel data
+ * fetching for global pricing configurations and page-specific content,
+ * feeding them into the client-side PackagesPage component.
+ * @dependencies
+ * - TinaCMS: `client.queries` for server-side data fetching
+ * - UI: `PackagesPage` (Client Component)
  */
 import client from "@/../tina/__generated__/client";
 
 import PackagesPage from "./PackagesPage";
 
 export const metadata = {
-  title: "Packages",
+  title: "Packages ",
   description:
-    "Explore Bilal's service packages and find the perfect fit for your Amazon Brand Manager needs.",
+    "Explore Bilal Hassan's professional service packages, ranging from MVP development to full-stack scaling and intelligent design consulting.",
 };
 
-const Page = async () => {
-  // server-side: fetch shared/global settings (pricing config, etc.)
-  const globalResponse = await client.queries.global({
-    relativePath: "index.json",
-  });
-
-  // server-side: fetch the packages page content
-  const pageResponse = await client.queries.pages({
-    relativePath: "packages.mdx",
-  });
+export default async function Page() {
+  // Parallel fetching of global configuration and page-specific content
+  const [globalResponse, pageResponse] = await Promise.all([
+    client.queries.global({
+      relativePath: "index.json",
+    }),
+    client.queries.pages({
+      relativePath: "packages.mdx",
+    }),
+  ]);
 
   return (
     <PackagesPage globalResponse={globalResponse} pageResponse={pageResponse} />
   );
-};
-
-export default Page;
+}

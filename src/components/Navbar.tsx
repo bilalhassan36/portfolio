@@ -1,18 +1,13 @@
+/**
+ * @file Navbar.tsx
+ * @description Global navigation controller. Handles scroll-based visibility,
+ * active link detection, and theme-aware styling for the site-wide header.
+ * @dependencies
+ * - UI: `RollingLabel`, `MobileMenu`, `MobileMenuTrigger` (SVG)
+ * - TinaCMS: `useTina` for real-time header content updates
+ */
 "use client";
 
-/**
- * File: src/components/Navbar.tsx
- * Purpose: Site navigation — logo, desktop links, CTA and mobile menu trigger.
- * Component: Client component (uses scroll listeners and DOM state)
- * Client-safe: No — uses `window`/`document` APIs
- * Presentational: No — includes interaction/state
- * Key dependencies:
- *  - `next/navigation` (`usePathname`) for active link detection
- *  - `tinacms/react` (`useTina`) for live-edit preview of nav content
- *  - `RollingLabel`, `MobileMenu` for UI pieces
- * Notes: Listens to scroll to toggle background and visibility; mobile menu
- *  opens client-side.
- */
 import { useEffect, useRef, useState } from "react";
 
 import Link from "next/link";
@@ -23,6 +18,7 @@ import { useTina } from "tinacms/react";
 import type client from "@/../tina/__generated__/client";
 import { type PeopleQuery } from "@/../tina/__generated__/types";
 import RollingLabel from "@/components/RollingLabel";
+import { cn } from "@/lib/utils";
 
 import MobileMenu from "./MobileMenu";
 
@@ -42,26 +38,15 @@ const Navbar: React.FC<NavbarProps> = ({
 }) => {
   const pathname = usePathname() || "/";
 
-  const { data: globalData } = useTina({
-    query: globalResponse.query,
-    variables: globalResponse.variables,
-    data: globalResponse.data,
-  });
-
-  const { data: navbarData } = useTina({
-    query: navbarResponse.query,
-    variables: navbarResponse.variables,
-    data: navbarResponse.data,
-  });
+  const { data: globalData } = useTina({ ...globalResponse });
+  const { data: navbarData } = useTina({ ...navbarResponse });
 
   const navLinks = globalData.global.navLinks;
-
   const header = {
     cta: navbarData.navbar.cta,
     logoText: navbarData.navbar.logoText,
   };
 
-  // State
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
@@ -69,17 +54,11 @@ const Navbar: React.FC<NavbarProps> = ({
   const container = useRef<HTMLElement | null>(null);
   const lastScrollY = useRef<number>(0);
 
-  const initialVisibilityClass = "opacity-100";
-
-  // Toggle nav background & visibility based on scroll position
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-
-      // background when scrolled past threshold
       setIsScrolled(currentScrollY > 50);
 
-      // hide on scroll down, show on scroll up
       if (currentScrollY < 10) {
         setIsVisible(true);
       } else if (currentScrollY > lastScrollY.current) {
@@ -87,7 +66,6 @@ const Navbar: React.FC<NavbarProps> = ({
       } else {
         setIsVisible(true);
       }
-
       lastScrollY.current = currentScrollY;
     };
 
@@ -100,22 +78,20 @@ const Navbar: React.FC<NavbarProps> = ({
       <nav
         id="navbar"
         ref={container}
-        className={`fixed top-0 left-0 z-50 w-full px-4 transition-all duration-500 ease-in-out sm:px-6 lg:px-8 ${
-          isVisible ? "translate-y-0" : "-translate-y-full"
-        } ${
+        className={cn(
+          "fixed top-0 left-0 z-50 w-full px-4 transition-all duration-500 ease-in-out sm:px-6 lg:px-8",
+          isVisible ? "translate-y-0" : "-translate-y-full",
           isScrolled
-            ? "bg-background/80 py-3 shadow-sm backdrop-blur-md md:py-4"
+            ? "bg-white/80 py-3 shadow-sm backdrop-blur-md md:py-4 dark:border-white/5 dark:bg-zinc-950/50"
             : "bg-transparent py-6 md:py-8"
-        }`}
+        )}
       >
         <div className="container mx-auto flex items-center justify-between">
           {/* --- Logo --- */}
-          <div
-            className={`nav-reveal relative shrink-0 ${initialVisibilityClass}`}
-          >
+          <div className="nav-reveal relative shrink-0 opacity-100">
             <Link
               href="/"
-              className="block text-2xl font-black tracking-tight text-black dark:text-white"
+              className="block text-2xl font-black tracking-tight text-zinc-950 dark:text-zinc-50"
             >
               {header.logoText}
               <span className="text-brand">.</span>
@@ -125,8 +101,7 @@ const Navbar: React.FC<NavbarProps> = ({
           {/* --- Desktop Links --- */}
           {navLinks && (
             <ul className="hidden items-center gap-1 lg:flex lg:gap-2">
-              {navLinks!.map((link) => {
-                // Check active state
+              {navLinks.map((link) => {
                 const isActive =
                   pathname === link.href ||
                   (link.href !== "/" && pathname.startsWith(link.href));
@@ -134,19 +109,16 @@ const Navbar: React.FC<NavbarProps> = ({
                 return (
                   <li
                     key={link.label}
-                    className={`nav-reveal relative text-center ${initialVisibilityClass}`}
+                    className="nav-reveal relative text-center opacity-100"
                   >
                     <Link
                       href={link.href}
-                      className={`group relative block h-8 overflow-hidden px-12 duration-500 ${
-                        isActive && "text-brand"
-                      }`}
+                      className={cn(
+                        "group hover:text-brand dark:hover:text-brand-400 relative block h-8 overflow-hidden px-12 text-zinc-600 transition-colors duration-500 dark:text-zinc-100",
+                        isActive && "text-brand dark:text-brand-400"
+                      )}
                     >
-                      <RollingLabel
-                        rollingLabels={{
-                          label1: link.label,
-                        }}
-                      />
+                      <RollingLabel rollingLabels={{ label1: link.label }} />
                     </Link>
                   </li>
                 );
@@ -154,13 +126,11 @@ const Navbar: React.FC<NavbarProps> = ({
             </ul>
           )}
 
-          {/* --- CTA Button (Desktop) --- */}
+          {/* --- CTA Button --- */}
           {header.cta && (
-            <div
-              className={`nav-reveal relative hidden shrink-0 lg:block ${initialVisibilityClass}`}
-            >
+            <div className="nav-reveal relative hidden shrink-0 opacity-100 lg:block">
               <Link href={header.cta.href || "/contact"}>
-                <button className="group bg-brand relative h-12 cursor-pointer overflow-hidden rounded-full px-18 text-xs font-bold tracking-widest text-white uppercase">
+                <button className="group bg-brand dark:bg-brand-500 shadow-brand/20 relative h-12 cursor-pointer overflow-hidden rounded-full px-18 text-xs font-bold tracking-widest text-white uppercase shadow-lg transition-all duration-300 active:scale-95 dark:text-zinc-100">
                   <RollingLabel
                     rollingLabels={{
                       label1: header.cta.label,
@@ -175,7 +145,7 @@ const Navbar: React.FC<NavbarProps> = ({
           {/* --- Mobile Hamburger Trigger --- */}
           <button
             onClick={() => setIsOpen(true)}
-            className={`group nav-reveal relative flex cursor-pointer flex-col items-end gap-2 p-3 lg:hidden ${initialVisibilityClass}`}
+            className="group nav-reveal relative flex cursor-pointer flex-col items-end gap-2 p-3 opacity-100 transition-colors lg:hidden"
             aria-label="Open Menu"
           >
             <svg
@@ -186,45 +156,41 @@ const Navbar: React.FC<NavbarProps> = ({
               xmlns="http://www.w3.org/2000/svg"
               className="overflow-visible"
             >
-              {/* Top Line */}
               <line
                 x1="12"
                 y1="2"
                 x2="32"
                 y2="2"
-                stroke="black"
+                stroke="currentColor"
                 strokeWidth="1.5"
                 strokeLinecap="round"
-                className="ease-in-out-expo group-hover:x1-0 transition-all duration-500"
+                className="ease-in-out-expo text-zinc-950 transition-all duration-500 group-hover:-translate-x-3 dark:text-zinc-50"
               />
-              {/* Middle Line */}
               <line
                 x1="0"
                 y1="9"
                 x2="32"
                 y2="9"
-                stroke="black"
+                stroke="currentColor"
                 strokeWidth="1.5"
                 strokeLinecap="round"
-                className="ease-in-out-expo group-hover:x1-8 transition-all duration-500"
+                className="ease-in-out-expo text-zinc-950 transition-all duration-500 group-hover:translate-x-2 dark:text-zinc-50"
               />
-              {/* Bottom Line */}
               <line
                 x1="20"
                 y1="16"
                 x2="32"
                 y2="16"
-                stroke="black"
+                stroke="currentColor"
                 strokeWidth="1.5"
                 strokeLinecap="round"
-                className="ease-in-out-expo group-hover:x1-0 transition-all duration-500"
+                className="ease-in-out-expo text-zinc-950 transition-all duration-500 group-hover:-translate-x-5 dark:text-zinc-50"
               />
             </svg>
           </button>
         </div>
       </nav>
 
-      {/* --- Mobile Menu --- */}
       <MobileMenu
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}

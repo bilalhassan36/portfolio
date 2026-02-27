@@ -1,10 +1,10 @@
 /**
- * File: src/app/(home)/portfolio/page.tsx
- * Purpose: Server page loader for the portfolio section — fetches Tina page + global content.
- * Component: default exported `Page` server component.
- * Client-safe: No — this is a server component that queries the Tina client.
- * Presentational: Delegates rendering to `PortfolioPage` (presentational component).
- * Key dependencies: Tina generated `client` queries and `PortfolioPage` component.
+ * @file page.tsx
+ * @description Server-side route for the Portfolio section. Orchestrates metadata
+ * formulation and handles parallel data fetching from TinaCMS for hydration.
+ * @dependencies
+ * - TinaCMS: `client.queries` for server-side fetching
+ * - UI: `PortfolioPage` (Client Component)
  */
 import client from "@/../tina/__generated__/client";
 
@@ -13,21 +13,20 @@ import PortfolioPage from "./PortfolioPage";
 export const metadata = {
   title: "Portfolio",
   description:
-    "Explore Bilal's portfolio of successful Amazon Brand Manager projects and case studies.",
+    "Explore a curated showcase of results in Amazon Brand Management by Bilal Hassan.",
 };
 
 export default async function Page() {
-  // Load the Portfolio page content from Tina (MDX file)
-  const pageResponse = await client.queries.pages({
-    relativePath: "portfolio.mdx",
-  });
+  // Parallel fetching: Intelligent design to minimize TTFB
+  const [pageResponse, globalResponse] = await Promise.all([
+    client.queries.pages({
+      relativePath: "portfolio.mdx",
+    }),
+    client.queries.global({
+      relativePath: "index.json",
+    }),
+  ]);
 
-  // Load global site content
-  const globalResponse = await client.queries.global({
-    relativePath: "index.json",
-  });
-
-  // Pass server responses into the presentational page component
   return (
     <PortfolioPage
       portfolioResponse={pageResponse}
