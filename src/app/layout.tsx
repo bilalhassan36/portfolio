@@ -10,8 +10,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Bilal Portfolio",
-  description: "Personal portfolio of Bilal as PPC Manager",
+  title: {
+    default: "Bilal Hassan",
+    template: "%s | Bilal Hassan",
+  },
+  description: "Portfolio site of Bilal as PPC Manager",
 };
 
 export default async function RootLayout({

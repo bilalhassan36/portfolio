@@ -23,7 +23,7 @@ export const Content = ({ study }: { study: CaseStudyResponse }) => {
     <div className="space-y-16">
       {/* 1. Executive Summary */}
       <div>
-        <h2 className="text-foreground mb-6 flex items-center gap-3 text-2xl font-bold">
+        <h2 className="reveal-item text-foreground mb-6 flex items-center gap-3 text-2xl font-bold">
           <span className="bg-brand h-1 w-8 rounded-full" />
           Executive Summary
         </h2>

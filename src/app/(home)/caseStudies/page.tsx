@@ -14,6 +14,12 @@ import { client } from "@/../tina/__generated__/client";
 
 import CaseStudiesPage from "./CaseStudiesPage";
 
+export const metadata = {
+  title: "Case Studies",
+  description:
+    "Explore Bilal's portfolio of successful Amazon Brand Manager projects and case studies.",
+};
+
 export default async function Page() {
   // server-side: fetch page content (hero text, page-level blocks)
   const pageResponse = await client.queries.pages({

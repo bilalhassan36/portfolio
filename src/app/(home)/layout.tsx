@@ -1,15 +1,8 @@
-import type { Metadata } from "next";
-
 import client from "@/../tina/__generated__/client";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import Preloader from "@/components/Preloader";
 import { ScrollLockProvider } from "@/components/providers/scroll-lock-provider";
-
-export const metadata: Metadata = {
-  title: "Bilal Portfolio",
-  description: "Personal portfolio of Bilal as PPC Manager",
-};
 
 export default async function RootLayout({
   children,

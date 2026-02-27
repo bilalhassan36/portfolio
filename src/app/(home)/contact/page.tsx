@@ -2,6 +2,12 @@ import { client } from "@/../tina/__generated__/client";
 
 import ContactPageContent from "./ContactPage";
 
+export const metadata = {
+  title: "Contact",
+  description:
+    "Get in touch with Bilal to discuss your Amazon Brand Manager needs.",
+};
+
 export default async function ContactPage() {
   // 1. Fetch Page Content (Hero)
   const pageRes = await client.queries.pages({

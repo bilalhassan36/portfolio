@@ -10,6 +10,12 @@ import client from "@/../tina/__generated__/client";
 
 import PortfolioPage from "./PortfolioPage";
 
+export const metadata = {
+  title: "Portfolio",
+  description:
+    "Explore Bilal's portfolio of successful Amazon Brand Manager projects and case studies.",
+};
+
 export default async function Page() {
   // Load the Portfolio page content from Tina (MDX file)
   const pageResponse = await client.queries.pages({

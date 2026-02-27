@@ -13,6 +13,12 @@ import client from "@/../tina/__generated__/client";
 
 import TeamPage from "./TeamPage";
 
+export const metadata = {
+  title: "Team",
+  description:
+    "Meet the talented team behind Bilal's success as a PPC Manager.",
+};
+
 const Page = async () => {
   // server-side: fetch the team page content
   const pageResponse = await client.queries.pages({

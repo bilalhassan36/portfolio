@@ -14,6 +14,12 @@ import client from "@/../tina/__generated__/client";
 
 import PackagesPage from "./PackagesPage";
 
+export const metadata = {
+  title: "Packages",
+  description:
+    "Explore Bilal's service packages and find the perfect fit for your Amazon Brand Manager needs.",
+};
+
 const Page = async () => {
   // server-side: fetch shared/global settings (pricing config, etc.)
   const globalResponse = await client.queries.global({
