@@ -12,7 +12,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: {
     default: "Bilal Hassan",
-    template: "%s | Bilal Hassan",
+    template: "%s - Bilal Hassan",
   },
   description: "Portfolio site of Bilal as PPC Manager",
 };

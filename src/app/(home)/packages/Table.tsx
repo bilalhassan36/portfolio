@@ -204,7 +204,7 @@ export const Table = ({ config, billingPeriod }: TableProps) => {
                       className={cn(
                         "group relative inline-flex h-10 w-full cursor-pointer items-center justify-center overflow-hidden rounded-full px-4 text-xs font-bold tracking-wide transition-all duration-300 ease-out active:scale-95 disabled:opacity-50 md:h-12 md:text-sm",
                         pkg.isPopular
-                          ? "bg-brand dark:bg-brand-400 hover:shadow-brand/20 text-white shadow-md hover:shadow-lg dark:text-zinc-950"
+                          ? "bg-brand dark:bg-brand-400 hover:shadow-brand/20 text-white shadow-md hover:shadow-lg"
                           : "border-linen text-foreground hover:bg-surface hover:border-brand dark:hover:border-brand-400 border bg-transparent dark:border-zinc-800 dark:text-zinc-50 dark:hover:bg-zinc-800"
                       )}
                     >

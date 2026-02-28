@@ -81,15 +81,15 @@ export const Footer = ({
                       : item.url;
 
                   return (
-                    <a
+                    <Link
                       key={i}
                       href={finalHref}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-foreground hover:bg-brand dark:hover:bg-brand-400 border-linen rounded-lg border p-2 transition-all duration-300 hover:text-white dark:border-zinc-800 dark:text-zinc-50 dark:hover:text-zinc-950"
+                      className="text-foreground hover:bg-brand dark:hover:bg-brand-400 border-linen rounded-lg border p-2 transition-all duration-300 hover:text-white dark:border-zinc-800 dark:text-zinc-50"
                     >
                       <Icon size={18} />
-                    </a>
+                    </Link>
                   );
                 })}
               </div>

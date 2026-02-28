@@ -6,7 +6,7 @@
  * - TinaCMS: CaseStudy query response type
  * - UI: `Callout`, `CheckCircle2`, `Download`, `ExternalLink` (Lucide icons)
  */
-import { CheckCircle2, Download, ExternalLink } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
 
 import type client from "@/../tina/__generated__/client";
 import Callout from "@/components/Callout";
@@ -23,23 +23,7 @@ export const Sidebar = ({ study }: SidebarProps) => {
   const highlights = study.details?.highlights;
 
   return (
-    <aside className="space-y-8 lg:sticky lg:top-24">
-      {/* 1. Download Widget (Restored & Updated) */}
-      <div className="border-linen hover:border-brand/30 dark:hover:border-brand/40 group dark:bg-linen/10 flex w-full cursor-pointer items-center gap-4 rounded-xl border bg-white p-4 text-left transition-all duration-300 hover:shadow-md dark:border-zinc-800 dark:hover:shadow-none">
-        {/* Child Background Alteration: Adjusting the icon wrapper for dark mode */}
-        <div className="bg-brand/10 dark:bg-brand-400/10 text-brand dark:text-brand-400 flex h-12 w-12 shrink-0 items-center justify-center rounded-lg transition-colors duration-300">
-          <Download className="h-6 w-6" />
-        </div>
-        <div>
-          <div className="text-foreground group-hover:text-brand dark:group-hover:text-brand-400 text-sm font-bold transition-colors duration-300 dark:text-zinc-50">
-            Download Full Report
-          </div>
-          <div className="text-clay text-xs transition-colors duration-300 dark:text-zinc-400">
-            PDF • Detailed Analysis
-          </div>
-        </div>
-      </div>
-
+    <aside className="reveal-item space-y-8 lg:sticky lg:top-24">
       {/* 2. Key Tactics */}
       {highlights && highlights.length > 0 && (
         <div className="border-linen dark:bg-linen/10 rounded-2xl border bg-white p-6 shadow-sm transition-colors duration-300 dark:border-zinc-800 dark:shadow-none">
@@ -68,11 +52,7 @@ export const Sidebar = ({ study }: SidebarProps) => {
 
       {/* 3. Testimonial */}
       {study.author && (
-        <div className="bg-surface border-linen dark:bg-linen/10 relative overflow-hidden rounded-2xl border p-6 transition-colors duration-300 dark:border-zinc-800">
-          <div className="pointer-events-none absolute top-0 right-0 p-4 opacity-10 dark:opacity-5">
-            <ExternalLink className="text-brand dark:text-brand-400 h-24 w-24 transition-colors duration-300" />
-          </div>
-
+        <div className="border-linen dark:bg-linen/10 relative overflow-hidden rounded-2xl border bg-white p-6 transition-colors duration-300 dark:border-zinc-800">
           <blockquote className="text-foreground relative z-10 mb-4 text-sm leading-relaxed italic transition-colors duration-300 dark:text-zinc-50">
             &quot;{study.author.quote}&quot;
           </blockquote>

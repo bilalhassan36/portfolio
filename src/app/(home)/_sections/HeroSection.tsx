@@ -68,7 +68,7 @@ const HeroSection = ({ content }: HeroSectionProps) => {
             <div className="reveal-item mt-8 flex items-center gap-2 md:mt-10">
               <Link
                 href={content.buttons.primary.url}
-                className="group bg-brand relative flex w-full cursor-pointer items-center justify-center rounded-full px-12 py-5 text-sm font-semibold text-white transition-all duration-500 hover:px-24 sm:w-auto md:px-16 md:py-6 md:text-base md:hover:px-30"
+                className="group bg-brand relative flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-full px-12 py-5 text-sm font-semibold text-white transition-all duration-500 hover:px-24 sm:w-auto md:px-16 md:py-6 md:text-base md:hover:px-30"
               >
                 <RollingLabel
                   rollingLabels={{

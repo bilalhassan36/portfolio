@@ -32,6 +32,9 @@
   "teamMembers": [
     {
       "member": "content/people/bilal-hassan.json"
+    },
+    {
+      "member": "content/people/hamas-munawar.json"
     }
   ],
   "pricingTable": {

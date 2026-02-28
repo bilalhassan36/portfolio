@@ -32,7 +32,7 @@ export const CaseStudyFilter = ({
 
   return (
     <div className="reveal-item mx-auto w-fit max-w-5xl">
-      <div className="bg-linen/10 border-linen shadow-clay/5 hover:border-brand/20 dark:hover:border-brand/40 flex flex-col items-center justify-between gap-3 rounded-xl border p-1.5 shadow-lg backdrop-blur-xl transition-all md:flex-row dark:border-zinc-800">
+      <div className="bg-linen/50 dark:bg-linen/10 border-linen shadow-clay/5 hover:border-brand/20 dark:hover:border-brand/40 flex flex-col items-center justify-between gap-3 rounded-xl border p-1.5 shadow-lg backdrop-blur-xl transition-all md:flex-row dark:border-zinc-800">
         <div className="inline-flex w-full max-w-full items-center overflow-x-auto rounded-lg p-1 md:w-auto">
           {categories.map((cat) => (
             <button

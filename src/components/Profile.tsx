@@ -73,7 +73,7 @@ const Profile = ({
                             href={item.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="reveal-item text-foreground hover:bg-brand dark:hover:bg-brand-500 border-linen rounded-lg border p-2 transition-all duration-300 hover:text-white dark:border-zinc-800 dark:text-zinc-400 dark:hover:text-zinc-950"
+                            className="reveal-item text-foreground hover:bg-brand dark:hover:bg-brand-500 border-linen rounded-lg border p-2 transition-all duration-300 hover:text-white dark:border-zinc-800 dark:text-zinc-400"
                           >
                             <Icon size={18} />
                           </a>
@@ -85,7 +85,7 @@ const Profile = ({
               </div>
 
               {/* Availability Badge */}
-              <div className="bg-brand dark:bg-brand-500 absolute -right-3 -bottom-3 -rotate-12 rounded-lg px-3 py-1.5 text-white shadow-lg transition-transform duration-300 group-hover:rotate-0 md:-right-4 md:-bottom-4 md:rounded-xl md:px-4 md:py-2 dark:text-zinc-950">
+              <div className="bg-brand dark:bg-brand-500 absolute -right-3 -bottom-3 -rotate-12 rounded-lg px-3 py-1.5 text-white shadow-lg transition-transform duration-300 group-hover:rotate-0 md:-right-4 md:-bottom-4 md:rounded-xl md:px-4 md:py-2 dark:text-white">
                 <span className="text-xs font-semibold tracking-wider uppercase md:text-sm">
                   {identity.availabilityBadge}
                 </span>
@@ -133,7 +133,7 @@ const Profile = ({
                 {skills.map((skill, i) => (
                   <div
                     key={i}
-                    className="group border-clay/30 hover:border-brand dark:hover:border-brand-400 hover:text-brand dark:hover:text-brand-400 ease-in-out-expo text-foreground relative h-8 overflow-hidden rounded-full border px-16 py-1.5 text-[10px] font-semibold whitespace-nowrap transition-colors duration-200 sm:px-22 sm:text-xs md:text-sm dark:border-zinc-800 dark:text-zinc-300"
+                    className="group border-clay/30 hover:border-brand dark:hover:border-brand-400 hover:text-brand dark:hover:text-brand-400 text-foreground relative h-8 overflow-hidden rounded-full border px-16 py-1.5 text-[10px] font-semibold whitespace-nowrap transition-colors duration-200 sm:px-22 sm:text-xs md:text-sm dark:border-zinc-800 dark:text-zinc-300"
                   >
                     <RollingLabel rollingLabels={{ label1: skill! }} />
                   </div>
@@ -145,7 +145,7 @@ const Profile = ({
           {/* Call to Action Button */}
           {callToAction && (
             <div className="reveal-item flex justify-center lg:justify-start">
-              <button className="group bg-brand dark:bg-brand-500 relative flex cursor-pointer items-center rounded-full px-12 py-5 text-sm font-semibold text-white transition-all duration-500 hover:px-20 active:scale-95 md:px-16 md:py-6 md:text-base md:hover:px-30 dark:text-zinc-950">
+              <button className="group bg-brand dark:bg-brand-500 relative flex cursor-pointer items-center rounded-full px-12 py-5 text-sm font-semibold text-white transition-all duration-500 hover:px-20 active:scale-95 md:px-16 md:py-6 md:text-base md:hover:px-30 dark:text-white">
                 <RollingLabel
                   rollingLabels={{
                     label1: callToAction.ctaPrimary,

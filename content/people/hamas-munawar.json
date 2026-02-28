@@ -1,0 +1,39 @@
+{
+  "identity": {
+    "name": "Hamas Munawar",
+    "initials": "HM",
+    "role": "Full Stack Engineer",
+    "availabilityBadge": "Engineeer",
+    "avatar": "/Untitled design (1) (1) (1) 1.png"
+  },
+  "contact": {
+    "email": "engineer.hamas.munawar@gmail.com",
+    "phone": "+923347980671"
+  },
+  "socials": [
+    {
+      "platform": "Github",
+      "url": "https://github.com/hamas-munawar"
+    },
+    {
+      "platform": "LinkedIn",
+      "url": "https://linkedin.com/in/hamas-munawar"
+    }
+  ],
+  "skills": [
+    "Frontend Developer",
+    "Backend Developer",
+    "Full Stack Developer",
+    "Web Engineer"
+  ],
+  "bio": [
+    {
+      "text": "I'm Web Engineer.",
+      "highlight": "Engineer."
+    }
+  ],
+  "callToAction": {
+    "ctaPrimary": "Hover",
+    "ctaSecondary": "Vist my Socials"
+  }
+}

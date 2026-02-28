@@ -80,7 +80,7 @@ export const Hero = ({ study }: HeroProps) => {
           {study.metrics?.map((metric, index) => (
             <div
               key={index}
-              className="border-linen bg-surface/30 dark:bg-linen/10 rounded-2xl border p-6 transition-colors duration-300 dark:border-zinc-800"
+              className="border-linen dark:bg-linen/10 rounded-2xl border bg-white p-6 transition-colors duration-300 dark:border-zinc-800"
             >
               <div className="mb-4 flex items-center justify-between">
                 <TrendingUp className="text-brand dark:text-brand-400 h-5 w-5 transition-colors duration-300" />
