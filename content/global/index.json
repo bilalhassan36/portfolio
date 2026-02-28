@@ -1,12 +1,12 @@
 {
   "navLinks": [
     {
-      "label": "Home",
-      "href": "/"
-    },
-    {
       "label": "Packages",
       "href": "/packages"
+    },
+    {
+      "label": "Home",
+      "href": "/"
     },
     {
       "label": "Blog",
