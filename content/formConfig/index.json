@@ -1,5 +1,5 @@
 {
-  "formspreeId": "YOUR_FORMSPREE_ID_HERE",
+  "formspreeId": "mvzbwjla",
   "services": [
     "PPC Management",
     "Listing Optimization",
@@ -7,14 +7,12 @@
     "Full Management",
     "DSP Advertising"
   ],
-  "budgets": ["Under $5k/mo", "$5k - $10k/mo", "$10k - $50k/mo", "$50k+/mo"],
-  "sidebar": {
-    "email": "hello@example.com",
-    "phone": "+1 (555) 123-4567",
-    "address": "123 Commerce St, Suite 100, New York, NY",
-    "hours": "Mon - Fri: 9am - 6pm EST",
-    "responseTime": "Usually within 24 hours on business days."
-  },
+  "budgets": [
+    "Under $5k/mo",
+    "$5k - $10k/mo",
+    "$10k - $50k/mo",
+    "$50k+/mo"
+  ],
   "labels": {
     "nameLabel": "Your Name",
     "namePlaceholder": "John Doe",
@@ -31,5 +29,12 @@
     "submitText": "Get Your Audit",
     "successTitle": "Message Received!",
     "successMessage": "Thanks for reaching out. We have received your details and will get back to you shortly with next steps."
+  },
+  "sidebar": {
+    "email": "hello@example.com",
+    "phone": "+1 (555) 123-4567",
+    "address": "123 Commerce St, Suite 100, New York, NY",
+    "hours": "Mon - Fri: 9am - 6pm EST",
+    "responseTime": "Usually within 24 hours on business days."
   }
 }
